@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8' />
+
+  <link href='mainstyle.css' rel='stylesheet' />
+  <link href='fullcalendar\core\main.css' rel='stylesheet' />
+
+  <link href='fullcalendar\bootstrap\main.css' rel='stylesheet' />
+  <link href='fullcalendar\daygrid\main.css' rel='stylesheet' />
+  <link href='fullcalendar\timegrid\main.css' rel='stylesheet' />
+  <link href='fullcalendar\list\main.css' rel='stylesheet' />
+
+
+  <script src='fullcalendar\core\main.js'></script>
+
+  <script src='fullcalendar\core\locales\hu.js'></script>
+  <script src='fullcalendar\core\locales-all.js'></script>
+  <script src='fullcalendar\bootstrap\main.js'></script>
+  <script src='fullcalendar\daygrid\main.js'></script>
+  <script src='fullcalendar\timegrid\main.js'></script>
+  <script src='fullcalendar\interaction\main.js'></script>
+  <script src='fullcalendar\list\main.js'></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+  <!--bootstrap kotelezo elemek-->
+  <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var initialLocaleCode = 'hu';
+      var localeSelectorEl = document.getElementById('locale-selector');
+
+      var Calendar = FullCalendar.Calendar;
+      var Draggable = FullCalendarInteraction.Draggable;
+
+      var containerEl = document.getElementById('external-events');
+      var calendarEl = document.getElementById('calendar');
+      var checkbox = document.getElementById('drop-remove');
+
+      // initialize the external events
+      // -----------------------------------------------------------------
+
+      new Draggable(containerEl, {
+        itemSelector: '.fc-event',
+        eventData: function(eventEl) {
+          return {
+            title: eventEl.innerText
+          };
+        }
+      });
+
+      var calendar = new Calendar(calendarEl, {
+        plugins: ['interaction', 'dayGrid', 'timeGrid', 'list', 'bootstrap'],
+        themeSystem: 'bootstrap',
+        defaultView: 'timeGridWeek',
+        timeZone: 'GMT+1', //'Europe/Budapest',
+        nowIndicator: true,
+        locale: initialLocaleCode,
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+        },
+
+        businessHours: [ // specify an array instead
+          {
+            daysOfWeek: [1, 2, 3, 4, 5], // Monday, Tuesday, Wednesday
+            startTime: '07:00', // 8am
+            endTime: '21:00' // 6pm
+          },
+          {
+            daysOfWeek: [6], // Saturday
+            startTime: '10:00', // 10am
+            endTime: '16:00' // 4pm
+          }
+        ],
+        hiddenDays: [0], //0 vasarnap, 1 hetfo...
+
+        navLinks: true,
+        selectable: true, //atlatszoan mutatja a kijelolt intervallumot
+        selectMirror: true, //a kijelolt intervallumra elhelyez egy esemenyt
+        editable: true,
+        droppable: true,
+        events: 'php\\load.php',
+
+        select: function(info) {
+          console.log(info);
+          var title = prompt("Enter Event Title");
+          if (title) {
+            var start = info.startStr;
+            var end = info.endStr;
+            $.ajax({
+              url: "php\\insert.php",
+              type: "POST",
+              data: {
+                title: title,
+                start: start,
+                end: end
+              },
+              success: function() {
+                calendar.refetchEvents();
+                alert("Added Successfully");
+              }
+            })
+          }
+        },
+
+        eventResize: function(info) {
+          console.log(info);
+          var start = info.event.start.toISOString();
+          var end = info.event.end.toISOString();
+          var title = info.event.title;
+          var id = info.event.id;
+          if (!confirm("is this okay?")) {
+            info.revert();
+          }
+          $.ajax({
+            url: "php\\update.php",
+            type: "POST",
+            data: {
+              title: title,
+              start: start,
+              end: end,
+              id: id
+            },
+            success: function() {
+              calendar.refetchEvents();
+              alert("Event updated");
+            }
+          })
+        },
+
+        eventDrop: function(info) {
+          console.log(info);
+          var start = info.event.start.toISOString();
+          var end = info.event.end.toISOString();
+          var title = info.event.title;
+          var id = info.event.id;
+          if (!confirm("is this okay?")) {
+            info.revert();
+          }
+          $.ajax({
+            url: "php\\update.php",
+            type: "POST",
+            data: {
+              title: title,
+              start: start,
+              end: end,
+              id: id
+            },
+            success: function() {
+              calendar.refetchEvents();
+              alert("Event updated");
+            }
+          });
+        },
+
+        //drop an element from another calendar
+        drop: function(info) {
+          // is the "remove after drop" checkbox checked?
+          if (checkbox.checked) {
+            // if so, remove the element from the "Draggable Events" list
+            info.draggedEl.parentNode.removeChild(info.draggedEl);
+          }
+          console.log(info.resource.id);
+          console.log(info.resource.title);
+          console.log(info.dateStr);
+          /*
+          var start = info.event.start;
+          var end = info.event.end;
+          var title = info.event.title;
+          var id = info.event.id;
+          $.ajax({
+            url: "php\\update.php",
+            type: "POST",
+            data: {
+              title: title,
+              start: start,
+              end: end,
+              id: id
+            },
+            success: function() {
+              calendar.refetchEvents();
+              alert("Event updated");
+            }
+          });*/
+        },
+        eventClick: function(info) {
+          if (confirm("Are you sure you want to remove it?")) {
+            console.log(info.event.id);
+            var id = info.event.id;
+            $.ajax({
+              url: "php\\delete.php",
+              type: "POST",
+              data: {
+                id: id
+              },
+              success: function() {
+                calendar.refetchEvents();
+                alert("Event removed");
+              }
+            })
+          }
+        }
+      });
+      calendar.render();
+
+      // build the locale selector's options
+      calendar.getAvailableLocaleCodes().forEach(function(localeCode) {
+        var optionEl = document.createElement('option');
+        optionEl.value = localeCode;
+        optionEl.selected = localeCode == initialLocaleCode;
+        optionEl.innerText = localeCode;
+        localeSelectorEl.appendChild(optionEl);
+      });
+      // when the selected option changes, dynamically change the calendar option
+      localeSelectorEl.addEventListener('change', function() {
+        if (this.value) {
+          calendar.setOption('locale', this.value);
+        }
+      });
+
+    });
+  </script>
+</head>
+
+<body>
+  <div id='external-events'>
+    <p>
+      <strong>Draggable Events</strong>
+    </p>
+    <div class='fc-event'>My Event 1</div>
+    <div class='fc-event'>My Event 2</div>
+    <div class='fc-event'>My Event 3</div>
+    <div class='fc-event'>My Event 4</div>
+    <div class='fc-event'>My Event 5</div>
+    <p>
+      <input type='checkbox' id='drop-remove' />
+      <label for='drop-remove'>remove after drop</label>
+    </p>
+  </div>
+
+  <div id='calendar-container'>
+    <div id='calendar'></div>
+  </div>
+
+  <div id='bottom'>
+    Locales:
+    <select id='locale-selector'></select>
+  </div>
+
+</body>
+
+</html>
