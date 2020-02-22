@@ -49,7 +49,10 @@
         itemSelector: '.fc-event',
         eventData: function(eventEl) {
           return {
-            title: eventEl.innerText
+            title: 'test',
+            creat: false,
+            duration: '02:30',
+            id: '66'
           };
         }
       });
@@ -67,7 +70,26 @@
           addEvent: {
             text: 'Add Event',
             click: function() {
-              alert('clicked the custom button!');
+              //alert('clicked the custom button!');
+              var title = prompt("Enter Event Title");
+              var duration = prompt("Enter Event duration");
+              if (title && duration) {
+                console.log(title);
+                console.log(duration);
+                //var duration = info.duration;
+                $.ajax({
+                  url: "php\\insertC.php",
+                  type: "POST",
+                  data: {
+                    title: title,
+                    duration: duration
+                  },
+                  success: function() {
+                    calendar.refetchEvents();
+                    alert("Added Successfully");
+                  }
+                })
+              }
             }
           }
         },
@@ -183,29 +205,24 @@
             // if so, remove the element from the "Draggable Events" list
             info.draggedEl.parentNode.removeChild(info.draggedEl);
           }
-          console.log(info.resource.id);
-          console.log(info.resource.title);
-          console.log(info.dateStr);
-          /*
-          var start = info.event.start;
-          var end = info.event.end;
+          //var start = info.event.start;
+          var duration = info.event.end;
           var title = info.event.title;
-          var id = info.event.id;
+          //var id = info.event.id;
           $.ajax({
-            url: "php\\update.php",
+            url: "php\\insertC.php",
             type: "POST",
             data: {
               title: title,
-              start: start,
-              end: end,
-              id: id
+              duration: duration
             },
             success: function() {
               calendar.refetchEvents();
               alert("Event updated");
             }
-          });*/
+          });
         },
+
         eventClick: function(info) {
           if (confirm("Are you sure you want to remove it?")) {
             console.log(info.event.id);
