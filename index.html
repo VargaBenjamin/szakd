@@ -61,10 +61,26 @@
         timeZone: 'GMT+1', //'Europe/Budapest',
         nowIndicator: true,
         locale: initialLocaleCode,
+
+        //custom button for add event
+        customButtons: {
+          addEvent: {
+            text: 'Add Event',
+            click: function() {
+              alert('clicked the custom button!');
+            }
+          }
+        },
+
         header: {
           left: 'prev,next today',
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+        },
+        footer: {
+          left: 'addEvent',
+          center: '',
+          right: ''
         },
 
         businessHours: [ // specify an array instead
