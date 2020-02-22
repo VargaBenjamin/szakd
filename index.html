@@ -126,28 +126,6 @@
         droppable: true,
         events: 'php\\load.php',
 
-        //trigger when drop an external event into the calendar
-        eventReceive: function(info) {
-          var start = info.event.start.toISOString();
-          var end = info.event.end.toISOString();
-          var title = info.event.title;
-          if (!confirm("is this okay?")) {
-            info.revert();
-          }
-          $.ajax({
-            url: "php\\insert.php",
-            type: "POST",
-            data: {
-              title: title,
-              start: start,
-              end: end
-            },
-            success: function() {
-              alert("Added Successfully");
-            }
-          });
-        },
-
         select: function(info) {
           var title = prompt("Enter Event Title");
           if (title) {
@@ -213,6 +191,28 @@
             success: function() {
               calendar.refetchEvents();
               alert("Event updated");
+            }
+          });
+        },
+
+        //trigger when drop an external event into the calendar
+        eventReceive: function(info) {
+          var start = info.event.start.toISOString();
+          var end = info.event.end.toISOString();
+          var title = info.event.title;
+          if (!confirm("is this okay?")) {
+            info.revert();
+          }
+          $.ajax({
+            url: "php\\insert.php",
+            type: "POST",
+            data: {
+              title: title,
+              start: start,
+              end: end
+            },
+            success: function() {
+              alert("Added Successfully");
             }
           });
         },
