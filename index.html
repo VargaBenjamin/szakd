@@ -49,7 +49,8 @@
         itemSelector: '.fc-event',
         eventData: function(eventEl) {
           return {
-            title: eventEl.innerText
+            title: eventEl.innerText,
+            duration: '02:30'
           };
         }
       });
@@ -67,7 +68,28 @@
           addEvent: {
             text: 'Add Event',
             click: function() {
-              alert('clicked the custom button!');
+              //alert('clicked the custom button!');
+              var title = prompt("Enter Event Title");
+              if (title) {
+                var duration = prompt("Enter Event duration");
+                if (duration) {
+                  console.log(title);
+                  console.log(duration);
+                  //var duration = info.duration;
+                  $.ajax({
+                    url: "php\\insertC.php",
+                    type: "POST",
+                    data: {
+                      title: title,
+                      duration: duration
+                    },
+                    success: function() {
+                      calendar.refetchEvents();
+                      alert("Added Successfully");
+                    }
+                  })
+                }
+              }
             }
           }
         },
@@ -105,7 +127,6 @@
         events: 'php\\load.php',
 
         select: function(info) {
-          console.log(info);
           var title = prompt("Enter Event Title");
           if (title) {
             var start = info.startStr;
@@ -127,7 +148,6 @@
         },
 
         eventResize: function(info) {
-          console.log(info);
           var start = info.event.start.toISOString();
           var end = info.event.end.toISOString();
           var title = info.event.title;
@@ -152,7 +172,6 @@
         },
 
         eventDrop: function(info) {
-          console.log(info);
           var start = info.event.start.toISOString();
           var end = info.event.end.toISOString();
           var title = info.event.title;
@@ -176,39 +195,31 @@
           });
         },
 
-        //drop an element from another calendar
-        drop: function(info) {
-          // is the "remove after drop" checkbox checked?
-          if (checkbox.checked) {
-            // if so, remove the element from the "Draggable Events" list
-            info.draggedEl.parentNode.removeChild(info.draggedEl);
-          }
-          console.log(info.resource.id);
-          console.log(info.resource.title);
-          console.log(info.dateStr);
-          /*
-          var start = info.event.start;
-          var end = info.event.end;
+        //trigger when drop an external event into the calendar
+        eventReceive: function(info) {
+          var start = info.event.start.toISOString();
+          var end = info.event.end.toISOString();
           var title = info.event.title;
-          var id = info.event.id;
+          if (!confirm("is this okay?")) {
+            info.revert();
+          }
           $.ajax({
-            url: "php\\update.php",
+            url: "php\\insert.php",
             type: "POST",
             data: {
               title: title,
               start: start,
-              end: end,
-              id: id
+              end: end
             },
             success: function() {
               calendar.refetchEvents();
-              alert("Event updated");
+              alert("Added Successfully");
             }
-          });*/
+          });
         },
+
         eventClick: function(info) {
           if (confirm("Are you sure you want to remove it?")) {
-            console.log(info.event.id);
             var id = info.event.id;
             $.ajax({
               url: "php\\delete.php",
@@ -223,6 +234,14 @@
             })
           }
         }
+
+        /*drop: function(info) {
+          // is the "remove after drop" checkbox checked?
+          if (checkbox.checked) {
+            // if so, remove the element from the "Draggable Events" list
+            info.draggedEl.parentNode.removeChild(info.draggedEl);
+          }
+        },*/
       });
       calendar.render();
 
@@ -255,6 +274,7 @@
     <div class='fc-event'>My Event 3</div>
     <div class='fc-event'>My Event 4</div>
     <div class='fc-event'>My Event 5</div>
+    <div class='fc-event' data-event='{ "title": "my event", "duration": "02:00" }'>drag me</div>
     <p>
       <input type='checkbox' id='drop-remove' />
       <label for='drop-remove'>remove after drop</label>

@@ -16,10 +16,11 @@ html, body {
   background: #eee;
 }
 
-#external-events .fc-event {
-  margin: 1em 0;
-  cursor: move;
+#external-events fc-event {
+  margin: 10px 0;
+  cursor: pointer;
 }
+
 
 #calendar-container {
   position: relative;
