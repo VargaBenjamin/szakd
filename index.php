@@ -85,8 +85,7 @@
                       duration: duration
                     },
                     success: function() {
-                      calendar.refetchEvents();
-                      alert("Added Successfully");
+                      location.reload();
                     }
                   })
                 }
@@ -277,13 +276,8 @@
     <p>
       <strong>Draggable Events</strong>
     </p>
-    <div class='fc-event' data-event='{"01:00"}'>My Event 1</div>
-    <div class='fc-event' data-event='{"02:00"}'>My Event 2</div>
-    <div class='fc-event' data-event='{"03:00"}'>My Event 3</div>
-    <div class='fc-event' data-event='{"04:00"}'>My Event 4</div>
-    <div class='fc-event' data-event='{"05:00"}'>My Event 5</div>
-    <div class='fc-event' data-event='{"07:00"}'>drag me</div>
-
+    <!--<div class='fc-event' data-event='{"07:00"}'>drag me</div>-->
+    <?php include 'php\loadExt.php';?>
     <p>
       <input type='checkbox' id='drop-remove' />
       <label for='drop-remove'>remove after drop</label>
