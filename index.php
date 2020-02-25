@@ -49,9 +49,12 @@
         itemSelector: '.fc-event',
         eventData: function(eventEl) {
           var dur = eventEl.dataset.event.replace(/[{}""]/g, "").toString();
+          var paraArray = dur.split('#');
+          console.log(eventEl);
           return {
             title: eventEl.innerText,
-            duration: dur
+            id: paraArray[0],
+            duration: paraArray[1]
           };
         }
       });
