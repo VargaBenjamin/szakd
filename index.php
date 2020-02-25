@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<?php include 'php\insertC.php';?>
+
 <html lang='en'>
 
 <head>
@@ -25,10 +26,12 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-
   <!--bootstrap kotelezo elemek-->
   <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
   <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -72,8 +75,9 @@
           addEvent: {
             text: 'Esemény hozzáadása',
             click: function() {
-              //alert('clicked the custom button!');
-              var title = prompt("Esemény neve");
+            $('#fullCalModal').modal();//ezért ugrik fel az ablak ahogy kell bootstrapben
+
+              /*var title = prompt("Esemény neve");
               if (title) {
                 var duration = prompt("Esemény hossza (ÓÓ:PP)");
                 if (duration) {
@@ -92,7 +96,7 @@
                     }
                   })
                 }
-              }
+              }*/
             }
           }
         },
@@ -274,6 +278,23 @@
 
     });
   </script>
+
+  <script>
+    function AddExEvent(title,duration) {
+      $.ajax({
+        url: "php\\insertC.php",
+        type: "POST",
+        data: {
+          title: title,
+          duration: duration
+        },
+        success: function() {
+          location.reload();
+        }
+      })
+    };
+  </script>
+
 </head>
 
 <body>
@@ -281,7 +302,6 @@
     <p>
       <strong>Választható események</strong>
     </p>
-    <!--<div class='fc-event' data-event='{"07:00"}'>drag me</div>-->
     <?php include 'php\loadExt.php';?>
     <!--<p>
       <input type='checkbox' id='drop-remove' />
@@ -291,12 +311,42 @@
 
   <div id='calendar-container'>
     <div id='calendar'></div>
+    <!-- Button trigger modal -->
   </div>
 
   <div id='bottom'>
     Locales:
     <select id='locale-selector'></select>
   </div>
+
+
+  <!-- Modal -->
+  <div id="fullCalModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <form class="form-addExEv" action="" method="post">
+              <div class="modal-header">
+                  <h4 id="modalTitle" class="modal-title">Esemény létrehozása</h4>
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+              </div>
+              <div id="modalBody" class="modal-body">
+                <div class="form-group">
+                  <label for="">Esemény neve</label>
+                  <input type="text" name="title" placeholder="Két órás edzés">
+                </div>
+                <div class="form-group">
+                  <label for="">Esemény időtartama</label>
+                  <input type="text" name="duration" placeholder="02:00">
+                </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
+                  <button type="submit" name="SubmitExEvent" class="btn btn-primary">Létrehozás</button>
+              </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 </body>
 
