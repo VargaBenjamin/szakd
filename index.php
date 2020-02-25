@@ -70,12 +70,12 @@
         //custom button for add event
         customButtons: {
           addEvent: {
-            text: 'Add Event',
+            text: 'Esemény hozzáadása',
             click: function() {
               //alert('clicked the custom button!');
-              var title = prompt("Enter Event Title");
+              var title = prompt("Esemény neve");
               if (title) {
-                var duration = prompt("Enter Event duration");
+                var duration = prompt("Esemény hossza (ÓÓ:PP)");
                 if (duration) {
                   console.log(title);
                   console.log(duration);
@@ -129,6 +129,110 @@
         droppable: true,
         events: 'php\\load.php',
 
+        eventResize: function(info) {
+          console.log(info);
+          var start = info.event.start.toISOString();
+          var end = info.event.end.toISOString();
+          var title = info.event.title;
+          var id = info.event.id;
+          if (!confirm("Átméretezed az eseményt?")) {
+            info.revert();
+          } else {
+            $.ajax({
+              url: "php\\update.php",
+              type: "POST",
+              data: {
+                title: title,
+                start: start,
+                end: end,
+                id: id
+              },
+              success: function() {
+                calendar.refetchEvents();
+                alert("Esemény átméretezve!");
+              }
+            })
+          }
+        },
+
+        eventDrop: function(info) {
+          console.log(info);
+          var start = info.event.start.toISOString();
+          var end = info.event.end.toISOString();
+          var title = info.event.title;
+          var id = info.event.id;
+          if (!confirm("Elhelyezed itt?")) {
+            info.revert();
+          } else {
+            $.ajax({
+              url: "php\\update.php",
+              type: "POST",
+              data: {
+                title: title,
+                start: start,
+                end: end,
+                id: id
+              },
+              success: function() {
+                calendar.refetchEvents();
+                alert("Esemény frissítve!");
+              }
+            });
+          }
+        },
+
+        //trigger when drop an external event into the calendar
+        eventReceive: function(info) {
+          console.log(info);
+          if (confirm("Biztosan elhelyezed?")) {
+            var start = info.event.start.toISOString();
+            var end = info.event.end.toISOString();
+            var title = info.event.title;
+
+            $.ajax({
+              url: "php\\insert.php",
+              type: "POST",
+              data: {
+                title: title,
+                start: start,
+                end: end
+              },
+              success: function() {
+                alert("Sikeresen elhelyezve!");
+                location.reload(); //bug elkerülése végett, frissít az oldalon külsős esemény elhelyezése után,
+                //mert utána lévő interakciónál dupláz stbstb
+              }
+            });
+          }
+        },
+
+        //in this case an event erase
+        eventClick: function(info) {
+          console.log(info);
+          if (confirm("Biztosan törölni akarod az eseményt?")) {
+            var id = info.event.id;
+            $.ajax({
+              url: "php\\delete.php",
+              type: "POST",
+              data: {
+                id: id
+              },
+              success: function() {
+                calendar.refetchEvents();
+                alert("Esemény törölve!");
+              }
+            });
+          }
+        }
+
+        /*drop: function(info) {
+          // is the "remove after drop" checkbox checked?
+          if (checkbox.checked) {
+            // if so, remove the element from the "Draggable Events" list
+            info.draggedEl.parentNode.removeChild(info.draggedEl);
+          }
+        },*/
+
         /*select: function(info) {
           console.log(info);
           var title = prompt("Enter Event Title");
@@ -148,108 +252,6 @@
                 alert("Added Successfully");
               }
             })
-          }
-        },*/
-
-        eventResize: function(info) {
-          console.log(info);
-          var start = info.event.start.toISOString();
-          var end = info.event.end.toISOString();
-          var title = info.event.title;
-          var id = info.event.id;
-          if (!confirm("is this okay?")) {
-            info.revert();
-          }
-          $.ajax({
-            url: "php\\update.php",
-            type: "POST",
-            data: {
-              title: title,
-              start: start,
-              end: end,
-              id: id
-            },
-            success: function() {
-              calendar.refetchEvents();
-              alert("Event updated");
-            }
-          })
-        },
-
-        eventDrop: function(info) {
-          console.log(info);
-          var start = info.event.start.toISOString();
-          var end = info.event.end.toISOString();
-          var title = info.event.title;
-          var id = info.event.id;
-          if (!confirm("is this okay?")) {
-            info.revert();
-          }
-          $.ajax({
-            url: "php\\update.php",
-            type: "POST",
-            data: {
-              title: title,
-              start: start,
-              end: end,
-              id: id
-            },
-            success: function() {
-              //calendar.refetchEvents();
-              alert("Event updated");
-            }
-          });
-        },
-
-        //trigger when drop an external event into the calendar
-        eventReceive: function(info) {
-          console.log(info);
-          var start = info.event.start.toISOString();
-          var end = info.event.end.toISOString();
-          var title = info.event.title;
-          if (!confirm("is this okay?")) {
-            info.revert();
-          }
-          $.ajax({
-            url: "php\\insert.php",
-            type: "POST",
-            data: {
-              title: title,
-              start: start,
-              end: end
-            },
-            success: function() {
-              alert("Added Successfully");
-              location.reload(); //bug elkerülése végett, frissít az oldalon külsős esemény elhelyezése után,
-              //mert utána lévő interakciónál dupláz stbstb
-            }
-          });
-        },
-
-        //in this case an event erase
-        eventClick: function(info) {
-          console.log(info);
-          if (confirm("Are you sure you want to remove it?")) {
-            var id = info.event.id;
-            $.ajax({
-              url: "php\\delete.php",
-              type: "POST",
-              data: {
-                id: id
-              },
-              success: function() {
-                calendar.refetchEvents();
-                alert("Event removed");
-              }
-            })
-          }
-        }
-
-        /*drop: function(info) {
-          // is the "remove after drop" checkbox checked?
-          if (checkbox.checked) {
-            // if so, remove the element from the "Draggable Events" list
-            info.draggedEl.parentNode.removeChild(info.draggedEl);
           }
         },*/
       });
@@ -277,14 +279,14 @@
 <body>
   <div id='external-events'>
     <p>
-      <strong>Draggable Events</strong>
+      <strong>Választható események</strong>
     </p>
     <!--<div class='fc-event' data-event='{"07:00"}'>drag me</div>-->
     <?php include 'php\loadExt.php';?>
-    <p>
+    <!--<p>
       <input type='checkbox' id='drop-remove' />
       <label for='drop-remove'>remove after drop</label>
-    </p>
+    </p>-->
   </div>
 
   <div id='calendar-container'>
