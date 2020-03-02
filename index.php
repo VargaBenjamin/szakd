@@ -1,4 +1,4 @@
-<?php include 'php\insertC.php';?>
+<?php include 'php/insertC.php';?>
 
 <html lang='en'>
 
@@ -6,23 +6,23 @@
   <meta charset='utf-8' />
 
   <link href='mainstyle.css' rel='stylesheet' />
-  <link href='fullcalendar\core\main.css' rel='stylesheet' />
+  <link href='fullcalendar/core/main.css' rel='stylesheet' />
 
-  <link href='fullcalendar\bootstrap\main.css' rel='stylesheet' />
-  <link href='fullcalendar\daygrid\main.css' rel='stylesheet' />
-  <link href='fullcalendar\timegrid\main.css' rel='stylesheet' />
-  <link href='fullcalendar\list\main.css' rel='stylesheet' />
+  <link href='fullcalendar/bootstrap/main.css' rel='stylesheet' />
+  <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
+  <link href='fullcalendar/timegrid/main.css' rel='stylesheet' />
+  <link href='fullcalendar/list/main.css' rel='stylesheet' />
 
 
-  <script src='fullcalendar\core\main.js'></script>
+  <script src='fullcalendar/core/main.js'></script>
 
-  <script src='fullcalendar\core\locales\hu.js'></script>
-  <script src='fullcalendar\core\locales-all.js'></script>
-  <script src='fullcalendar\bootstrap\main.js'></script>
-  <script src='fullcalendar\daygrid\main.js'></script>
-  <script src='fullcalendar\timegrid\main.js'></script>
-  <script src='fullcalendar\interaction\main.js'></script>
-  <script src='fullcalendar\list\main.js'></script>
+  <script src='fullcalendar/core/locales/hu.js'></script>
+  <script src='fullcalendar/core/locales-all.js'></script>
+  <script src='fullcalendar/bootstrap/main.js'></script>
+  <script src='fullcalendar/daygrid/main.js'></script>
+  <script src='fullcalendar/timegrid/main.js'></script>
+  <script src='fullcalendar/interaction/main.js'></script>
+  <script src='fullcalendar/list/main.js'></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -85,7 +85,7 @@
                   console.log(duration);
                   //var duration = info.duration;
                   $.ajax({
-                    url: "php\\insertC.php",
+                    url: "php//insertC.php",
                     type: "POST",
                     data: {
                       title: title,
@@ -131,7 +131,7 @@
         selectMirror: true, //a kijelolt intervallumra elhelyez egy esemenyt
         editable: true,
         droppable: true,
-        events: 'php\\load.php',
+        events: 'php//load.php',
 
         eventResize: function(info) {
           console.log(info);
@@ -143,7 +143,7 @@
             info.revert();
           } else {
             $.ajax({
-              url: "php\\update.php",
+              url: "php//update.php",
               type: "POST",
               data: {
                 title: title,
@@ -169,7 +169,7 @@
             info.revert();
           } else {
             $.ajax({
-              url: "php\\update.php",
+              url: "php//update.php",
               type: "POST",
               data: {
                 title: title,
@@ -194,7 +194,7 @@
             var title = info.event.title;
 
             $.ajax({
-              url: "php\\insert.php",
+              url: "php//insert.php",
               type: "POST",
               data: {
                 title: title,
@@ -216,7 +216,7 @@
           if (confirm("Biztosan törölni akarod az eseményt?")) {
             var id = info.event.id;
             $.ajax({
-              url: "php\\delete.php",
+              url: "php//delete.php",
               type: "POST",
               data: {
                 id: id
@@ -244,7 +244,7 @@
             var start = info.startStr;
             var end = info.endStr;
             $.ajax({
-              url: "php\\insert.php",
+              url: "php//insert.php",
               type: "POST",
               data: {
                 title: title,
@@ -282,7 +282,7 @@
   <script>
     function AddExEvent(title,duration) {
       $.ajax({
-        url: "php\\insertC.php",
+        url: "php//insertC.php",
         type: "POST",
         data: {
           title: title,
@@ -302,7 +302,7 @@
     <p>
       <strong>Választható események</strong>
     </p>
-    <?php include 'php\loadExt.php';?>
+    <?php include 'php/loadExt.php';?>
     <!--<p>
       <input type='checkbox' id='drop-remove' />
       <label for='drop-remove'>remove after drop</label>
