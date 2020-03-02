@@ -20,7 +20,8 @@ foreach($result as $row)
   'id'   => $row["id"],
   'title'   => $row["title"],
   'start'   => $row["start_event"],
-  'end'   => $row["end_event"]
+  'end'   => $row["end_event"],
+  'color'   => $row["color"]
  );
 }
 

@@ -52,12 +52,13 @@
         itemSelector: '.fc-event',
         eventData: function(eventEl) {
           var dur = eventEl.dataset.event.replace(/[{}""]/g, "").toString();
-          var paraArray = dur.split('#');
+          var paraArray = dur.split('ß');
           console.log(eventEl);
           return {
             title: eventEl.innerText,
             id: paraArray[0],
-            duration: paraArray[1]
+            duration: paraArray[1],
+            color: paraArray[2]
           };
         }
       });
@@ -139,6 +140,7 @@
           var end = info.event.end.toISOString();
           var title = info.event.title;
           var id = info.event.id;
+          var color = info.event.backgroundColor;
           if (!confirm("Átméretezed az eseményt?")) {
             info.revert();
           } else {
@@ -149,7 +151,8 @@
                 title: title,
                 start: start,
                 end: end,
-                id: id
+                id: id,
+                color: color
               },
               success: function() {
                 calendar.refetchEvents();
@@ -165,6 +168,7 @@
           var end = info.event.end.toISOString();
           var title = info.event.title;
           var id = info.event.id;
+          var color = info.event.backgroundColor;
           if (!confirm("Elhelyezed itt?")) {
             info.revert();
           } else {
@@ -175,7 +179,8 @@
                 title: title,
                 start: start,
                 end: end,
-                id: id
+                id: id,
+                color: color
               },
               success: function() {
                 calendar.refetchEvents();
@@ -192,14 +197,15 @@
             var start = info.event.start.toISOString();
             var end = info.event.end.toISOString();
             var title = info.event.title;
-
+            var color = info.event.backgroundColor;
             $.ajax({
               url: "php//insert.php",
               type: "POST",
               data: {
                 title: title,
                 start: start,
-                end: end
+                end: end,
+                color: color
               },
               success: function() {
                 alert("Sikeresen elhelyezve!");
@@ -286,7 +292,8 @@
         type: "POST",
         data: {
           title: title,
-          duration: duration
+          duration: duration,
+          color: color
         },
         success: function() {
           location.reload();
@@ -337,6 +344,10 @@
                 <div class="form-group">
                   <label for="">Esemény időtartama</label>
                   <input type="text" name="duration" placeholder="02:00">
+                </div>
+                <div class="form-group">
+                  <label for="">Esemény színének kiválasztása</label>
+                  <input type="color" name="color" value="#3788D8">
                 </div>
               </div>
               <div class="modal-footer">

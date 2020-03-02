@@ -19,7 +19,8 @@ foreach($result as $row)
  $data[] = array(
   'id'   => $row["id"],
   'title'   => $row["title"],
-  'duration'   => $row["duration"]
+  'duration'   => $row["duration"],
+  'color'   => $row["color"]
  );
 }
 

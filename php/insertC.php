@@ -8,14 +8,15 @@ if(isset($_POST['SubmitExEvent'])){
   {
    $query = "
    INSERT INTO events
-   (title, duration)
-   VALUES (:title, :duration)
+   (title, duration, color)
+   VALUES (:title, :duration, :color)
    ";
    $statement = $connect->prepare($query);
    $statement->execute(
     array(
      ':title'  => $_POST['title'],
-     ':duration' => $_POST['duration']
+     ':duration' => $_POST['duration'],
+     ':color' => $_POST['color']
     )
    );
   }

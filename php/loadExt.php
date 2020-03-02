@@ -16,7 +16,7 @@ $result = $statement->fetchAll();
 
 foreach($result as $row)
 {
-  echo "<div class='fc-event' data-event='{".$row["id"]."#".$row["duration"]."}'>".$row["title"]."</div>";
+  echo "<div class='fc-event' data-event='{".$row["id"]."ß".$row["duration"]."ß".$row["color"]."}'>".$row["title"]."</div>";
 }
 
 ?>

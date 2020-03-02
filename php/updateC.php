@@ -8,7 +8,7 @@ if(isset($_POST["id"]))
 {
  $query = "
  UPDATE events
- SET title=:title, duration=:duration
+ SET title=:title, duration=:duration, color=:color
  WHERE id=:id
  ";
  $statement = $connect->prepare($query);
@@ -16,7 +16,8 @@ if(isset($_POST["id"]))
   array(
    ':title'  => $_POST['title'],
    ':duration' => $_POST['duration'],
-   ':id'   => $_POST['id']
+   ':id'   => $_POST['id'],
+   ':color'   => $_POST['color']
   )
  );
 }
