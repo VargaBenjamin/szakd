@@ -31,8 +31,7 @@
   <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-
+  
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var initialLocaleCode = 'hu';
@@ -286,7 +285,7 @@
   </script>
 
   <script>
-    function AddExEvent(title,duration) {
+    function AddExEvent(title, duration, color) {
       $.ajax({
         url: "php//insertC.php",
         type: "POST",
@@ -302,9 +301,13 @@
     };
   </script>
 
+
+
 </head>
 
 <body>
+
+
   <div id='external-events'>
     <p>
       <strong>Választható események</strong>
