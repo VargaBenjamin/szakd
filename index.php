@@ -283,7 +283,7 @@
 
     });
   </script>
-<!--külsős esemény hozzáadása-->
+<!--külsős esemény hozzáadás-->
   <script>
     function AddExEvent(title, duration, color) {
       $.ajax({
