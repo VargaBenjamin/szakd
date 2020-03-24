@@ -208,11 +208,11 @@
               },
               success: function() {
                 alert("Sikeresen elhelyezve!");
-                location.reload(); //bug elkerülése végett, frissít az oldalon külsős esemény elhelyezése után,
-                //mert utána lévő interakciónál dupláz stbstb
               }
             });
           }
+          location.reload(); //bug elkerülése végett, frissít az oldalon külsős esemény elhelyezése/nem elhelyezése után
+                             //mert utána lévő interakciónál dupláz
         },
 
         //in this case an event erase
