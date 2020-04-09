@@ -15,7 +15,7 @@ include 'parts/calendarInsertCustom.php';
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Naptáram</title>
-        <link href="css/homeStyle.css" rel="stylesheet" />
+        <link href="homeStyle.css" type="text/css" rel="stylesheet" />
 			  <link href='fullcalendar/core/main.css' rel='stylesheet' />
 
 			  <link href='fullcalendar/bootstrap/main.css' rel='stylesheet' />
@@ -37,8 +37,8 @@ include 'parts/calendarInsertCustom.php';
 				<!--bootstrap kotelezo elemek-->
 				<link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
 				<link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />
-				<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+				<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+				<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
 				<script>
 					document.addEventListener('DOMContentLoaded', function() {
@@ -323,8 +323,8 @@ include 'parts/calendarInsertCustom.php';
 								<?php require 'parts/footer.php'; ?>
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/homeScripts.js"></script>
 
     </body>

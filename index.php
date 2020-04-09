@@ -14,7 +14,7 @@
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/indexStyle.css" rel="stylesheet">
+  <link href="indexStyle.css" type="text/css" rel="stylesheet" />
 
 </head>
 <body id="page-top">
@@ -102,7 +102,7 @@
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom JavaScript for this theme -->
-  <script src="js/js/indexScripts.js.js"></script>
+  <script src="js/indexScripts.js"></script>
 
   <?php
     if (isset($_GET['error']))

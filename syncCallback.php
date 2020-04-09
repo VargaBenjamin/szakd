@@ -1,6 +1,6 @@
 <?php
 include 'hybridauth/autoload.php';
-include 'syncConfig.php';
+include 'parts/syncConfig.php';
 
 use Hybridauth\Exception\Exception;
 use Hybridauth\Hybridauth;

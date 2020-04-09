@@ -26,4 +26,10 @@
     offset: 56
   });
 
+  window.setTimeout(function() {
+    $(".alert").fadeTo(500, 0).slideUp(500, function() {
+      $(this).remove();
+    });
+  }, 3000);
+
 })(jQuery); // End of use strict

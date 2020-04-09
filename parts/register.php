@@ -60,13 +60,18 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 	else
 	{
     //if ($stmt = $con->prepare('INSERT INTO accounts (username, password, email) VALUES (?, ?, ?)')) {
-    if ($stmt = $con->prepare('INSERT INTO accounts (username, password, email, activation_code) VALUES (?, ?, ?, ?)'))
+    if ($stmt = $con->prepare('INSERT INTO accounts (username, password, email, activation_code, coach) VALUES (?, ?, ?, ?, ?)'))
 		{
     	// We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
     	$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
       //$stmt->bind_param('sss', $_POST['username'], $password, $_POST['email']);
       $uniqid = uniqid();
-      $stmt->bind_param('ssss', $_POST['username'], $password, $_POST['email'], $uniqid);
+			if (isset($_POST['coach'])) {
+				$coach = 0;
+			} else {
+				$coach = 1;
+			};
+      $stmt->bind_param('ssssi', $_POST['username'], $password, $_POST['email'], $uniqid, $coach);
     	$stmt->execute();
 
 			//bejelentkezés a létrehozott felhasználóba
@@ -81,7 +86,7 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 			$_SESSION['id'] = $id;
 			$_SESSION['status'] = $status;
 			//echo 'Welcome ' . $_SESSION['name'] . '!';
-			header("Location: home.php");
+			header("Location: ../home.php");
 		}
 		else
 		{
