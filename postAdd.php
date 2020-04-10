@@ -35,7 +35,7 @@ if (!isset($_SESSION['loggedin'])) {
 								<div class="container">
 							    <div class="row">
 										<div class="col-md-8">
-											<form action="parts/postAuth.php" method="post" role="form" class="form-horizontal">
+											<form action="parts/postSend.php" method="post" role="form" class="form-horizontal">
 												<div class="form-group">
 											    <label for="title">Cím</label>
 											    <input type="text" class="form-control" name="title" required>
