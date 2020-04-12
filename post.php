@@ -2,8 +2,8 @@
 
 session_start();
 if (!isset($_SESSION['loggedin'])) {
-	 header("Location: index.php?error=out");
-	 exit();
+    header("Location: index.php?error=out");
+    exit();
 }
 ?>
 
@@ -45,48 +45,17 @@ if (!isset($_SESSION['loggedin'])) {
 							        <div class="card my-4">
 							          <h5 class="card-header">Hozzászólás írása:</h5>
 							          <div class="card-body">
-							            <form>
+							            <form method="post" id="commentForm">
 							              <div class="form-group">
-							                <textarea class="form-control" rows="3"></textarea>
+							                <textarea class="form-control" rows="3" name="commentText" id="commentText" required></textarea>
 							              </div>
-							              <button type="submit" class="btn btn-primary">Küldés</button>
+                            <input type="hidden" name="parent" id="parent" value="0" />
+                            <input type="hidden" name="title" id="title" value="<?php echo $title; ?>" />
+							              <input type="submit" class="btn btn-primary" id="submit" value="Küldés">
 							            </form>
 							          </div>
 							        </div>
-
-							        <!-- Single Comment -->
-							        <div class="media mb-4">
-							          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-							          <div class="media-body">
-							            <h5 class="mt-0">Commenter Name</h5>
-							            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-							          </div>
-							        </div>
-
-							        <!-- Comment with nested comments -->
-							        <div class="media mb-4">
-							          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-							          <div class="media-body">
-							            <h5 class="mt-0">Commenter Name</h5>
-							            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-
-							            <div class="media mt-4">
-							              <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-							              <div class="media-body">
-							                <h5 class="mt-0">Commenter Name</h5>
-							                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-							              </div>
-							            </div>
-
-							            <div class="media mt-4">
-							              <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-							              <div class="media-body">
-							                <h5 class="mt-0">Commenter Name</h5>
-							                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-							              </div>
-							            </div>
-							          </div>
-							        </div>
+							        <div id="display"></div>
 							      </div>
 							    </div>
 							  </div>
@@ -96,5 +65,59 @@ if (!isset($_SESSION['loggedin'])) {
 				<script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/homeScripts.js"></script>
+				<script>
+        $(document).ready(function(){
+
+         $('#commentForm').on('submit', function(event){
+          event.preventDefault();
+          var form_data = $(this).serialize();
+          $.ajax({
+           url:"parts/commentSend.php",
+           method:"POST",
+           data:form_data,
+           dataType:"JSON",
+           success:function(data)
+            {
+             console.log('Submission was successful.');
+             console.log(data);
+            },
+           error: function (data)
+            {
+            console.log('An error occurred.');
+            console.log(data);
+            }
+          })
+         });
+
+         load_comment();
+
+         function load_comment()
+         {
+           var url = window.location.search;
+          $.ajax({
+           url:"parts/commentLoad.php"+url,
+           method:"GET",
+           success:function(data)
+           {
+            $('#display').html(data);
+          },
+          error: function (data)
+           {
+           console.log('An error occurred.');
+           console.log(data);
+           }
+          })
+         }
+
+
+
+
+         $(document).on('click', '.reply', function(){
+          var parent = $(this).attr("id");
+          $('#parent').val(parent);
+         });
+
+        });
+        </script>
     </body>
 </html>
