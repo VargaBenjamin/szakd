@@ -17,11 +17,6 @@ $adapters = $hybridauth->getConnectedAdapters();
 // We need to use sessions, so you should always start sessions using the below code.
 //session_start();
 // If the user is not logged in redirect to the login page...
-if (!isset($_SESSION['loggedin']))
-{
-	 header("Location: index.php?error=out");
-	 exit();
-}
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
 $DATABASE_PASS = '';
@@ -51,7 +46,7 @@ $stmt->close();
         <meta name="author" content="" />
         <title>Adataim</title>
 				<link href="homeStyle.css" type="text/css" rel="stylesheet" />
-				<link href="profileStyle.css" type="text/css" rel="stylesheet" />
+				<link href="vendor/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body>
@@ -77,15 +72,15 @@ $stmt->close();
 								        <div class="panel-body">
 								          <div class="form-group">
 								            <label class="col-sm-3 control-label">Felhasználónév</label>
-														<label class="col-sm-4 control-label"><?=$_SESSION['name']?></label>
+														<label class="col-sm-4 control-label font-weight-bold"><?=$_SESSION['name']?></label>
 								          </div>
 													<div class="form-group">
 								            <label class="col-sm-3 control-label">Email cím</label>
-														<label class="col-sm-4 control-label"><?=$email?></label>
+														<label class="col-sm-4 control-label font-weight-bold"><?=$email?></label>
 								          </div>
 													<div class="form-group">
 								            <label class="col-sm-3 control-label">Titulus</label>
-														<label class="col-sm-4 control-label">
+														<label class="col-sm-4 control-label font-weight-bold">
 															<?php
 															if ($coach == 1) {
 																echo "Edző";
@@ -106,7 +101,7 @@ $stmt->close();
 								        <div class="panel-body">
 													<div class="form-group">
 								            <label class="col-sm-3 control-label">Telefonszám</label>
-														<label class="col-sm-4 control-label">
+														<label class="col-sm-4 control-label font-weight-bold">
 															<?php
 															if (!is_null($telephone)) {
 																echo $telephone;

@@ -10,13 +10,11 @@ $(document).ready(function(){
    dataType:"JSON",
    success:function(data)
     {
-     console.log('Küldés sikeres.');
-     console.log(data);
+     load_comment();
     },
    error: function (data)
     {
-    console.log('Küldés hiba.');
-    console.log(data);
+    load_comment();
     }
   })
  });
@@ -25,16 +23,16 @@ $(document).ready(function(){
 
  function load_comment()
  {
+   var url = window.location.search;
   $.ajax({
-   url:"parts/commentLoad.php?title=szíes",
-   method:"GET",
+   url:"parts/commentLoad.php"+url,
+   method:"POST",
    success:function(data)
    {
     $('#display').html(data);
   },
   error: function (data)
    {
-   console.log('Betöltés hiba.');
    console.log(data);
    }
   })
@@ -43,7 +41,6 @@ $(document).ready(function(){
  $(document).on('click', '.reply', function(){
   var parent = $(this).attr("id");
   $('#parent').val(parent);
-  $('#comment_name').focus();
  });
 
 });

@@ -36,7 +36,7 @@ include 'parts/calendarInsertCustom.php';
 
 				<!--bootstrap kotelezo elemek-->
 				<link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
-				<link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />
+				<!--<link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />-->
 				<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
 				<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
