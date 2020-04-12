@@ -78,13 +78,11 @@ if (!isset($_SESSION['loggedin'])) {
            dataType:"JSON",
            success:function(data)
             {
-             console.log('Sikeres küldés.');
-             console.log(data);
+             load_comment();
             },
            error: function (data)
             {
-            console.log('Sikertelen küldés.');
-            console.log(data);
+            load_comment();
             }
           })
          });
@@ -96,7 +94,7 @@ if (!isset($_SESSION['loggedin'])) {
            var url = window.location.search;
           $.ajax({
            url:"parts/commentLoad.php"+url,
-           method:"GET",
+           method:"POST",
            success:function(data)
            {
             $('#display').html(data);
