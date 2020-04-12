@@ -78,12 +78,12 @@ if (!isset($_SESSION['loggedin'])) {
            dataType:"JSON",
            success:function(data)
             {
-             console.log('Submission was successful.');
+             console.log('Sikeres küldés.');
              console.log(data);
             },
            error: function (data)
             {
-            console.log('An error occurred.');
+            console.log('Sikertelen küldés.');
             console.log(data);
             }
           })
@@ -100,17 +100,15 @@ if (!isset($_SESSION['loggedin'])) {
            success:function(data)
            {
             $('#display').html(data);
+            console.log('Sikeres betöltés.');
           },
           error: function (data)
            {
-           console.log('An error occurred.');
+           console.log('Sikertelen betöltés.');
            console.log(data);
            }
           })
          }
-
-
-
 
          $(document).on('click', '.reply', function(){
           var parent = $(this).attr("id");

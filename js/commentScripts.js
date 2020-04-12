@@ -10,12 +10,12 @@ $(document).ready(function(){
    dataType:"JSON",
    success:function(data)
     {
-     console.log('Submission was successful.');
+     console.log('Küldés sikeres.');
      console.log(data);
     },
    error: function (data)
     {
-    console.log('An error occurred.');
+    console.log('Küldés hiba.');
     console.log(data);
     }
   })
@@ -34,7 +34,7 @@ $(document).ready(function(){
   },
   error: function (data)
    {
-   console.log('An error occurred.');
+   console.log('Betöltés hiba.');
    console.log(data);
    }
   })
