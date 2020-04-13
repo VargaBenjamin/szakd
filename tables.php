@@ -22,7 +22,7 @@ if (!isset($_SESSION['loggedin'])) {
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="home.php">Coact2Client</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+            <a class="navbar-brand" href="home.php">Coach2Client</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         </nav>
 				<div id="layoutSidenav">
 					<?php require 'parts/sideNav.php'; ?>
@@ -40,12 +40,7 @@ if (!isset($_SESSION['loggedin'])) {
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
+                                                <?php include 'parts/tableLoad.php' ?>
                                             </tr>
                                         </thead>
                                         <tbody>
