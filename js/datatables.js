@@ -39,7 +39,7 @@ $(document).ready(function() {
       selector: 'td:first-child'
     },
     order: [
-      [1, 'asc']
+      [5, 'desc']
     ],
     responsive: true,
     fixedHeader: true,
@@ -83,9 +83,7 @@ $(document).ready(function() {
     text: 'Sor törlés',
     action: function(e, dt, node, config) {
       e.preventDefault();
-      let selected = table.row({
-        selected: true
-      }).data();
+      let selected = table.row({selected: true}).data();
       $.ajax({
         url: "parts/tableDelete.php",
         type: "POST",
@@ -101,27 +99,21 @@ $(document).ready(function() {
   $.fn.dataTable.ext.buttons.create = {
     text: 'Sor létrehozás',
     action: function(e, dt, node, config) {
-      $('#tableModal').modal();
-
+      $('#creatModal').modal();
     }
   };
   $.fn.dataTable.ext.buttons.update = {
     text: 'Sor változatás',
     action: function(e, dt, node, config) {
-      e.preventDefault();
-      let selected = table.row({
-        selected: true
-      }).data().id;
-      $.ajax({
-        url: "parts/tableDelete.php",
-        type: "POST",
-        data: {
-          id: selected
-        },
-        success: function() {
-          dt.ajax.reload();
-        }
-      })
+      let selected = table.row({selected: true}).data();
+      console.log(selected.author);
+      $('#updateModal').modal();
+      $('#authorU').val(selected.author);
+      $('#maintextU').val(selected.maintext);
+      $('#replyU').val(selected.reply);
+      $('#articleU').val(selected.article);
+      $('#idU').val(selected.id);
+      $('#updateModal').modal();
     }
   };
   $('#dataTable tbody').on('click', 'tr', function() {
@@ -130,25 +122,50 @@ $(document).ready(function() {
   });
 
 
-$("#tableModal").submit(function(e) {
-  e.preventDefault();
-  var author = $("#author").val();
-  var maintext = $("#maintext").val();
-  var reply = $("#reply").val();
-  var article = $("#article").val();
-  $.ajax({
-    url: "parts/tableCreat.php",
-    type: "POST",
-    data: {
-      author: author,
-      maintext: maintext,
-      reply: reply,
-      article: article
-    },
-    success: function() {
-      table.ajax.reload();
-      $('#tableModal').modal('hide');
-    }
+  $("#creatModal").submit(function(e) {
+    e.preventDefault();
+    var author = $("#authorC").val();
+    var maintext = $("#maintextC").val();
+    var reply = $("#replyC").val();
+    var article = $("#articleC").val();
+    $.ajax({
+      url: "parts/tableCreat.php",
+      type: "POST",
+      data: {
+        author: author,
+        maintext: maintext,
+        reply: reply,
+        article: article
+      },
+      success: function() {
+        table.ajax.reload();
+        $('#creatModal').modal('hide');
+      }
+    });
   });
-})
+
+  $("#updateModal").submit(function(e) {
+    e.preventDefault();
+    var author = $("#authorU").val();
+    var maintext = $("#maintextU").val();
+    var reply = $("#replyU").val();
+    var article = $("#articleU").val();
+    var id = $("#idU").val();
+    $.ajax({
+      url: "parts/tableUpdate.php",
+      type: "POST",
+      data: {
+        author: author,
+        maintext: maintext,
+        reply: reply,
+        article: article,
+        id: id
+      },
+      success: function() {
+        table.ajax.reload();
+        $('#updateModal').modal('hide');
+      }
+    });
+  })
+
 });

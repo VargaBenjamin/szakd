@@ -1,6 +1,6 @@
 <?php
 $con = mysqli_connect("localhost", "root", "", "framedb");
-$sql = "SELECT * FROM comments ORDER BY commentdate DESC";
+$sql = "SELECT * FROM comments";
 
 $result = mysqli_query($con, $sql);
 
