@@ -59,6 +59,41 @@ if (!isset($_SESSION['loggedin'])) {
                         </div>
                     </div>
                 </main>
+								<!-- Modal -->
+								<div id="tableModal" class="modal fade">
+									<div class="modal-dialog">
+											<div class="modal-content">
+												<form class="form-addExEv" action="tableCreat.php" method="post">
+														<div class="modal-header">
+																<h4 id="modalTitle" class="modal-title">Eredmények felírása</h4>
+																<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+														</div>
+														<div id="modalBody" class="modal-body">
+															<div class="form-group">
+																<label for="">Szerő</label>
+																<input id="author" type="text" name="author" placeholder="Gipsz">
+															</div>
+															<div class="form-group">
+																<label for="">szöveg</label>
+																<input id="maintext" type="text" name="maintext" placeholder="blbabla">
+															</div>
+															<div class="form-group">
+																<label for="">válasz</label>
+																<input id="reply" type="text" name="reply" placeholder="0">
+															</div>
+															<div class="form-group">
+																<label for="">cikk</label>
+																<input id="article" type="text" name="article" placeholder="színes">
+															</div>
+														</div>
+														<div class="modal-footer">
+																<button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
+																<button id="tableSubmit" type="submit" name="SubmitExEvent" class="btn btn-primary">Létrehozás</button>
+														</div>
+													</form>
+											</div>
+									</div>
+								</div>
                 <?php require 'parts/footer.php'; ?>
             </div>
         </div>

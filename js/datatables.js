@@ -1,19 +1,6 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {
   var table = $('#dataTable').DataTable({
-    responsive: {
-      details: {
-        display: $.fn.dataTable.Responsive.display.modal({
-          header: function(row) {
-            var data = row.data();
-            return 'Details for ' + data[0] + ' ' + data[1];
-          }
-        }),
-        renderer: $.fn.dataTable.Responsive.renderer.tableAll({
-          tableClass: 'table'
-        })
-      }
-    },
     dom: 'Bfrltip',
     buttons: [{
         extend: 'copyHtml5',
@@ -114,20 +101,8 @@ $(document).ready(function() {
   $.fn.dataTable.ext.buttons.create = {
     text: 'Sor létrehozás',
     action: function(e, dt, node, config) {
-      e.preventDefault();
-      let selected = table.row({
-        selected: true
-      }).data();
-      $.ajax({
-        url: "parts/tableDelete.php",
-        type: "POST",
-        data: {
-          id: selected
-        },
-        success: function() {
-          dt.ajax.reload();
-        }
-      })
+      $('#tableModal').modal();
+
     }
   };
   $.fn.dataTable.ext.buttons.update = {
@@ -153,4 +128,27 @@ $(document).ready(function() {
     var data = table.row(this).data();
     console.log('You clicked on ' + data.id + '\'s row');
   });
+
+
+$("#tableModal").submit(function(e) {
+  e.preventDefault();
+  var author = $("#author").val();
+  var maintext = $("#maintext").val();
+  var reply = $("#reply").val();
+  var article = $("#article").val();
+  $.ajax({
+    url: "parts/tableCreat.php",
+    type: "POST",
+    data: {
+      author: author,
+      maintext: maintext,
+      reply: reply,
+      article: article
+    },
+    success: function() {
+      table.ajax.reload();
+      $('#tableModal').modal('hide');
+    }
+  });
+})
 });
