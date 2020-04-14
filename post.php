@@ -16,7 +16,7 @@ if (!isset($_SESSION['loggedin'])) {
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Post</title>
-				<link href="homeStyle.css" type="text/css" rel="stylesheet" />
+				<link href="css/homeStyle.css" type="text/css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body>

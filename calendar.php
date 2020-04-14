@@ -15,7 +15,7 @@ include 'parts/calendarInsertCustom.php';
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Naptáram</title>
-        <link href="homeStyle.css" type="text/css" rel="stylesheet" />
+        <link href="css/homeStyle.css" type="text/css" rel="stylesheet" />
 			  <link href='fullcalendar/core/main.css' rel='stylesheet' />
 
 			  <link href='fullcalendar/bootstrap/main.css' rel='stylesheet' />

@@ -17,10 +17,16 @@ if (!isset($_SESSION['loggedin'])) {
         <meta name="author" content="" />
         <title>Lista</title>
 				<link href="css/homeStyle.css" type="text/css" rel="stylesheet" />
+				<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
 				<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"> <!--alap-->
 				<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"><!--responsive-->
 				<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.dataTables.min.css"><!--fixhead-->
+				<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css"><!--custombutton-->
+				<link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css"><!--select-->
+				<!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css">-->
+				<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -39,6 +45,7 @@ if (!isset($_SESSION['loggedin'])) {
                                     <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
 																			<thead>
 														            <tr>
+																					<th>ID</th>
 														                <th>author</th>
 														                <th>maintext</th>
 														                <th>reply</th>
@@ -57,10 +64,21 @@ if (!isset($_SESSION['loggedin'])) {
         </div>
 				<script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+				<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
         <script src="js/homeScripts.js"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script><!--alap-->
         <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js" charset="utf-8"></script><!--responsive-->
 				<script src="https://cdn.datatables.net/fixedheader/3.1.6/js/dataTables.fixedHeader.min.js" charset="utf-8"></script><!--fixhead-->
+				<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js" charset="utf-8"></script><!--custombutton-->
+				<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js" charset="utf-8"></script><!--colVisibility-->
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" charset="utf-8"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" charset="utf-8"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" charset="utf-8"></script>
+				<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js" charset="utf-8"></script>
+				<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js" charset="utf-8"></script>
+				<script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js" charset="utf-8"></script><!--select-->
+				<!--<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js" charset="utf-8"></script>-->
+				<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js" charset="utf-8"></script>
         <script src="js/datatables.js"></script>
     </body>
 </html>
