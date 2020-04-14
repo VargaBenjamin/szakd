@@ -1,7 +1,7 @@
 <?php
-require 'db.php';
+require 'parts/db.php';
 
-$header = '<thead><tr>';
+$header = "<thead>\n<tr>\n";
 echo $header;
 if ($stmt = $con->prepare('SELECT * FROM comments LIMIT 1'))
 {
@@ -9,24 +9,24 @@ if ($stmt = $con->prepare('SELECT * FROM comments LIMIT 1'))
   $result = $stmt->get_result();
   $result->fetch_assoc();
   while ($columnName = $result->fetch_field()) {
-    echo '<th>' . $columnName->name . '</th>';
+    echo "<th>" . $columnName->name . "</th>\n";
   }
 }
-$middle = '</tr>
+$middle = "</tr>
 </thead>
-<tbody>';
+<tbody>";
 echo $middle;
 if ($stmt = $con->prepare('SELECT * FROM comments'))
 {
   $stmt->execute();
   $result = $stmt->get_result();
   while ($row = $result->fetch_assoc()) {
-    echo '<tr><td>';
-    echo implode("</td><td>",$row);
-    echo '</td></tr>';
+    echo "\n<tr>\n<td>";
+    echo implode("</td>\n<td>",$row);
+    echo "</td>\n</tr>";
   }
 }
-$footer = '</tbody>';
+$footer = "\n</tbody>\n";
 echo $footer;
 if ($stmt) {
 	$stmt->close();

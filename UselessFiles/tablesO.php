@@ -16,7 +16,7 @@ if (!isset($_SESSION['loggedin'])) {
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Lista</title>
-				<link href="homeStyle.css" type="text/css" rel="stylesheet" />
+				<link href="css/homeStyle.css" type="text/css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     </head>

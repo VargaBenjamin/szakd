@@ -17,9 +17,7 @@ if (!isset($_SESSION['loggedin'])) {
         <meta name="author" content="" />
         <title>Lista</title>
 				<link href="css/homeStyle.css" type="text/css" rel="stylesheet" />
-				<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"> <!--alap-->
-				<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"><!--responsive-->
-				<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.dataTables.min.css"><!--fixhead-->
+        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -37,15 +35,7 @@ if (!isset($_SESSION['loggedin'])) {
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
-																			<thead>
-														            <tr>
-														                <th>author</th>
-														                <th>maintext</th>
-														                <th>reply</th>
-														                <th>article</th>
-														                <th>commentdate</th>
-														            </tr>
-														        </thead>
+                                      <?php include 'parts/tableLoad.php' ?>
                                     </table>
                                 </div>
                             </div>
@@ -58,9 +48,8 @@ if (!isset($_SESSION['loggedin'])) {
 				<script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/homeScripts.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script><!--alap-->
-        <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js" charset="utf-8"></script><!--responsive-->
-				<script src="https://cdn.datatables.net/fixedheader/3.1.6/js/dataTables.fixedHeader.min.js" charset="utf-8"></script><!--fixhead-->
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="js/datatables.js"></script>
     </body>
 </html>

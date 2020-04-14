@@ -37,15 +37,7 @@ if (!isset($_SESSION['loggedin'])) {
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
-																			<thead>
-														            <tr>
-														                <th>author</th>
-														                <th>maintext</th>
-														                <th>reply</th>
-														                <th>article</th>
-														                <th>commentdate</th>
-														            </tr>
-														        </thead>
+                                      <?php include 'parts/tableLoad.php' ?>
                                     </table>
                                 </div>
                             </div>
