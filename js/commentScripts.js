@@ -1,20 +1,27 @@
+//commentScripts.js
 $(document).ready(function(){
 
- $('#commentForm').on('submit', function(event){
-  event.preventDefault();
-  var form_data = $(this).serialize();
+ $("#commentForm").submit(function(e) {
+  e.preventDefault();
+  var commentText = $('#commentText').val();
+  var parent = $('#parent').val();
+  var title = $('#title').val();
   $.ajax({
    url:"parts/commentSend.php",
    method:"POST",
-   data:form_data,
-   dataType:"JSON",
+   data: {
+     commentText: commentText,
+     parent: parent,
+     title: title
+   },
    success:function(data)
     {
+      console.log("Sikeres üzenet küldés");
      load_comment();
     },
    error: function (data)
     {
-    load_comment();
+      console.log("Sikertelen üzenet küldés");
     }
   })
  });

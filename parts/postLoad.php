@@ -1,4 +1,5 @@
 <?php
+//postLoad.php
 require 'db.php';
 
 $title = rawurldecode($_GET['title']);

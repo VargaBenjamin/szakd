@@ -1,4 +1,5 @@
 <?php
+//blog.php
 session_start();
 if (!isset($_SESSION['loggedin'])) {
 	 header("Location: index.php?error=out");
@@ -34,7 +35,7 @@ if (!isset($_SESSION['loggedin'])) {
 							  <div class="container">
 							    <div class="row">
 							      <div class="col-md-8">
-											<?php require 'parts/postEncode.php'; ?>
+											<?php require 'parts/postLoads.php'; ?>
 							        <ul class="pagination justify-content-center mb-4">
 							          <li class="page-item">
 							            <a class="page-link" href="#">&larr; Older</a>

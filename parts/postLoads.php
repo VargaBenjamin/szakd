@@ -1,4 +1,5 @@
 <?php
+//postLoads.php
 require 'db.php';
 
 if ($stmt = $con->prepare('SELECT author, title, preview, maintext, publishtime FROM articles ORDER BY publishtime DESC'))

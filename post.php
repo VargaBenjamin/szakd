@@ -1,5 +1,5 @@
 <?php
-
+//post.php
 session_start();
 if (!isset($_SESSION['loggedin'])) {
     header("Location: index.php?error=out");
@@ -40,7 +40,7 @@ if (!isset($_SESSION['loggedin'])) {
 							    <div class="row">
 							      <!-- Post Content Column -->
 							      <div class="col-lg-8">
-											<?php require 'parts/postDecode.php'; ?>
+											<?php require 'parts/postLoad.php'; ?>
 							        <!-- Comments Form -->
 							        <div class="card my-4">
 							          <h5 class="card-header">Hozzászólás írása:</h5>
