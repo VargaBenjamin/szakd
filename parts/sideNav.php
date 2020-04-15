@@ -6,18 +6,22 @@
                     <div class="small">Üdv,</div>
                     <?=$_SESSION['name']?>
                 </div>
-                <div class="sb-sidenav-menu-heading">Core</div>
+                <div class="sb-sidenav-menu-heading">Menü</div>
                 <a class="nav-link" href="home.php">
                   <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Irányítópult
                 </a>
                 <a class="nav-link" href="calendar.php">
                   <div class="sb-nav-link-icon"><i class="fas fa-calendar-day"></i></div>
-                    Naptáram
+                    Naptár
+                </a>
+                <a class="nav-link" href="charts.php">
+                  <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                    Fejlődés
                 </a>
                 <a class="nav-link" href="tables.php">
-                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                Napló
+                  <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                    Napló
                 </a>
                 <a class="nav-link" href="blog.php">
                   <div class="sb-nav-link-icon"><i class="fas fa-comment-alt"></i></div>
@@ -26,55 +30,26 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProfile" aria-expanded="false" aria-controls="collapseLayouts">
                   <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
                     Profilom
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                  <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseProfile" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="profile.php">Adataim</a></nav>
+                    <nav class="sb-sidenav-menu-nested nav">
+                      <a class="nav-link" href="profile.php">
+                        Adataim
+                      </a>
+                    </nav>
                 </div>
                 <div class="collapse" id="collapseProfile" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="settings.php">Beállítások</a></nav>
+                    <nav class="sb-sidenav-menu-nested nav">
+                      <a class="nav-link" href="settings.php">
+                        Beállítások
+                      </a>
+                    </nav>
                 </div>
                 <a class="nav-link" href="parts/logout.php">
                   <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
                     Kijelentkezés
                 </a>
-                <div class="sb-sidenav-menu-heading">Interface</div>
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts"
-                    ><div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                    Layouts
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="simple.php">Simple page</a></nav>
-                </div>
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages"
-                    ><div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                    Pages
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
-                ></a>
-                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth"
-                            >Authentication
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
-                        ></a>
-                        <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="login.php">Login</a><a class="nav-link" href="register.php">Register</a><a class="nav-link" href="password.html">Forgot Password</a></nav>
-                        </div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError"
-                            >Error
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
-                        ></a>
-                        <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="401.html">401 Page</a><a class="nav-link" href="404.html">404 Page</a><a class="nav-link" href="500.html">500 Page</a></nav>
-                        </div>
-                    </nav>
-                </div>
-                <div class="sb-sidenav-menu-heading">Addons</div>
-                  <a class="nav-link" href="charts.php">
-                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                    Charts
-                  </a>
             </div>
         </div>
     </nav>
