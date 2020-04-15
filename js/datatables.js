@@ -50,11 +50,18 @@ $(document).ready(function() {
       url: "parts/tableJSON.php",
       dataSrc: ""
     },
-    columns: [{
+    columns: [
+      {
         "data": "id"
       },
       {
         "data": "datum"
+      },
+      {
+        "data": "suly"
+      },
+      {
+        "data": "testzsirszazalek"
       },
       {
         "data": "combboseg"
@@ -135,7 +142,6 @@ $(document).ready(function() {
     text: 'Sor létrehozás',
     action: function(e, dt, node, config) {
       console.log("Sor létrehozás kiválasztva");
-      console.log("Sor létrehozás kiválasztva");
       $('#creatModal').modal();
     }
   };
@@ -143,7 +149,9 @@ $(document).ready(function() {
     text: 'Sor változatás',
     action: function(e, dt, node, config) {
       let selected = table.row({selected: true}).data();
-      console.log("Kiválasztott sor változtatásra:" + selected.id);
+      console.log("Kiválasztott sor változtatásra:" + selected.suly);
+      $('#sulyU').val(selected.suly);
+      $('#zsirU').val(selected.testzsirszazalek);
       $('#combU').val(selected.combboseg);
       $('#derekU').val(selected.derekboseg);
       $('#csipoU').val(selected.csipoboseg);
@@ -165,6 +173,8 @@ $(document).ready(function() {
 
   $("#creatModal").submit(function(e) {
     e.preventDefault();
+    var suly = $('#sulyC').val();
+    var zsir = $('#zsirC').val();
     var comb = $('#combC').val();
     var derek = $('#derekC').val();
     var csipo = $('#csipoC').val();
@@ -184,6 +194,8 @@ $(document).ready(function() {
       url: "parts/tableCreat.php",
       type: "POST",
       data: {
+        suly: suly,
+        zsir: zsir,
         comb: comb,
         derek: derek,
         csipo: csipo,
@@ -212,6 +224,8 @@ $(document).ready(function() {
 
   $("#updateModal").submit(function(e) {
     e.preventDefault();
+    var suly = $('#sulyU').val();
+    var zsir = $('#zsirU').val();
     var comb = $('#combU').val();
     var derek = $('#derekU').val();
     var csipo = $('#csipoU').val();
@@ -231,6 +245,8 @@ $(document).ready(function() {
       url: "parts/tableUpdate.php",
       type: "POST",
       data: {
+        suly: suly,
+        zsir: zsir,
         comb: comb,
         derek: derek,
         csipo: csipo,

@@ -52,6 +52,8 @@ echo("<script>console.log('baj van');</script>");
 														            <tr>
 																					<th>ID</th>
 																					<th>Dátum</th>
+																					<th>Súly (kg)</th>
+																					<th>Testzsírszázalék (%)</th>
 														              <th>Combbőség (cm)</th>
 																					<th>Derékbőség (cm)</th>
 																					<th>Csipőbőség (cm)</th>
@@ -84,6 +86,14 @@ echo("<script>console.log('baj van');</script>");
 																<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
 														</div>
 														<div class="modal-body">
+															<div class="form-group">
+																<label for="">Súly (kg)</label>
+																<input id="sulyC" type="text" name="sulyC" value="90">
+															</div>
+															<div class="form-group">
+																<label for="">Testzsírszázalék (%)</label>
+																<input id="zsirC" type="text" name="zsirC" value="20">
+															</div>
 															<div class="form-group">
 																<label for="">Combbőség (cm)</label>
 																<input id="combC" type="text" name="combC" value="40">
@@ -160,6 +170,14 @@ echo("<script>console.log('baj van');</script>");
 																<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
 														</div>
 														<div class="modal-body">
+															<div class="form-group">
+																<label for="">Súly (kg)</label>
+																<input id="sulyU" type="text" name="suly" value="">
+															</div>
+															<div class="form-group">
+																<label for="">Testzsírszázalék (%)</label>
+																<input id="zsirU" type="text" name="zsir" value="">
+															</div>
 															<div class="form-group">
 																<label for="">Combbőség (cm)</label>
 																<input id="combU" type="text" name="comb" value="">
