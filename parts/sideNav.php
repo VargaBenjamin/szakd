@@ -15,6 +15,10 @@
                   <div class="sb-nav-link-icon"><i class="fas fa-calendar-day"></i></div>
                     Naptáram
                 </a>
+                <a class="nav-link" href="tables.php">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                Napló
+                </a>
                 <a class="nav-link" href="blog.php">
                   <div class="sb-nav-link-icon"><i class="fas fa-comment-alt"></i></div>
                     Blog
@@ -67,13 +71,10 @@
                     </nav>
                 </div>
                 <div class="sb-sidenav-menu-heading">Addons</div>
-                <a class="nav-link" href="charts.php"
-                    ><div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                    Charts</a
-                ><a class="nav-link" href="tables.php"
-                    ><div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                    Tables</a
-                >
+                  <a class="nav-link" href="charts.php">
+                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                    Charts
+                  </a>
             </div>
         </div>
     </nav>

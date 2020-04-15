@@ -1,6 +1,7 @@
 <?php
+session_start();
 $con = mysqli_connect("localhost", "root", "", "framedb");
-$sql = "SELECT * FROM workoutdata";
+$sql = "SELECT * FROM workoutdata WHERE clientID = " . $_SESSION['id'];
 
 $result = mysqli_query($con, $sql);
 
