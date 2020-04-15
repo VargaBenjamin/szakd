@@ -1,4 +1,5 @@
 <?php
+//calendar.php
 session_start();
 if (!isset($_SESSION['loggedin'])) {
     header("Location: index.php?error=out");
@@ -54,8 +55,8 @@ include 'parts/calendarInsertCustom.php';
                         <div class="row">
                           <div class="col-md-3">
                             <div class="card">
+                              <div class="card-header">Választható események</div>
                               <div class="card-body" id='external-events' style="overflow: auto;">
-                                <h5 class="card-title">Választható események</h5>
                                 <div class="card-text" ><?php include 'parts/calendarLoadExternal.php';?></div>
                               </div>
                             </div>
@@ -63,8 +64,8 @@ include 'parts/calendarInsertCustom.php';
 
                           <div class="col-md-9">
                             <div class="card">
+                              <div class="card-header">Élő naptár</div>
                               <div class="card-body" id='calendar-container'>
-                                <h5 class="card-title">Élő naptár</h5>
                                 <p class="card-text" id='calendar'></p>
                               </div>
                             </div>
