@@ -51,25 +51,32 @@ include 'parts/calendarInsertCustom.php';
                 <main>
                     <div class="container-fluid">
                         <h1 class="mt-4">Naptáram</h1>
-                    </div>
-                </main>
-								<div class="row">
-									<div class="card col-sm-2">
-										<div id='external-events'>
-											 <div class="card-header">
-												 <p><strong>Választható események</strong></p>
-											</div>
-											<div class="card-body" style="overflow: auto;">
-												<?php include 'parts/calendarLoadExternal.php';?>
-											</div>
-										</div>
-									</div>
+                        <div class="row">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-body" id='external-events' style="overflow: auto;">
+                                <h5 class="card-title">Választható események</h5>
+                                <div class="card-text" ><?php include 'parts/calendarLoadExternal.php';?></div>
+                              </div>
+                            </div>
+                          </div>
 
-									<div class="col-sm-10">
-										<div id='calendar-container' >
-											<div id='calendar'></div>
-										</div>
-									</div>
+                          <div class="col-md-9">
+                            <div class="card">
+                              <div class="card-body" id='calendar-container'>
+                                <h5 class="card-title">Élő naptár</h5>
+                                <p class="card-text" id='calendar'></p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div id='bottom'>
+                            Locales:<select id='locale-selector'></select>
+                          </div>
+                        </div>
+                  	  </div>
+                    <?php require 'parts/footer.php'; ?>
+                  </main>
 
 									<!-- Modal -->
 									<div id="fullCalModal" class="modal fade">
@@ -102,15 +109,9 @@ include 'parts/calendarInsertCustom.php';
 												</div>
 										</div>
 									</div>
-								</div>
-								<div id='bottom'>
-									Locales:<select id='locale-selector'></select>
-								</div>
-								<?php require 'parts/footer.php'; ?>
             </div>
         </div>
         <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/homeScripts.js"></script>
         <script src="js/calendar.js"></script>
     </body>

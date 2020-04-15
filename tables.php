@@ -43,9 +43,8 @@ echo("<script>console.log('baj van');</script>");
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Tables</h1>
+                        <h1 class="mt-4">Naplóm</h1>
                         <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>Felvitt adatok</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
