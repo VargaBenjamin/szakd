@@ -1,6 +1,6 @@
 <?php
 $con = mysqli_connect("localhost", "root", "", "framedb");
-$sql = "SELECT * FROM comments";
+$sql = "SELECT * FROM workoutdata";
 
 $result = mysqli_query($con, $sql);
 

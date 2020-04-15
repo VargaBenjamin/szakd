@@ -5,6 +5,12 @@ if (!isset($_SESSION['loggedin'])) {
 	 header("Location: index.php?error=out");
 	 exit();
 }
+if (isset($_SESSION['id'])) {
+echo("<script>console.log('PHP: " . $_SESSION['id'] . "');</script>");
+} else {
+echo("<script>console.log('baj van');</script>");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -46,11 +52,21 @@ if (!isset($_SESSION['loggedin'])) {
 																			<thead>
 														            <tr>
 																					<th>ID</th>
-														                <th>author</th>
-														                <th>maintext</th>
-														                <th>reply</th>
-														                <th>article</th>
-														                <th>commentdate</th>
+																					<th>Dátum</th>
+														              <th>Combbőség (cm)</th>
+																					<th>Derékbőség (cm)</th>
+																					<th>Csipőbőség (cm)</th>
+																					<th>Mellbőség (cm)</th>
+																					<th>Vállszélesség (cm)</th>
+																					<th>Karbőség (cm)</th>
+														              <th>Adott idő alatt futás (15 perc/km)</th>
+														              <th>Adott km alatti idő (5 km/perc)</th>
+														              <th>Felhúzás max (kg)</th>
+														              <th>Fekvenyomás max (kg)</th>
+																					<th>Gugolás max (kg)</th>
+																					<th>Felhúzás saját súly (db)</th>
+														              <th>Fekvenyomás saját súly (db)</th>
+																					<th>Gugolás saját súly (db)</th>
 														            </tr>
 														        </thead>
                                     </table>
@@ -70,25 +86,66 @@ if (!isset($_SESSION['loggedin'])) {
 														</div>
 														<div class="modal-body">
 															<div class="form-group">
-																<label for="">Szerő</label>
-																<input id="authorC" type="text" name="author" placeholder="Gipsz">
+																<label for="">Combbőség (cm)</label>
+																<input id="combC" type="text" name="combC" value="40">
 															</div>
 															<div class="form-group">
-																<label for="">szöveg</label>
-																<input id="maintextC" type="text" name="maintext" placeholder="blbabla">
+																<label for="">Derékbőség (cm)</label>
+																<input id="derekC" type="text" name="derekC" value="100">
 															</div>
 															<div class="form-group">
-																<label for="">válasz</label>
-																<input id="replyC" type="text" name="reply" placeholder="0">
+																<label for="">Csipőbőség (cm)</label>
+																<input id="csipoC" type="text" name="csipoC" value="80">
 															</div>
 															<div class="form-group">
-																<label for="">cikk</label>
-																<input id="articleC" type="text" name="article" placeholder="színes">
+																<label for="">Mellbőség (cm)</label>
+																<input id="mellC" type="text" name="mell" value="110">
+															</div>
+															<div class="form-group">
+																<label for="">Vállszélesség (cm)</label>
+																<input id="vallC" type="text" name="vall" value="120">
+															</div>
+															<div class="form-group">
+																<label for="">Karbőség (cm)</label>
+																<input id="karC" type="text" name="kar" value="35">
+															</div>
+															<div class="form-group">
+																<label for="">Adott idő alatt futás (15 perc/km)</label>
+																<input id="futidoC" type="text" name="futido" value="5">
+															</div>
+															<div class="form-group">
+																<label for="">Adott km alatti idő (5 km/perc)</label>
+																<input id="futkmC" type="text" name="futkm" value="15">
+															</div>
+															<div class="form-group">
+																<label for="">Felhúzás max (kg)</label>
+																<input id="huzmaxC" type="text" name="huzmax" value="95">
+															</div>
+															<div class="form-group">
+																<label for="">Fekvenyomás max (kg)</label>
+																<input id="nyommaxC" type="text" name="nyommax" value="100">
+															</div>
+															<div class="form-group">
+																<label for="">Gugolás max (kg)</label>
+																<input id="gugmaxC" type="text" name="gugmax" value="100">
+															</div>
+															<div class="form-group">
+																<label for="">Felhúzás saját súly (db)</label>
+																<input id="huzsajatC" type="text" name="huzsajat" value="20">
+															</div>
+															<div class="form-group">
+																<label for="">Fekvenyomás saját súly (db)</label>
+																<input id="nyomsajatC" type="text" name="nyomsajat" value="30">
+															</div>
+															<div class="form-group">
+																<label for="">Gugolás saját súly (db)</label>
+																<input id="gugsajatC" type="text" name="gugsajat" value="50">
 															</div>
 														</div>
 														<div class="modal-footer">
-																<button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
-																<button id="creatSumbit" type="submit" name="creatSumbit" class="btn btn-primary">Létrehozás</button>
+															<input id="idC" type="hidden" name="id" value='<?php echo $_SESSION["id"] ?>'>
+															<button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
+															<button id="creatSumbit" type="submit" name="creatSumbit" class="btn btn-primary">Létrehozás</button>
 														</div>
 													</form>
 											</div>
@@ -105,24 +162,64 @@ if (!isset($_SESSION['loggedin'])) {
 														</div>
 														<div class="modal-body">
 															<div class="form-group">
-																<label for="">Szerő</label>
-																<input id="authorU" type="text" name="author" value="">
+																<label for="">Combbőség (cm)</label>
+																<input id="combU" type="text" name="comb" value="">
 															</div>
 															<div class="form-group">
-																<label for="">szöveg</label>
-																<input id="maintextU" type="text" name="maintext" value="">
+																<label for="">Derékbőség (cm)</label>
+																<input id="derekU" type="text" name="derek" value="">
 															</div>
 															<div class="form-group">
-																<label for="">válasz</label>
-																<input id="replyU" type="text" name="reply" value="">
+																<label for="">Csipőbőség (cm)</label>
+																<input id="csipoU" type="text" name="csipo" value="">
 															</div>
 															<div class="form-group">
-																<label for="">cikk</label>
-																<input id="articleU" type="text" name="article" value="">
+																<label for="">Mellbőség (cm)</label>
+																<input id="mellU" type="text" name="mell" value="">
+															</div>
+															<div class="form-group">
+																<label for="">Vállszélesség (cm)</label>
+																<input id="vallU" type="text" name="vall" value="">
+															</div>
+															<div class="form-group">
+																<label for="">Karbőség (cm)</label>
+																<input id="karU" type="text" name="kar" value="">
+															</div>
+															<div class="form-group">
+																<label for="">Adott idő alatt futás (15 perc/km)</label>
+																<input id="futidoU" type="text" name="futido" value="">
+															</div>
+															<div class="form-group">
+																<label for="">Adott km alatti idő (5 km/perc)</label>
+																<input id="futkmU" type="text" name="futkm" value="">
+															</div>
+															<div class="form-group">
+																<label for="">Felhúzás max (kg)</label>
+																<input id="huzmaxU" type="text" name="huzmax" value="">
+															</div>
+															<div class="form-group">
+																<label for="">Fekvenyomás max (kg)</label>
+																<input id="nyommaxU" type="text" name="nyommax" value="">
+															</div>
+															<div class="form-group">
+																<label for="">Gugolás max (kg)</label>
+																<input id="gugmaxU" type="text" name="gugmax" value="">
+															</div>
+															<div class="form-group">
+																<label for="">Felhúzás saját súly (db)</label>
+																<input id="huzsajatU" type="text" name="huzsajat" value="">
+															</div>
+															<div class="form-group">
+																<label for="">Fekvenyomás saját súly (db)</label>
+																<input id="nyomsajatU" type="text" name="nyomsajat" value="">
+															</div>
+															<div class="form-group">
+																<label for="">Gugolás saját súly (db)</label>
+																<input id="gugsajatU" type="text" name="gugsajat" value="">
 															</div>
 														</div>
 														<div class="modal-footer">
-																<input id="idU" type="hidden" name="idU" value="">
+																<input id="idU" type="hidden" name="id" value="">
 																<button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
 																<button id="updateSubmit" type="submit" name="updateSubmit" class="btn btn-primary">Frissítés</button>
 														</div>

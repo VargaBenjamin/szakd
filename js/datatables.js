@@ -39,7 +39,7 @@ $(document).ready(function() {
       selector: 'td:first-child'
     },
     order: [
-      [5, 'desc']
+      [1, 'desc']
     ],
     responsive: true,
     fixedHeader: true,
@@ -54,19 +54,49 @@ $(document).ready(function() {
         "data": "id"
       },
       {
-        "data": "author"
+        "data": "datum"
       },
       {
-        "data": "maintext"
+        "data": "combboseg"
       },
       {
-        "data": "reply"
+        "data": "derekboseg"
       },
       {
-        "data": "article"
+        "data": "csipoboseg"
       },
       {
-        "data": "commentdate"
+        "data": "mellboseg"
+      },
+      {
+        "data": "vallszelesseg"
+      },
+      {
+        "data": "karboseg"
+      },
+      {
+        "data": "adottido"
+      },
+      {
+        "data": "adottkm"
+      },
+      {
+        "data": "felhuzasmax"
+      },
+      {
+        "data": "fekvenyomasmax"
+      },
+      {
+        "data": "gugolasmax"
+      },
+      {
+        "data": "felhuzassajat"
+      },
+      {
+        "data": "fekvenyomassajat"
+      },
+      {
+        "data": "gugolassajat"
       }
     ],
   });
@@ -92,6 +122,11 @@ $(document).ready(function() {
         },
         success: function() {
           dt.ajax.reload();
+          console.log("Sikeres törlés");
+        },
+        error: function(request, status, error) {
+          console.log("Sikertelen törlés");
+          console.log(request.responseText);
         }
       })
     }
@@ -99,6 +134,8 @@ $(document).ready(function() {
   $.fn.dataTable.ext.buttons.create = {
     text: 'Sor létrehozás',
     action: function(e, dt, node, config) {
+      console.log("Sor létrehozás kiválasztva");
+      console.log("Sor létrehozás kiválasztva");
       $('#creatModal').modal();
     }
   };
@@ -106,66 +143,122 @@ $(document).ready(function() {
     text: 'Sor változatás',
     action: function(e, dt, node, config) {
       let selected = table.row({selected: true}).data();
-      console.log(selected.author);
-      $('#updateModal').modal();
-      $('#authorU').val(selected.author);
-      $('#maintextU').val(selected.maintext);
-      $('#replyU').val(selected.reply);
-      $('#articleU').val(selected.article);
+      console.log("Kiválasztott sor változtatásra:" + selected.id);
+      $('#combU').val(selected.combboseg);
+      $('#derekU').val(selected.derekboseg);
+      $('#csipoU').val(selected.csipoboseg);
+      $('#mellU').val(selected.mellboseg);
+      $('#vallU').val(selected.vallszelesseg);
+      $('#karU').val(selected.karboseg);
+      $('#futidoU').val(selected.adottido);
+      $('#futkmU').val(selected.adottkm);
+      $('#huzmaxU').val(selected.felhuzasmax);
+      $('#nyommaxU').val(selected.fekvenyomasmax);
+      $('#gugmaxU').val(selected.gugolasmax);
+      $('#huzsajatU').val(selected.felhuzassajat);
+      $('#nyomsajatU').val(selected.fekvenyomassajat);
+      $('#gugsajatU').val(selected.gugolassajat);
       $('#idU').val(selected.id);
       $('#updateModal').modal();
     }
   };
-  $('#dataTable tbody').on('click', 'tr', function() {
-    var data = table.row(this).data();
-    console.log('You clicked on ' + data.id + '\'s row');
-  });
-
 
   $("#creatModal").submit(function(e) {
     e.preventDefault();
-    var author = $("#authorC").val();
-    var maintext = $("#maintextC").val();
-    var reply = $("#replyC").val();
-    var article = $("#articleC").val();
+    var comb = $('#combC').val();
+    var derek = $('#derekC').val();
+    var csipo = $('#csipoC').val();
+    var mell = $('#mellC').val();
+    var vall = $('#vallC').val();
+    var kar = $('#karC').val();
+    var futido = $('#futidoC').val();
+    var futkm = $('#futkmC').val();
+    var huzmax = $('#huzmaxC').val();
+    var nyommax = $('#nyommaxC').val();
+    var gugmax = $('#gugmaxC').val();
+    var huzsajat = $('#huzsajatC').val();
+    var nyomsajat = $('#nyomsajatC').val();
+    var gugsajat = $('#gugsajatC').val();
+    var id = $('#idC').val();
     $.ajax({
       url: "parts/tableCreat.php",
       type: "POST",
       data: {
-        author: author,
-        maintext: maintext,
-        reply: reply,
-        article: article
+        comb: comb,
+        derek: derek,
+        csipo: csipo,
+        mell: mell,
+        vall: vall,
+        kar: kar,
+        futido: futido,
+        futkm: futkm,
+        huzmax: huzmax,
+        nyommax: nyommax,
+        gugmax: gugmax,
+        huzsajat: huzsajat,
+        nyomsajat: nyomsajat,
+        gugsajat: gugsajat,
+        clientid: id
       },
       success: function() {
         table.ajax.reload();
         $('#creatModal').modal('hide');
+      },
+      error: function(request, status, error) {
+        console.log(request.responseText);
       }
     });
   });
 
   $("#updateModal").submit(function(e) {
     e.preventDefault();
-    var author = $("#authorU").val();
-    var maintext = $("#maintextU").val();
-    var reply = $("#replyU").val();
-    var article = $("#articleU").val();
-    var id = $("#idU").val();
+    var comb = $('#combU').val();
+    var derek = $('#derekU').val();
+    var csipo = $('#csipoU').val();
+    var mell = $('#mellU').val();
+    var vall = $('#vallU').val();
+    var kar = $('#karU').val();
+    var futido = $('#futidoU').val();
+    var futkm = $('#futkmU').val();
+    var huzmax = $('#huzmaxU').val();
+    var nyommax = $('#nyommaxU').val();
+    var gugmax = $('#gugmaxU').val();
+    var huzsajat = $('#huzsajatU').val();
+    var nyomsajat = $('#nyomsajatU').val();
+    var gugsajat = $('#gugsajatU').val();
+    var id = $('#idU').val();
     $.ajax({
       url: "parts/tableUpdate.php",
       type: "POST",
       data: {
-        author: author,
-        maintext: maintext,
-        reply: reply,
-        article: article,
+        comb: comb,
+        derek: derek,
+        csipo: csipo,
+        mell: mell,
+        vall: vall,
+        kar: kar,
+        futido: futido,
+        futkm: futkm,
+        huzmax: huzmax,
+        nyommax: nyommax,
+        gugmax: gugmax,
+        huzsajat: huzsajat,
+        nyomsajat: nyomsajat,
+        gugsajat: gugsajat,
         id: id
       },
       success: function() {
         table.ajax.reload();
         $('#updateModal').modal('hide');
+      },
+      error: function(request, status, error) {
+        console.log(request.responseText);
       }
     });
-  })
+  });
 
+  $('#dataTable tbody').on('click', 'tr', function() {
+    var data = table.row(this).data();
+    console.log('You clicked on ' + data.id + '\'s row');
+  });
 });
