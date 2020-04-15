@@ -28,10 +28,7 @@ if (!isset($_SESSION['loggedin'])) {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Charts</h1>
-                        <div class="card mb-4">
-                            <div class="card-body">Chart.js is a third party plugin that is used to generate the charts in this template. The charts below have been customized - for further customization options, please visit the official <a target="_blank" href="https://www.chartjs.org/docs/latest/">Chart.js documentation</a>.</div>
-                        </div>
+                        <h1 class="mt-4">Fejlődés</h1>
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Area Chart Example</div>
                             <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
@@ -62,8 +59,8 @@ if (!isset($_SESSION['loggedin'])) {
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/homeScripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
-        <script src="assets/demo/chart-pie-demo.js"></script>
+        <script src="js/chartArea.js"></script>
+        <script src="js/chartBar.js"></script>
+        <script src="js/chartPie.js"></script>
     </body>
 </html>
