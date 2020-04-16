@@ -33,10 +33,12 @@ $(document).ready(function(){
 
  function load_comment()
  {
-   var url = window.location.search;
+   var stringUrl = window.location.href;
+   var url = new URL(stringUrl);
+   var title = url.searchParams.get("title");
   $.ajax({
-   url:"parts/commentLoad.php"+url,
-   method:"POST",
+   url:"parts/commentLoad.php",
+   data: { title : title },
    success:function(data)
    {
     $('#display').html(data);
