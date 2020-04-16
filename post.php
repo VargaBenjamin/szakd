@@ -42,6 +42,7 @@ if (!isset($_SESSION['loggedin'])) {
 							      <div class="col-lg-8">
 											<?php require 'parts/postLoad.php'; ?>
 							        <!-- Comments Form -->
+                      <span id="alert"></span>
 							        <div class="card my-4">
 							          <h5 class="card-header">Hozzászólás írása:</h5>
 							          <div class="card-body">

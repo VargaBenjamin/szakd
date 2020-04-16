@@ -1,4 +1,5 @@
 // Call the dataTables jQuery plugin
+//datatablesScript.js
 $(document).ready(function() {
   var table = $('#dataTable').DataTable({
     dom: 'Bfrltip',
@@ -129,6 +130,10 @@ $(document).ready(function() {
         },
         success: function() {
           dt.ajax.reload();
+          $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeres törlés!</strong></div>');
+          setTimeout(function() {
+              $('.alert').fadeOut('slow');
+          }, 1500);
           console.log("Sikeres törlés");
         },
         error: function(request, status, error) {
@@ -215,6 +220,10 @@ $(document).ready(function() {
       success: function() {
         table.ajax.reload();
         $('#creatModal').modal('hide');
+        $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeres felvitel!</strong></div>');
+        setTimeout(function() {
+            $('.alert').fadeOut('slow');
+        }, 1500);
       },
       error: function(request, status, error) {
         console.log(request.responseText);
@@ -266,6 +275,10 @@ $(document).ready(function() {
       success: function() {
         table.ajax.reload();
         $('#updateModal').modal('hide');
+        $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeres frissítés!</strong></div>');
+        setTimeout(function() {
+            $('.alert').fadeOut('slow');
+        }, 1500);
       },
       error: function(request, status, error) {
         console.log(request.responseText);

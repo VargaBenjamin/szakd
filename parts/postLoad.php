@@ -9,19 +9,21 @@ if ($stmt = $con->prepare('SELECT author, title, preview, maintext, publishtime 
 $stmt->execute();
 $result = $stmt->get_result();
 $article = $result->fetch_assoc();
-echo '<h1 class="mt-4">' . $title . '</h1>';
-echo	'<p class="lead">';
-echo		'by ';
-echo		'<a href="#">' . $article['author'] . '</a>';
-echo	'</p>';
-echo	'<hr>';
-echo	'<p>Posted on ' . $article['publishtime'] . '</p>';
-echo	'<hr>';
-echo	'<img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">';
-echo	'<hr>';
-echo	'<p class="lead">' . $article['preview'] . '</p>';
-echo	'<p>' . $article['maintext'] . '</p>';
-echo	'<hr>';
+$output =
+'<h1 class="mt-4">' . $title . '</h1>
+<p class="lead">
+	szerző
+	<a href="#">' . $article['author'] . '</a>
+</p>
+<hr>
+<p>Megosztva ' . $article['publishtime'] . '</p>
+<hr>
+<!--<img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
+<hr>-->
+<p class="lead">' . $article['preview'] . '</p>
+<p>' . $article['maintext'] . '</p>
+<hr>';
+echo $output;
 }
 if ($stmt) {
 	$stmt->close();

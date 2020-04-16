@@ -1,3 +1,4 @@
+//calendar.js
 document.addEventListener('DOMContentLoaded', function() {
   var initialLocaleCode = 'hu';
   var localeSelectorEl = document.getElementById('locale-selector');
@@ -99,7 +100,11 @@ document.addEventListener('DOMContentLoaded', function() {
           },
           success: function() {
             calendar.refetchEvents();
-            alert("Esemény átméretezve!");
+            $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Esemény átméretezve!</strong></div>');
+            setTimeout(function() {
+                $('.alert').fadeOut('slow');
+            }, 1500);
+            //alert("Esemény átméretezve!");
           }
         })
       }
@@ -127,7 +132,11 @@ document.addEventListener('DOMContentLoaded', function() {
           },
           success: function() {
             calendar.refetchEvents();
-            alert("Esemény frissítve!");
+            $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Esemény frissítve!</strong></div>');
+            setTimeout(function() {
+                $('.alert').fadeOut('slow');
+            }, 1500);
+            //alert("Esemény frissítve!");
           }
         });
       }
@@ -151,7 +160,11 @@ document.addEventListener('DOMContentLoaded', function() {
             color: color
           },
           success: function() {
-            alert("Sikeresen elhelyezve!");
+            $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeresen elhelyezve!</strong></div>');
+            setTimeout(function() {
+                $('.alert').fadeOut('slow');
+            }, 1500);
+            //alert("Sikeresen elhelyezve!");
           }
         });
       }
@@ -172,7 +185,11 @@ document.addEventListener('DOMContentLoaded', function() {
           },
           success: function() {
             calendar.refetchEvents();
-            alert("Esemény törölve!");
+            $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Esemény törölve!</strong></div>');
+            setTimeout(function() {
+                $('.alert').fadeOut('slow');
+            }, 1500);
+            //alert("Esemény törölve!");
           }
         });
       }

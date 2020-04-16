@@ -52,6 +52,7 @@ include 'parts/calendarInsertCustom.php';
                 <main>
                     <div class="container-fluid">
                         <h1 class="mt-4">Naptáram</h1>
+                        <span id="alert"></span>
                         <div class="row">
                           <div class="col-md-3">
                             <div class="card">
