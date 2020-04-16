@@ -2,7 +2,7 @@
 //postLoads.php
 require 'db.php';
 
-if ($stmt = $con->prepare('SELECT author, title, preview, maintext, publishtime FROM articles ORDER BY publishtime DESC'))
+if ($stmt = $con->prepare('SELECT * FROM articles, accounts WHERE articles.authorid = accounts.id ORDER BY publishtime DESC'))
 {
   $stmt->execute();
   $result = $stmt->get_result();
@@ -19,7 +19,7 @@ if ($stmt = $con->prepare('SELECT author, title, preview, maintext, publishtime 
 	   </div>
 	   <div class="card-footer text-muted">
 	     Megosztva ' . $row['publishtime'] . ', szerző
-	     <a href="#">' . $row['author'] . '</a>
+	     <a href="#">' . $row['username'] . '</a>
 	   </div>
 	  </div>';
   }

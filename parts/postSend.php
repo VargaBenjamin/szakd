@@ -2,8 +2,8 @@
 
 session_start();
 require 'db.php';
-if ($stmt = $con->prepare('INSERT INTO articles (author, title, preview, maintext) VALUES (?, ?, ?, ?)')) {
-	$stmt->bind_param('ssss', $_SESSION['name'], $_POST['title'], $_POST['preview'], $_POST['maintext'] );
+if ($stmt = $con->prepare('INSERT INTO articles (authorid, title, preview, maintext) VALUES (?, ?, ?, ?)')) {
+	$stmt->bind_param('ssss', $_SESSION['id'], $_POST['title'], $_POST['preview'], $_POST['maintext'] );
   $stmt->execute();
   header("Location: ../blog.php");
   } else {

@@ -1,7 +1,8 @@
 <?php
 require 'db.php';
 
-if ($stmt = $con->prepare('SELECT * FROM comments WHERE reply = "0" AND article = "' . $_GET['title'] . '" ORDER BY id DESC')) {
+if ($stmt = $con->prepare('SELECT comments.authorid, accounts.id, comments.articleid, articles.id, comments.reply, articles.title, comments.id AS commentid, accounts.username, comments.commenttext
+  FROM comments, accounts, articles WHERE comments.authorid = accounts.id AND comments.articleid = articles.id AND comments.reply = "0" AND articles.title = "' . $_GET['title'] . '" ORDER BY comments.id DESC')) {
   $stmt->execute();
   $result = $stmt->get_result();
   $output = '';
@@ -10,19 +11,23 @@ if ($stmt = $con->prepare('SELECT * FROM comments WHERE reply = "0" AND article 
     '<div class="media mb-4">
       <!--<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">-->
       <div class="media-body">
-        <h5 class="mt-0">' . $row['author'] . '</h5>
-        ' . $row['maintext'] . '
-        <div class="media-footer" align="right"><button type="button" class="btn btn-default reply" name="' . $row['id'] . '" id="' . $row['id'] . '">Válasz</button></div>';
-    $output .= getReply($con, $row["id"]);
+        <h5 class="mt-0">' . $row['username'] . '</h5>
+        ' . $row['commenttext'] . '
+        <div class="media-footer" align="right"><button type="button" class="btn btn-default reply" name="' . $row['commentid'] . '" id="' . $row['commentid'] . '">Válasz</button></div>';
+    $output .= getReply($con, $row['commentid']);
     $output .=
       '</div>
     </div>';
   }
 }
+else {
+  echo "Üzenet betöltési hiba!";
+}
 echo $output;
 function getReply($con, $reply = 0, $marginleft = 0)
 {
-  if ($stmt = $con->prepare('SELECT * FROM comments WHERE reply = "' . $reply . '" AND article = "' . $_GET['title'] . '" ORDER BY id DESC')) {
+  if ($stmt = $con->prepare('SELECT comments.authorid, accounts.id, comments.articleid, articles.id, comments.reply, articles.title, comments.id AS commentid, accounts.username, comments.commenttext
+    FROM comments, accounts, articles WHERE comments.authorid = accounts.id AND comments.articleid = articles.id AND comments.reply = "' . $reply . '" AND articles.title = "' . $_GET['title'] . '" ORDER BY comments.id DESC')) {
      $stmt->execute();
      $result = $stmt->get_result();
      $output = '';
@@ -39,14 +44,17 @@ function getReply($con, $reply = 0, $marginleft = 0)
          '<div class="media mt-4" style="margin-left:' . $marginleft . 'px">
               <!--<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">-->
               <div class="media-body">
-                <h5 class="mt-0">' . $row['author'] . '</h5>
-                ' . $row['maintext'] . '
-                <div class="media-footer" align="right"><button type="button" class="btn btn-default reply" name="' . $row['id'] . '" id="' . $row['id'] . '">Válasz</button></div>';
-         $output .= getReply($con, $row["id"], $marginleft);
+                <h5 class="mt-0">' . $row['username'] . '</h5>
+                ' . $row['commenttext'] . '
+                <div class="media-footer" align="right"><button type="button" class="btn btn-default reply" name="' . $row['commentid'] . '" id="' . $row['commentid'] . '">Válasz</button></div>';
+         $output .= getReply($con, $row['commentid'], $marginleft);
          $output .=
            '</div>
          </div>';
        }
+   }
+   else {
+     echo "Válasz üzenetek betöltési hiba!";
    }
    return $output;
  }

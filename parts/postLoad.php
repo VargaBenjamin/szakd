@@ -4,7 +4,7 @@ require 'db.php';
 
 $title = rawurldecode($_GET['title']);
 
-if ($stmt = $con->prepare('SELECT author, title, preview, maintext, publishtime FROM articles WHERE title="' . $title . '"'))
+if ($stmt = $con->prepare('SELECT * FROM articles, accounts WHERE articles.authorid = accounts.id AND title="' . $title . '"'))
 {
 $stmt->execute();
 $result = $stmt->get_result();
@@ -13,7 +13,7 @@ $output =
 '<h1 class="mt-4">' . $title . '</h1>
 <p class="lead">
 	szerző
-	<a href="#">' . $article['author'] . '</a>
+	<a href="#">' . $article['username'] . '</a>
 </p>
 <hr>
 <p>Megosztva ' . $article['publishtime'] . '</p>
