@@ -31,9 +31,19 @@ if(isset($_POST['id']))
       $stmt->execute();
     }
   }
+  if ($_POST["gym"] != "") {
+    $gym = mysqli_real_escape_string($con, $_POST["gym"]);
+    if ($stmt = $con->prepare('UPDATE accounts SET gymid = ? WHERE id ="' . $_POST["id"] . '"')) {
+      $stmt->bind_param('s', $gym);
+      $stmt->execute();
+    }
+  }
+  if ($_POST["coach"] != "") {
+    $coach = mysqli_real_escape_string($con, $_POST["coach"]);
+    if ($stmt = $con->prepare('UPDATE accounts SET coachid = ? WHERE id ="' . $_POST["id"] . '"')) {
+      $stmt->bind_param('s', $coach);
+      $stmt->execute();
+    }
+  }
 }
-if ($stmt) {
-  $stmt->close();
-}
-$con->close();
 ?>
