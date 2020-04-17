@@ -1,6 +1,5 @@
 <?php
-//authenticate.php
-session_destroy();
+//autheticate.php
 session_start();
 require 'db.php';
 // Now we check if the data from the login form was submitted, isset() will check if the data exists.
