@@ -84,7 +84,7 @@ include 'parts/calendarInsertCustom.php';
 									<div id="fullCalModal" class="modal fade">
 										<div class="modal-dialog">
 												<div class="modal-content">
-													<form class="form-addExEv" action="" method="post">
+													<form class="form" action="" method="post">
 															<div class="modal-header">
 																	<h4 id="modalTitle" class="modal-title">Esemény létrehozása</h4>
 																	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
