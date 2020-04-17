@@ -27,11 +27,11 @@ if (mysqli_connect_errno())
     die('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
 // We don't have the password or email info stored in sessions so instead we can get the results from the database.
-$stmt = $con->prepare('SELECT password, email, coach, telephone, Google, Facebook, Twitter FROM accounts WHERE id = ?');
+$stmt = $con->prepare('SELECT email, coach, telephone, Google, Facebook, Twitter, activation_code, gymid, coachid FROM accounts WHERE id = ?');
 // In this case we can use the account ID to get the account info.
 $stmt->bind_param('i', $_SESSION['id']);
 $stmt->execute();
-$stmt->bind_result($password, $email, $coach, $telephone, $gVal, $fVal, $tVal);
+$stmt->bind_result($email, $coach, $telephone, $gVal, $fVal, $tVal, $accode, $gid, $cid);
 $stmt->fetch();
 $stmt->close();
 ?>
@@ -91,6 +91,20 @@ $stmt->close();
 															?>
 													</label>
 								          </div>
+													<div class="form-group">
+								            <label class="col-sm-3 control-label">Edzőterem</label>
+														<label class="col-sm-4 control-label font-weight-bold">
+														<input type="hidden" id="gym" value="<?= $gid ?>"/>
+														<span id="resultG"></span>
+													</label>
+								          </div>
+													<div class="form-group">
+								            <label class="col-sm-3 control-label">Edző</label>
+														<label class="col-sm-4 control-label font-weight-bold">
+														<input type="hidden" id="coach" value="<?= $cid ?>"/>
+														<span id="resultC"></span>
+													</label>
+								          </div>
 								        </div>
 								      </div>
 
@@ -99,6 +113,19 @@ $stmt->close();
 								        <h4 class="panel-title">Egyéb adatok</h4>
 								        </div>
 								        <div class="panel-body">
+
+													<div class="form-group">
+								            <label class="col-sm-3 control-label">Aktivált felhasználó</label>
+														<label class="col-sm-4 control-label font-weight-bold">
+															<?php
+															if ($accode == "activated") {
+																echo "Aktivált";
+															} else {
+																echo "Nincs aktiválva";
+															}
+															?>
+													</label>
+								          </div>
 													<div class="form-group">
 								            <label class="col-sm-3 control-label">Telefonszám</label>
 														<label class="col-sm-4 control-label font-weight-bold">
@@ -160,5 +187,6 @@ $stmt->close();
 				<script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/homeScripts.js"></script>
+				<script src="js/profileScripts.js"></script>
     </body>
 </html>
