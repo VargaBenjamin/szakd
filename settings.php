@@ -1,5 +1,5 @@
 <?php
-
+//settings.php
 session_start();
 if (!isset($_SESSION['loggedin'])) {
 	 header("Location: index.php?error=out");
@@ -45,7 +45,7 @@ if ($stmt = $con->prepare('SELECT * FROM gym'))
 								<div class="container bootstrap snippets">
 								<div class="row">
 								  <div class="col-xs-12 col-sm-9">
-								    <form class="form-horizontal" action="authenticateSettings.php">
+								    <form class="form" action="" method="post" id="settingsUpdate">
 											<div class="panel panel-default">
 								        <div class="panel-heading">
 								        <h4 class="panel-title">Fontosabb adatok</h4>
@@ -54,13 +54,13 @@ if ($stmt = $con->prepare('SELECT * FROM gym'))
 								          <div class="form-group">
 								            <label class="col-sm-3 control-label">Felhasználónév</label>
 														<div class="col-sm-7">
-								              <input type="text" class="form-control">
+								              <input type="text" class="form-control" id="username">
 								            </div>
 								          </div>
 													<div class="form-group">
 								            <label class="col-sm-3 control-label">Email cím</label>
 														<div class="col-sm-7">
-								              <input type="email" class="form-control">
+								              <input type="email" class="form-control" id="email">
 								            </div>
 								          </div>
 													<div class="form-group">
@@ -89,7 +89,7 @@ if ($stmt = $con->prepare('SELECT * FROM gym'))
 													<div class="form-group">
 								            <label class="col-sm-3 control-label">Telefonszám</label>
 								            <div class="col-sm-7">
-								              <input type="tel" class="form-control">
+								              <input type="tel" class="form-control" id="telephone">
 								            </div>
 								          </div>
 													<div class="form-group">
@@ -112,13 +112,13 @@ if ($stmt = $con->prepare('SELECT * FROM gym'))
 													<div class="form-group">
 														<label class="col-sm-3 control-label">Új jelszó</label>
 														<div class="col-sm-7">
-															<input type="password" class="form-control">
+															<input type="password" class="form-control" id="newPass">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-sm-3 control-label">Új jelszó újra</label>
 														<div class="col-sm-7">
-															<input type="password" class="form-control">
+															<input type="password" class="form-control" id="newPassRe">
 														</div>
 													</div>
 												</div>
@@ -132,17 +132,13 @@ if ($stmt = $con->prepare('SELECT * FROM gym'))
 													<div class="form-group">
 														<label class="col-sm-3 control-label">Jelszó</label>
 														<div class="col-sm-7">
-															<input type="password" class="form-control">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-sm-3 control-label">Jelszó újra</label>
-														<div class="col-sm-7">
-															<input type="password" class="form-control">
+															<input type="password" class="form-control" required id="pass">
 														</div>
 													</div>
 												</div>
 											</div>
+											<input id="id" type="hidden" name="id" value='<?php echo $_SESSION["id"] ?>'>
+											<span id="alert"></span>
 											<button type="submit" class="col-sm-7 btn btn-success">Módosítások mentése</button>
 								    </form>
 								  </div>
