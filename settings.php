@@ -5,6 +5,17 @@ if (!isset($_SESSION['loggedin'])) {
 	 header("Location: index.php?error=out");
 	 exit();
 }
+require 'parts/db.php';
+
+if ($stmt = $con->prepare('SELECT * FROM gym'))
+{
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$gymoutput = '<option value="">Válassz!</option>';
+	while ($row = $result->fetch_assoc()) {
+		$gymoutput .='<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+	}
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +28,6 @@ if (!isset($_SESSION['loggedin'])) {
         <meta name="author" content="" />
         <title>Beállítások</title>
 				<link href="css/homeStyle.css" type="text/css" rel="stylesheet" />
-				<link href="profileStyle.css" type="text/css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body>
@@ -51,6 +61,21 @@ if (!isset($_SESSION['loggedin'])) {
 								            <label class="col-sm-3 control-label">Email cím</label>
 														<div class="col-sm-7">
 								              <input type="email" class="form-control">
+								            </div>
+								          </div>
+													<div class="form-group">
+								            <label class="col-sm-3 control-label">Edzőterem választás</label>
+														<div class="col-sm-7">
+															<select class="form-control" id="gym">
+																<?php echo $gymoutput; ?>
+															</select>
+								            </div>
+								          </div>
+													<div id="coaches" class="form-group" style="display: none">
+								            <label class="col-sm-3 control-label">Edző választás</label>
+														<div class="col-sm-7">
+															<select class="form-control" id="coach">
+															</select>
 								            </div>
 								          </div>
 								        </div>
@@ -129,5 +154,6 @@ if (!isset($_SESSION['loggedin'])) {
 				<script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/homeScripts.js"></script>
+				<script src="js/settingScripts.js"></script>
     </body>
 </html>
