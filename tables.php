@@ -81,7 +81,7 @@ echo("<script>console.log('baj van');</script>");
 								<div id="creatModal" class="modal fade">
 									<div class="modal-dialog">
 											<div class="modal-content">
-												<form class="form-addExEv" action="" method="post">
+												<form class="form" action="" method="post">
 														<div class="modal-header">
 																<h4 class="modal-title">Eredmények felírása</h4>
 																<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
@@ -165,7 +165,7 @@ echo("<script>console.log('baj van');</script>");
 								<div id="updateModal" class="modal fade">
 									<div class="modal-dialog">
 											<div class="modal-content">
-												<form class="form-addExEv" action="" method="post">
+												<form class="form" action="" method="post">
 														<div class="modal-header">
 																<h4 class="modal-title">Eredmények frissítése</h4>
 																<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
