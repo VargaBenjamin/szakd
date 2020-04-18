@@ -13,20 +13,26 @@ document.addEventListener('DOMContentLoaded', function() {
   // initialize the external events
   // -----------------------------------------------------------------
 
+
   new Draggable(containerEl, {
     itemSelector: '.fc-event',
     eventData: function(eventEl) {
       var dur = eventEl.dataset.event.replace(/[{}""]/g, "").toString();
       var paraArray = dur.split('ß');
-      console.log(eventEl);
+      console.log(eventEl.id);
       return {
         title: eventEl.innerText,
-        id: paraArray[0],
+        customeventid: paraArray[0],
         duration: paraArray[1],
-        color: paraArray[2]
+        color: paraArray[2],
+        coachid: paraArray[3],
+        clientid: paraArray[4]
       };
     }
   });
+
+
+
 
   var calendar = new Calendar(calendarEl, {
     plugins: ['interaction', 'dayGrid', 'timeGrid', 'list', 'bootstrap'],
@@ -41,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
       addEvent: {
         text: 'Esemény hozzáadása',
         click: function() {
-          $('#fullCalModal').modal(); //ezért ugrik fel az ablak ahogy kell bootstrapben
+          $('#creatCustomModal').modal(); //ezért ugrik fel az ablak ahogy kell bootstrapben
         }
       }
     },
@@ -76,7 +82,45 @@ document.addEventListener('DOMContentLoaded', function() {
     selectMirror: true, //a kijelolt intervallumra elhelyez egy esemenyt
     editable: true,
     droppable: true,
-    events: 'parts/calendarLoad.php',
+    events: 'parts/calendarRead.php', //FONTOS RÉSZ. Itt tölti be az eseményeket egy array segítségével. Itt lehet mahinálni, https://fullcalendar.io/docs/event-parsing alapján vannak tulajdonságok.
+
+
+    //trigger when drop an external event into the calendar
+    eventReceive: function(info) {
+      console.log(info);
+      if (confirm("Biztosan elhelyezed?")) {
+        var start = info.event.start.toISOString();
+        var end = info.event.end.toISOString();
+        var title = info.event.title;
+        var color = info.event.backgroundColor;
+        var coachid = info.event.extendedProps.coachid;
+        var clientid = info.event.extendedProps.clientid;
+        var customeventid = info.event.extendedProps.customeventid;
+        $.ajax({
+          url: "parts/calendarCreat.php",
+          type: "POST",
+          data: {
+            title: title,
+            start: start,
+            end: end,
+            color: color,
+            coachid: coachid,
+            clientid: clientid,
+            customeventid: customeventid
+          },
+          success: function(data) {
+            $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeresen elhelyezve!</strong></div>');
+            setTimeout(function() {
+              $('.alert').fadeOut('slow');
+            }, 1500);
+            //alert("Sikeresen elhelyezve!");
+          }
+        });
+      }
+      location.reload(); //bug elkerülése végett, frissít az oldalon külsős esemény elhelyezése/nem elhelyezése után
+      //mert utána lévő interakciónál dupláz
+    },
+
 
     eventResize: function(info) {
       console.log(info);
@@ -92,23 +136,24 @@ document.addEventListener('DOMContentLoaded', function() {
           url: "parts/calendarUpdate.php",
           type: "POST",
           data: {
+            id: id,
             title: title,
             start: start,
             end: end,
-            id: id,
             color: color
           },
-          success: function() {
+          success: function(data) {
             calendar.refetchEvents();
             $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Esemény átméretezve!</strong></div>');
             setTimeout(function() {
-                $('.alert').fadeOut('slow');
+              $('.alert').fadeOut('slow');
             }, 1500);
             //alert("Esemény átméretezve!");
           }
         })
       }
     },
+
 
     eventDrop: function(info) {
       console.log(info);
@@ -134,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
             calendar.refetchEvents();
             $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Esemény frissítve!</strong></div>');
             setTimeout(function() {
-                $('.alert').fadeOut('slow');
+              $('.alert').fadeOut('slow');
             }, 1500);
             //alert("Esemény frissítve!");
           }
@@ -142,35 +187,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     },
 
-    //trigger when drop an external event into the calendar
-    eventReceive: function(info) {
-      console.log(info);
-      if (confirm("Biztosan elhelyezed?")) {
-        var start = info.event.start.toISOString();
-        var end = info.event.end.toISOString();
-        var title = info.event.title;
-        var color = info.event.backgroundColor;
-        $.ajax({
-          url: "parts/calendarInsert.php",
-          type: "POST",
-          data: {
-            title: title,
-            start: start,
-            end: end,
-            color: color
-          },
-          success: function() {
-            $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeresen elhelyezve!</strong></div>');
-            setTimeout(function() {
-                $('.alert').fadeOut('slow');
-            }, 1500);
-            //alert("Sikeresen elhelyezve!");
-          }
-        });
-      }
-      location.reload(); //bug elkerülése végett, frissít az oldalon külsős esemény elhelyezése/nem elhelyezése után
-      //mert utána lévő interakciónál dupláz
-    },
 
     //in this case an event erase
     eventClick: function(info) {
@@ -187,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
             calendar.refetchEvents();
             $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Esemény törölve!</strong></div>');
             setTimeout(function() {
-                $('.alert').fadeOut('slow');
+              $('.alert').fadeOut('slow');
             }, 1500);
             //alert("Esemény törölve!");
           }
@@ -195,6 +211,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   });
+
+
   calendar.render();
 
   // build the locale selector's options
@@ -211,5 +229,31 @@ document.addEventListener('DOMContentLoaded', function() {
       calendar.setOption('locale', this.value);
     }
   });
+
+  $("#creatCustomModal").submit(function(e) {
+    e.preventDefault();
+    var title = $('#title').val();
+    var duration = $('#duration').val();
+    var color = $('#color').val();
+    var coachid = $('#coachid').val();
+    $.ajax({
+      url: "parts/calendarCreatCustom.php",
+      type: "POST",
+      data: {
+        title: title,
+        duration: duration,
+        color: color,
+        coachid: coachid
+      },
+      success: function(data) {
+        $('#creatCustomModal').modal('hide');
+        $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeres felvitel!</strong></div>');
+        setTimeout(function() {
+          $('.alert').fadeOut('slow');
+        }, 1500);
+      }
+    })
+  });
+
 
 });

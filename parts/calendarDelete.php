@@ -1,7 +1,17 @@
 <?php
+//calendarDelete.php
+require 'db.php';
 
-//delete.php
-
+if(isset($_POST["id"]))
+{
+  $id = mysqli_real_escape_string($con, $_POST["id"]);
+  if ($stmt = $con->prepare('DELETE FROM events WHERE id = ?'))
+  {
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+  }
+}
+/*
 if(isset($_POST["id"]))
 {
  $connect = new PDO('mysql:host=localhost;dbname=framedb', 'root', '');
@@ -15,5 +25,5 @@ if(isset($_POST["id"]))
   )
  );
 }
-
+*/
 ?>

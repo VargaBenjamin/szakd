@@ -5,7 +5,6 @@ if (!isset($_SESSION['loggedin'])) {
     header("Location: index.php?error=out");
     exit();
 }
-include 'parts/calendarInsertCustom.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,9 +37,9 @@ include 'parts/calendarInsertCustom.php';
 				<!--bootstrap kotelezo elemek-->
 				<link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
 				<!--<link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />-->
+        <script src="vendor/jquery/jquery.min.js"></script> <!--ennek előbb kell lenie mint az alatta levo 2 boostrapnak a modalfelugrasnal-->
 				<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
 				<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
     </head>
     <body>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -58,7 +57,9 @@ include 'parts/calendarInsertCustom.php';
                             <div class="card">
                               <div class="card-header">Választható események</div>
                               <div class="card-body" id='external-events' style="overflow: auto;">
-                                <div class="card-text" ><?php include 'parts/calendarLoadExternal.php';?></div>
+                                <div class="card-text" >
+                                  <?php include 'parts/calendarReadCustom.php';?>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -81,31 +82,32 @@ include 'parts/calendarInsertCustom.php';
                   </main>
 
 									<!-- Modal -->
-									<div id="fullCalModal" class="modal fade">
+									<div id="creatCustomModal" class="modal fade">
 										<div class="modal-dialog">
 												<div class="modal-content">
 													<form class="form" action="" method="post">
 															<div class="modal-header">
-																	<h4 id="modalTitle" class="modal-title">Esemény létrehozása</h4>
+																	<h4 class="modal-title">Esemény létrehozása</h4>
 																	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
 															</div>
-															<div id="modalBody" class="modal-body">
+															<div class="modal-body">
 																<div class="form-group">
 																	<label for="">Esemény neve</label>
-																	<input type="text" name="title" placeholder="Két órás edzés">
+																	<input id="title" type="text" name="title" placeholder="Két órás edzés">
 																</div>
 																<div class="form-group">
 																	<label for="">Esemény időtartama</label>
-																	<input type="text" name="duration" placeholder="02:00">
+																	<input id="duration" type="text" name="duration" placeholder="02:00">
 																</div>
 																<div class="form-group">
 																	<label for="">Esemény színének kiválasztása</label>
-																	<input type="color" name="color" value="#3788D8">
+																	<input id="color" type="color" name="color" value="#3788D8">
 																</div>
 															</div>
 															<div class="modal-footer">
-																	<button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
-																	<button type="submit" name="SubmitExEvent" class="btn btn-primary">Létrehozás</button>
+                                <input id="coachid" type="hidden" name="id" value='<?php echo $_SESSION["id"] ?>'>
+																<button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
+                                <button type="submit" name="creatSumbit" class="btn btn-primary">Létrehozás</button>
 															</div>
 														</form>
 												</div>
@@ -113,7 +115,6 @@ include 'parts/calendarInsertCustom.php';
 									</div>
             </div>
         </div>
-        <script src="vendor/jquery/jquery.min.js"></script>
         <script src="js/homeScripts.js"></script>
         <script src="js/calendar.js"></script>
     </body>

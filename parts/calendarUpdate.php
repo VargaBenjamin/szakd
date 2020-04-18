@@ -1,7 +1,24 @@
 <?php
+//calendarUpdate.php
+require 'db.php';
 
-//update.php
+if(isset($_POST["id"], $_POST["title"], $_POST["start"], $_POST["end"], $_POST["color"]))
+{
+  $id = mysqli_real_escape_string($con, $_POST["id"]);
+  $title = mysqli_real_escape_string($con, $_POST["title"]);
+  $start = mysqli_real_escape_string($con, $_POST["start"]);
+  $end = mysqli_real_escape_string($con, $_POST["end"]);
+  $color = mysqli_real_escape_string($con, $_POST["color"]);
+  if ($stmt = $con->prepare('UPDATE events SET title = ?, start_event = ?, end_event = ?, color = ? WHERE id = ?'))
+  {
+    $stmt->bind_param('ssssi', $title, $start, $end, $color, $id);
+    $stmt->execute();
+    $stmt->close();
+  }
+}
+$con->close();
 
+/*
 $connect = new PDO('mysql:host=localhost;dbname=framedb', 'root', '');
 
 if(isset($_POST["id"]))
@@ -22,5 +39,5 @@ if(isset($_POST["id"]))
   )
  );
 }
-
+*/
 ?>
