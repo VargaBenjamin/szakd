@@ -1,4 +1,5 @@
 <?php
+//tableCreat.php
 session_start();
 require 'db.php';
 
@@ -22,16 +23,14 @@ if(isset($_POST["suly"], $_POST["zsir"], $_POST["comb"], $_POST["derek"], $_POST
   $nyomsajat = mysqli_real_escape_string($con, $_POST["nyomsajat"]);
   $gugsajat = mysqli_real_escape_string($con, $_POST["gugsajat"]);
   $clientid = mysqli_real_escape_string($con, $_POST["clientid"]);
-  $query = "INSERT INTO workoutdata(suly, testzsirszazalek, combboseg, derekboseg, csipoboseg, mellboseg, vallszelesseg, karboseg, adottido,
-  adottkm, felhuzasmax, fekvenyomasmax, gugolasmax, felhuzassajat, fekvenyomassajat, gugolassajat, clientID)
-  VALUES('$suly', '$zsir', '$comb', '$derek', '$csipo', '$mell', '$vall', '$kar', '$futido', '$futkm', '$huzmax',
-  '$nyommax', '$gugmax', '$huzsajat', '$nyomsajat', '$gugsajat', '$clientid')";
-
- if(mysqli_query($con, $query))
- {
-  echo 'Data Inserted';
- }
+  if ($stmt = $con->prepare('INSERT INTO workoutdata(suly, testzsirszazalek, combboseg, derekboseg, csipoboseg, mellboseg, vallszelesseg,
+    karboseg, adottido, adottkm, felhuzasmax, fekvenyomasmax, gugolasmax, felhuzassajat, fekvenyomassajat, gugolassajat, clientID)
+  VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'))
+  {
+    $stmt->bind_param('iiiiiiiiiiiiiiiii', $suly, $zsir, $comb, $derek, $csipo, $mell, $vall, $kar, $futido, $futkm,
+    $huzmax, $nyommax, $gugmax, $huzsajat, $nyomsajat, $gugsajat, $clientid);
+    $stmt->execute();
+  }
 }
 else throw new \Exception("Error Processing Request", 1);
-
 ?>

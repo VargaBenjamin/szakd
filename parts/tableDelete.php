@@ -1,12 +1,14 @@
 <?php
-require 'db.php'; 
+//tableDelete.php
+require 'db.php';
 
 if(isset($_POST["id"]))
 {
- $query = 'DELETE FROM workoutdata WHERE id ="' . $_POST["id"] . '"';
- if(mysqli_query($con, $query))
- {
-  echo 'Data Deleted';
- }
+  $id = mysqli_real_escape_string($con, $_POST["id"]);
+  if ($stmt = $con->prepare('DELETE FROM workoutdata WHERE id = ?'))
+  {
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+  }
 }
 ?>

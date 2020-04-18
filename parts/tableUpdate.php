@@ -1,4 +1,5 @@
 <?php
+//tableUpdate.php
 require 'db.php';
 
 if(isset($_POST["id"]))
@@ -20,17 +21,15 @@ if(isset($_POST["id"]))
   $nyomsajat = mysqli_real_escape_string($con, $_POST["nyomsajat"]);
   $gugsajat = mysqli_real_escape_string($con, $_POST["gugsajat"]);
   $id = mysqli_real_escape_string($con, $_POST["id"]);
-
-   $query = "UPDATE workoutdata SET suly = '".$suly."', testzsirszazalek = '".$zsir."', combboseg = '".$comb."', derekboseg = '".$derek."', csipoboseg = '".$csipo."', mellboseg = '".$mell."',
-    vallszelesseg = '".$vall."', karboseg = '".$kar."', adottido = '".$futido."', adottkm = '".$futkm."', felhuzasmax = '".$huzmax."', fekvenyomasmax = '".$nyommax."',
-    gugolasmax = '".$gugmax."', felhuzassajat = '".$huzsajat."', fekvenyomassajat = '".$nyomsajat."', gugolassajat = '".$gugsajat."' WHERE id = '".$id."'";
-
- if(mysqli_query($con, $query))
- {
-  echo 'Data Updated';
- }
+   if ($stmt = $con->prepare('UPDATE workoutdata SET suly = ?, testzsirszazalek = ?, combboseg = ?, derekboseg = ?, csipoboseg = ?,
+     mellboseg = ?, vallszelesseg = ?, karboseg = ?, adottido = ?, adottkm = ?, felhuzasmax = ?, fekvenyomasmax = ?,
+    gugolasmax = ?, felhuzassajat = ?, fekvenyomassajat = ?, gugolassajat = ? WHERE id = ?'))
+    {
+      $stmt->bind_param('iiiiiiiiiiiiiiiii', $suly, $zsir, $comb, $derek, $csipo, $mell, $vall, $kar, $futido, $futkm,
+      $huzmax, $nyommax, $gugmax, $huzsajat, $nyomsajat, $gugsajat, $id);
+      $stmt->execute();
+    }
 }
 else
  throw new \Exception("Error Processing Request", 1);
-
 ?>
