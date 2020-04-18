@@ -5,12 +5,6 @@ if (!isset($_SESSION['loggedin'])) {
 	 header("Location: index.php?error=out");
 	 exit();
 }
-if (isset($_SESSION['id'])) {
-echo("<script>console.log('PHP: " . $_SESSION['id'] . "');</script>");
-} else {
-echo("<script>console.log('baj van');</script>");
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -155,7 +149,7 @@ echo("<script>console.log('baj van');</script>");
 														<div class="modal-footer">
 															<input id="idC" type="hidden" name="id" value='<?php echo $_SESSION["id"] ?>'>
 															<button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
-															<button id="creatSumbit" type="submit" name="creatSumbit" class="btn btn-primary">Létrehozás</button>
+															<button type="submit" name="creatSubmit" class="btn btn-primary">Létrehozás</button>
 														</div>
 													</form>
 											</div>
