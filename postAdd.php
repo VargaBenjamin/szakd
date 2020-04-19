@@ -50,6 +50,10 @@ if (!isset($_SESSION['loggedin'])) {
 											    <textarea class="form-control" name="maintext" rows="16" required></textarea>
 											  </div>
 												<div class="form-group">
+											    <label for="picture">Kép URL címe</label>
+											    <textarea class="form-control" name="picture" rows="1"></textarea>
+											  </div>
+												<div class="form-group">
 											    <div class="col-sm-offset-2 col-sm-10">
 														<input type="submit" class="btn btn-primary" value="Cikk megosztása">
 											    </div>

@@ -2,8 +2,14 @@
 
 session_start();
 require 'db.php';
-if ($stmt = $con->prepare('INSERT INTO articles (authorid, title, preview, maintext) VALUES (?, ?, ?, ?)')) {
-	$stmt->bind_param('ssss', $_SESSION['id'], $_POST['title'], $_POST['preview'], $_POST['maintext'] );
+
+$id = mysqli_real_escape_string($con, $_SESSION["id"]);
+$title = mysqli_real_escape_string($con, $_POST["title"]);
+$preview = mysqli_real_escape_string($con, $_POST["preview"]);
+$maintext = mysqli_real_escape_string($con, $_POST["maintext"]);
+$picture = mysqli_real_escape_string($con, $_POST["picture"]);
+if ($stmt = $con->prepare('INSERT INTO articles (authorid, title, preview, maintext, picture) VALUES (?, ?, ?, ?, ?)')) {
+	$stmt->bind_param('sssss', $id, $title, $preview, $maintext, $picture );
   $stmt->execute();
   header("Location: ../blog.php");
   } else {

@@ -18,8 +18,8 @@ $output =
 <hr>
 <p>Megosztva ' . $article['publishtime'] . '</p>
 <hr>
-<!--<img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
-<hr>-->
+<img class="img-fluid rounded" src="' . $article['picture'] . '" alt="">
+<hr>
 <p class="lead">' . $article['preview'] . '</p>
 <p>' . $article['maintext'] . '</p>
 <hr>';
@@ -31,3 +31,4 @@ if ($stmt) {
 $con->close();
 
 ?>
+<!--<img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
