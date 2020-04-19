@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
     eventData: function(eventEl) {
       var dur = eventEl.dataset.event.replace(/[{}""]/g, "").toString();
       var paraArray = dur.split('ß');
-      console.log(eventEl.id);
       return {
         title: eventEl.innerText,
         customeventid: paraArray[0],
@@ -82,10 +81,10 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     ],
     hiddenDays: [0], //0 vasarnap, 1 hetfo...
-    minTime: "06:00:00",
+    minTime: "07:00:00",
     maxTime: "22:00:00",
     navLinks: false,
-    selectable: true, //atlatszoan mutatja a kijelolt intervallumot
+    selectable: false, //atlatszoan mutatja a kijelolt intervallumot
     selectMirror: false, //a kijelolt intervallumra elhelyez egy esemenyt
     editable: true,
     droppable: true,
@@ -276,10 +275,10 @@ document.addEventListener('DOMContentLoaded', function() {
   var coach = $('#coach').val();
   if (coach == 0)
   {
-    $('#customEventAdd')[0].style.display='none';
-    $('#creatCustomModal')[0].style.display='none';
-    $('#customEventDelete')[0].style.display='none';
-    $('#deleteCustomModal')[0].style.display='none';
+    $('#customEventAdd').css({"display": "none"});
+    $('#creatCustomModal').css({"display": "none"});
+    $('#customEventDelete').css({"display": "none"});
+    $('#deleteCustomModal').css({"display": "none"});
   }
 
   $('#customEventAdd').click(function() {
