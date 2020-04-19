@@ -2,12 +2,12 @@
 //calendarDelete.php
 require 'db.php';
 
-if(isset($_POST["id"]))
+if(isset($_POST["eventid"]))
 {
-  $id = mysqli_real_escape_string($con, $_POST["id"]);
+  $eventid = mysqli_real_escape_string($con, $_POST["eventid"]);
   if ($stmt = $con->prepare('DELETE FROM events WHERE id = ?'))
   {
-    $stmt->bind_param('i', $id);
+    $stmt->bind_param('i', $eventid);
     $stmt->execute();
   }
 }

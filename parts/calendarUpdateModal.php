@@ -2,16 +2,14 @@
 //calendarUpdate.php
 require 'db.php';
 
-if(isset($_POST["id"], $_POST["title"], $_POST["start"], $_POST["end"], $_POST["color"]))
+if(isset($_POST["eventid"], $_POST["title"], $_POST["color"]))
 {
-  $id = mysqli_real_escape_string($con, $_POST["id"]);
+  $eventid = mysqli_real_escape_string($con, $_POST["eventid"]);
   $title = mysqli_real_escape_string($con, $_POST["title"]);
-  $start = mysqli_real_escape_string($con, $_POST["start"]);
-  $end = mysqli_real_escape_string($con, $_POST["end"]);
   $color = mysqli_real_escape_string($con, $_POST["color"]);
-  if ($stmt = $con->prepare('UPDATE events SET title = ?, start_event = ?, end_event = ?, color = ? WHERE id = ?'))
+  if ($stmt = $con->prepare('UPDATE events SET title = ?, color = ? WHERE id = ?'))
   {
-    $stmt->bind_param('ssssi', $title, $start, $end, $color, $id);
+    $stmt->bind_param('ssi', $title, $color, $eventid);
     $stmt->execute();
     $stmt->close();
   }

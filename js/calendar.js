@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // -----------------------------------------------------------------
 
 
-  new Draggable(containerEl, {
+  var draggable = new Draggable(containerEl, {
     itemSelector: '.fc-event',
     eventData: function(eventEl) {
       var dur = eventEl.dataset.event.replace(/[{}""]/g, "").toString();
@@ -49,6 +49,12 @@ document.addEventListener('DOMContentLoaded', function() {
         click: function() {
           $('#creatCustomModal').modal(); //ezért ugrik fel az ablak ahogy kell bootstrapben
         }
+      },
+      deleteEvent: {
+        text: 'Esemény törlése',
+        click: function() {
+          $('#deleteCustomModal').modal(); //ezért ugrik fel az ablak ahogy kell bootstrapben
+        }
       }
     },
 
@@ -60,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
     footer: {
       left: 'addEvent',
       center: '',
-      right: ''
+      right: 'deleteEvent'
     },
 
     businessHours: [ // specify an array instead
@@ -126,21 +132,17 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log(info);
       var start = info.event.start.toISOString();
       var end = info.event.end.toISOString();
-      var title = info.event.title;
       var id = info.event.id;
-      var color = info.event.backgroundColor;
       if (!confirm("Átméretezed az eseményt?")) {
         info.revert();
       } else {
         $.ajax({
-          url: "parts/calendarUpdate.php",
+          url: "parts/calendarUpdateTime.php",
           type: "POST",
           data: {
             id: id,
-            title: title,
             start: start,
-            end: end,
-            color: color
+            end: end
           },
           success: function(data) {
             calendar.refetchEvents();
@@ -159,21 +161,17 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log(info);
       var start = info.event.start.toISOString();
       var end = info.event.end.toISOString();
-      var title = info.event.title;
       var id = info.event.id;
-      var color = info.event.backgroundColor;
       if (!confirm("Elhelyezed itt?")) {
         info.revert();
       } else {
         $.ajax({
-          url: "parts/calendarUpdate.php",
+          url: "parts/calendarUpdateTime.php",
           type: "POST",
           data: {
-            title: title,
             start: start,
             end: end,
-            id: id,
-            color: color
+            id: id
           },
           success: function() {
             calendar.refetchEvents();
@@ -190,10 +188,76 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //in this case an event erase
     eventClick: function(info) {
-      console.log(info);
-      if (confirm("Biztosan törölni akarod az eseményt?")) {
-        var id = info.event.id;
+      $.ajax({
+        url: "parts/getEventInfo.php",
+        type: "POST",
+        data: {
+          id: info.event.id
+        },
+        success: function(data) {
+          var array = JSON.parse(data);
+          $('#titleE').val(array[0].eventname);
+          $('#colorE').val(array[0].color);
+          $('#nameE').html(array[0].clientname);
+          $('#emailE').html(array[0].clientemail);
+          $('#startE').html(array[0].starttime);
+          $('#endE').html(array[0].endtime);
+          $('#durE').html(array[0].duration);
+          $('#eventidE').val(array[0].eventid);
+          $('#updateEventModal').modal();
+        },
+      });
+
+      $("#updateEventModal").submit(function(e) {
+        e.preventDefault();
+        var title = $('#titleE').val();
+        var color = $('#colorE').val();
+        var eventid = $('#eventidE').val();
         $.ajax({
+          url: "parts/calendarUpdateModal.php",
+          type: "POST",
+          data: {
+            title: title,
+            color: color,
+            eventid: eventid
+          },
+          success: function(data) {
+            calendar.refetchEvents();
+            $('#updateEventModal').modal('hide');
+            $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeres frissítés!</strong></div>');
+            setTimeout(function() {
+              $('.alert').fadeOut('slow');
+            }, 1500);
+          }
+        })
+      });
+
+      $(document).on('click', '#eventDeleteE', function(){
+        if (confirm("Biztosan törölni akarod az eseményt?")) {
+          var eventid = $('#eventidE').val();
+          $.ajax({
+            url: "parts/calendarDelete.php",
+            type: "POST",
+            data: {
+              eventid: eventid
+            },
+            success: function(data) {
+              calendar.refetchEvents();
+              $('#updateEventModal').modal('hide');
+              $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeres törlés!</strong></div>');
+              setTimeout(function() {
+                $('.alert').fadeOut('slow');
+              }, 1500);
+            }
+          })
+        }
+      });
+
+      // $('#updateEventModal').modal();
+      // $('#titleE').val(info.event.title);
+      // $('#nameE').val(info.event.title);
+      // $('#colorE').val(info.event.backgroundColor);
+        /*$.ajax({
           url: "parts/calendarDelete.php",
           type: "POST",
           data: {
@@ -207,11 +271,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 1500);
             //alert("Esemény törölve!");
           }
-        });
-      }
+        });*/
     }
   });
-
 
   calendar.render();
 
@@ -232,10 +294,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   $("#creatCustomModal").submit(function(e) {
     e.preventDefault();
-    var title = $('#title').val();
-    var duration = $('#duration').val();
-    var color = $('#color').val();
-    var coachid = $('#coachid').val();
+    var title = $('#titleC').val();
+    var duration = $('#durationC').val();
+    var color = $('#colorC').val();
+    var coachid = $('#coachidC').val();
     $.ajax({
       url: "parts/calendarCreatCustom.php",
       type: "POST",
@@ -246,11 +308,24 @@ document.addEventListener('DOMContentLoaded', function() {
         coachid: coachid
       },
       success: function(data) {
-        $('#creatCustomModal').modal('hide');
-        $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeres felvitel!</strong></div>');
-        setTimeout(function() {
-          $('.alert').fadeOut('slow');
-        }, 1500);
+        location.reload();
+      }
+    })
+  });
+
+  $("#deleteCustomModal").submit(function(e) {
+    e.preventDefault();
+    var customeventid = $('#titleD').val();
+    var coachid = $('#coachidD').val();
+    $.ajax({
+      url: "parts/calendarDeleteCustom.php",
+      type: "POST",
+      data: {
+        customeventid: customeventid,
+        coachid: coachid
+      },
+      success: function(data) {
+        location.reload();
       }
     })
   });

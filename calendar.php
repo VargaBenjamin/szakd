@@ -5,6 +5,17 @@ if (!isset($_SESSION['loggedin'])) {
     header("Location: index.php?error=out");
     exit();
 }
+require 'parts/db.php';
+
+if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SESSION["id"] . '"'))
+{
+  $customeventoutput = "";
+	$stmt->execute();
+	$result = $stmt->get_result();
+	while ($row = $result->fetch_assoc()) {
+		$customeventoutput .='<option value="' . $row['id'] . '">' . $row['title'] . '</option>';
+	}
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -93,19 +104,19 @@ if (!isset($_SESSION['loggedin'])) {
 															<div class="modal-body">
 																<div class="form-group">
 																	<label for="">Esemény neve</label>
-																	<input id="title" type="text" name="title" placeholder="Két órás edzés">
+																	<input id="titleC" type="text" name="title" placeholder="Két órás edzés">
 																</div>
 																<div class="form-group">
 																	<label for="">Esemény időtartama</label>
-																	<input id="duration" type="text" name="duration" placeholder="02:00">
+																	<input id="durationC" type="text" name="duration" placeholder="02:00">
 																</div>
 																<div class="form-group">
 																	<label for="">Esemény színének kiválasztása</label>
-																	<input id="color" type="color" name="color" value="#3788D8">
+																	<input id="colorC" type="color" name="color" value="#3788D8">
 																</div>
 															</div>
 															<div class="modal-footer">
-                                <input id="coachid" type="hidden" name="id" value='<?php echo $_SESSION["id"] ?>'>
+                                <input id="coachidC" type="hidden" name="id" value='<?php echo $_SESSION["id"] ?>'> <!-- Ha véletlenül egy kliens létretudna hozni, akkor se lássa senki -->
 																<button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
                                 <button type="submit" name="creatSumbit" class="btn btn-primary">Létrehozás</button>
 															</div>
@@ -113,6 +124,82 @@ if (!isset($_SESSION['loggedin'])) {
 												</div>
 										</div>
 									</div>
+
+                  <div id="deleteCustomModal" class="modal fade">
+										<div class="modal-dialog">
+												<div class="modal-content">
+													<form class="form" action="" method="post">
+															<div class="modal-header">
+																	<h4 class="modal-title">Esemény törlése</h4>
+																	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+															</div>
+                              <div class="modal-body">
+                                <div class="form-group">
+      								            <label for="">Esemény törlése</label>
+      															<select class="form-control" id="titleD">
+      																<?php echo $customeventoutput; ?>
+      															</select>
+      								          </div>
+                              </div>
+															<div class="modal-footer">
+                                <input id="coachidD" type="hidden" name="id" value='<?php echo $_SESSION["id"] ?>'> <!-- Ha véletlenül egy kliens létretudna hozni, akkor se lássa senki -->
+																<button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
+                                <button type="submit" name="creatSumbit" class="btn btn-danger">TÖRLÉS</button>
+															</div>
+														</form>
+												</div>
+										</div>
+									</div>
+
+                  <div id="updateEventModal" class="modal fade">
+										<div class="modal-dialog">
+												<div class="modal-content">
+													<form class="form" action="" method="post">
+															<div class="modal-header">
+																	<h4 class="modal-title">Esemény részletek</h4>
+																	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+															</div>
+															<div class="modal-body">
+																<div class="form-group">
+																	<label for="">Esemény neve:</label>
+																	<input id="titleE" class="font-weight-bold" type="text" name="title" value="">
+																</div>
+                                <div class="form-group">
+                                  <label for="">Esemény színének kiválasztása:</label>
+                                  <input id="colorE" type="color" name="color" value="">
+                                </div>
+                                <div class="form-group">
+																	<label for="">Résztvevő neve:</label>
+                                  <label id="nameE" class="font-weight-bold" for=""></label>
+																</div>
+                                <div class="form-group">
+																	<label for="">Résztvevő elérhetősége:</label>
+                                  <label id="emailE" class="font-weight-bold" for=""></label>
+																</div>
+                                <div class="form-group">
+																	<label for="">Esemény kezdete:</label>
+                                  <label id="startE" class="font-weight-bold" for=""></label>
+																</div>
+                                <div class="form-group">
+																	<label for="">Esemény vége:</label>
+                                  <label id="endE" class="font-weight-bold" for=""></label>
+																</div>
+                                <div class="form-group">
+																	<label for="">Esemény hossza:</label>
+                                  <label id="durE" class="font-weight-bold" for=""><strong></strong></label>
+																</div>
+															</div>
+															<div class="modal-footer">
+                                <input id="eventidE" type="hidden" name="id" value=''>
+                                <button id="eventDeleteE" type="button" class="btn  btn-danger">TÖRLÉS</button>
+																<button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
+                                <button type="submit" class="btn btn-primary">Mentés</button>
+															</div>
+														</form>
+												</div>
+										</div>
+									</div>
+
             </div>
         </div>
         <script src="js/homeScripts.js"></script>
