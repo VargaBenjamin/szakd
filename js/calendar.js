@@ -43,31 +43,31 @@ document.addEventListener('DOMContentLoaded', function() {
     locale: initialLocaleCode,
 
     //custom button for add event
-    customButtons: {
-      addEvent: {
-        text: 'Esemény hozzáadása',
-        click: function() {
-          $('#creatCustomModal').modal(); //ezért ugrik fel az ablak ahogy kell bootstrapben
-        }
-      },
-      deleteEvent: {
-        text: 'Esemény törlése',
-        click: function() {
-          $('#deleteCustomModal').modal(); //ezért ugrik fel az ablak ahogy kell bootstrapben
-        }
-      }
-    },
+    // customButtons: {
+    //   addEvent: {
+    //     text: 'Esemény hozzáadása',
+    //     click: function() {
+    //       $('#creatCustomModal').modal(); //ezért ugrik fel az ablak ahogy kell bootstrapben
+    //     }
+    //   },
+    //   deleteEvent: {
+    //     text: 'Esemény törlése',
+    //     click: function() {
+    //       $('#deleteCustomModal').modal();
+    //     }
+    //   }
+    // },
 
     header: {
       left: 'prev,next today',
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
     },
-    footer: {
-      left: 'addEvent',
-      center: '',
-      right: 'deleteEvent'
-    },
+    // footer: {
+    //   left: 'addEvent',
+    //   center: '',
+    //   right: 'deleteEvent'
+    // },
 
     businessHours: [ // specify an array instead
       {
@@ -82,14 +82,14 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     ],
     hiddenDays: [0], //0 vasarnap, 1 hetfo...
-
-    navLinks: true,
+    minTime: "06:00:00",
+    maxTime: "22:00:00",
+    navLinks: false,
     selectable: true, //atlatszoan mutatja a kijelolt intervallumot
-    selectMirror: true, //a kijelolt intervallumra elhelyez egy esemenyt
+    selectMirror: false, //a kijelolt intervallumra elhelyez egy esemenyt
     editable: true,
     droppable: true,
     events: 'parts/calendarRead.php', //FONTOS RÉSZ. Itt tölti be az eseményeket egy array segítségével. Itt lehet mahinálni, https://fullcalendar.io/docs/event-parsing alapján vannak tulajdonságok.
-
 
     //trigger when drop an external event into the calendar
     eventReceive: function(info) {
@@ -222,6 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
             eventid: eventid
           },
           success: function(data) {
+            //location.reload();  //különben annyiszor kérdez rá a törlésre ahány változtatás volt egy refetch alatt
             calendar.refetchEvents();
             $('#updateEventModal').modal('hide');
             $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeres frissítés!</strong></div>');
@@ -252,26 +253,6 @@ document.addEventListener('DOMContentLoaded', function() {
           })
         }
       });
-
-      // $('#updateEventModal').modal();
-      // $('#titleE').val(info.event.title);
-      // $('#nameE').val(info.event.title);
-      // $('#colorE').val(info.event.backgroundColor);
-        /*$.ajax({
-          url: "parts/calendarDelete.php",
-          type: "POST",
-          data: {
-            id: id
-          },
-          success: function() {
-            calendar.refetchEvents();
-            $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Esemény törölve!</strong></div>');
-            setTimeout(function() {
-              $('.alert').fadeOut('slow');
-            }, 1500);
-            //alert("Esemény törölve!");
-          }
-        });*/
     }
   });
 
@@ -290,6 +271,19 @@ document.addEventListener('DOMContentLoaded', function() {
     if (this.value) {
       calendar.setOption('locale', this.value);
     }
+  });
+
+  var coach = $('#coach').val();
+  if (coach == 0)
+  {
+    $('#customEventAdd')[0].style.display='none';
+    $('#creatCustomModal')[0].style.display='none';
+    $('#customEventDelete')[0].style.display='none';
+    $('#deleteCustomModal')[0].style.display='none';
+  }
+
+  $('#customEventAdd').click(function() {
+    $('#creatCustomModal').modal();
   });
 
   $("#creatCustomModal").submit(function(e) {
@@ -313,6 +307,10 @@ document.addEventListener('DOMContentLoaded', function() {
     })
   });
 
+  $('#customEventDelete').click(function() {
+    $('#deleteCustomModal').modal();
+  });
+
   $("#deleteCustomModal").submit(function(e) {
     e.preventDefault();
     var customeventid = $('#titleD').val();
@@ -329,6 +327,5 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     })
   });
-
 
 });

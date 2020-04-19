@@ -7,7 +7,7 @@ if (!isset($_SESSION['loggedin'])) {
 }
 require 'parts/db.php';
 
-if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SESSION["id"] . '"'))
+if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SESSION["coachid"] . '"'))
 {
   $customeventoutput = "";
 	$stmt->execute();
@@ -80,6 +80,10 @@ if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SES
                               <div class="card-header">Élő naptár</div>
                               <div class="card-body" id='calendar-container'>
                                 <p class="card-text" id='calendar'></p>
+                              </div>
+                              <div class="card-text">
+                                <button id="customEventAdd" type="button" class="btn btn-dark">Esemény hozzáadása</button>
+                                <button id="customEventDelete" type="button" class="btn btn-danger float-right">Esemény törlése</button>
                               </div>
                             </div>
                           </div>
@@ -199,9 +203,9 @@ if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SES
 												</div>
 										</div>
 									</div>
-
             </div>
         </div>
+        <input id="coach" type="hidden" name="id" value='<?php echo $_SESSION["coach"] ?>'>
         <script src="js/homeScripts.js"></script>
         <script src="js/calendar.js"></script>
     </body>
