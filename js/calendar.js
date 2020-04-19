@@ -81,8 +81,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     ],
     hiddenDays: [0], //0 vasarnap, 1 hetfo...
-    minTime: "07:00:00",
-    maxTime: "22:00:00",
+    minTime: "07:00",
+    maxTime: "22:00",
     navLinks: false,
     selectable: false, //atlatszoan mutatja a kijelolt intervallumot
     selectMirror: false, //a kijelolt intervallumra elhelyez egy esemenyt
