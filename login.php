@@ -28,7 +28,7 @@
             <input type="email" name="email" placeholder="Email cím" id="email" required>
             <input type="password" name="password" placeholder="Jelszó" id="password" required>
             <input type="password" name="passwordRe" placeholder="Jelszó újra" id="passwordRe" required>
-            <input type="checkbox" checked name="coach" data-toggle="toggle" data-on="Vendég" data-off="Edző" data-onstyle="info" data-offstyle="warning" data-width="220">
+            <input type="checkbox" checked name="role" data-toggle="toggle" data-on="Vendég" data-off="Edző" data-onstyle="info" data-offstyle="warning" data-width="220">
             <input type="submit" value="Regisztrálok!">
           </form>
           <a href="#">Vissza</a>

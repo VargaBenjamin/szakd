@@ -48,33 +48,41 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 	// Username doesnt exists, insert new account
 	else
 	{
-    //if ($stmt = $con->prepare('INSERT INTO accounts (username, password, email) VALUES (?, ?, ?)')) {
     if ($stmt = $con->prepare('INSERT INTO accounts (username, password, email, activation_code, coach) VALUES (?, ?, ?, ?, ?)'))
 		{
     	// We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
     	$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-      //$stmt->bind_param('sss', $_POST['username'], $password, $_POST['email']);
       $uniqid = uniqid();
-			if (isset($_POST['coach'])) {
-				$coach = 0;
+			if (isset($_POST['role'])) {
+				$role = 0;
 			} else {
-				$coach = 1;
+				$role = 1;
 			};
-      $stmt->bind_param('ssssi', $_POST['username'], $password, $_POST['email'], $uniqid, $coach);
+      $stmt->bind_param('ssssi', $_POST['username'], $password, $_POST['email'], $uniqid, $role);
     	$stmt->execute();
-
 			//bejelentkezés a létrehozott felhasználóba
-			$stmt = $con->prepare('SELECT id, password, activation_code  FROM accounts WHERE username = ?');
+			$stmt = $con->prepare('SELECT id, password, activation_code, coach  FROM accounts WHERE username = ?');
 			$stmt->bind_param('s', $_POST['username']);
 			$stmt->execute();
-			$stmt->bind_result($id, $password, $status);
+			$stmt->bind_result($id, $password, $status, $coach);
 			$stmt->fetch();
+			$coachid = "";
+			if ($coach == 1) {  //ha edző vagy
+				$coachid = $id; //akkor az edző id-ja a saját id-d lesz (te vagy a saját edződ)
+				$stmt->close(); //mindenképpen le kell zárni, mielőtt újra használnánk
+				if ($stmt = $con->prepare('UPDATE accounts SET coachid = ? WHERE username = ?'))
+				{
+					$stmt->bind_param('is', $coachid, $_POST['username']);
+					$stmt->execute();
+				}
+			}
 			session_start();
 			$_SESSION['loggedin'] = true;
 			$_SESSION['name'] = $_POST['username'];
 			$_SESSION['id'] = $id;
 			$_SESSION['status'] = $status;
-			//echo 'Welcome ' . $_SESSION['name'] . '!';
+			$_SESSION['coachid'] = $coachid;
+			$_SESSION['coach'] = $coach;
 			header("Location: ../home.php");
 		}
 		else
@@ -97,8 +105,8 @@ else
 	// Something is wrong with the sql statement, check to make sure accounts table exists with all 3 fields.
 	echo 'Could not prepare statement!';
 }
-if ($stmt) {
-	$stmt->close();
-}
+// if ($stmt) {
+// 	$stmt->close();
+// }
 $con->close();
 ?>
