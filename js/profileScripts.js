@@ -1,12 +1,12 @@
 $(document).ready(function(){
-  gymGet();
-  coachGet();
+  getGym();
+  getCoach();
 
-  function gymGet(){
+  function getGym(){
     var gymid = $('#gym').val();
     console.log(gymid);
     $.ajax({
-      url: "parts/gymGet.php",
+      url: "parts/getGym.php",
       method: "POST",
       data: {gymid: gymid},
       success: function(data)
@@ -23,11 +23,11 @@ $(document).ready(function(){
     })
   };
 
-  function coachGet(){
+  function getCoach(){
     var coachid = $('#coach').val();
     console.log(coachid);
     $.ajax({
-      url: "parts/coachGet.php",
+      url: "parts/getCoach.php",
       method: "POST",
       data: {coachid: coachid},
       success: function(data)

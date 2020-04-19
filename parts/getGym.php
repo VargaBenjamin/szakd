@@ -1,5 +1,5 @@
 <?php
-//gymGet.php
+//getGym.php
 require 'db.php';
 
 if (isset($_POST['gymid'])) {

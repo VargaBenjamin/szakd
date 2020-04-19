@@ -1,5 +1,5 @@
 <?php
-//gymGet.php
+//getCoach.php
 require 'db.php';
 
 if (isset($_POST['coachid'])) {
