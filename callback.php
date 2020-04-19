@@ -42,12 +42,12 @@ try {
         $socID = $adapterKey->getUserProfile()->identifier;
 
         //bejelentkezik abba a felhasználóba, ahol az oda beírt social ID megegyezik a bejelentkezésnél lévő social ID-val
-        if ($stmt = $con->prepare('SELECT id, username, activation_code, coachid FROM accounts WHERE ' . mysqli_real_escape_string($con, $provider) . ' = ' . mysqli_real_escape_string($con, $socID)))
+        if ($stmt = $con->prepare('SELECT id, username, activation_code, coachid, coach FROM accounts WHERE ' . mysqli_real_escape_string($con, $provider) . ' = ' . mysqli_real_escape_string($con, $socID)))
         {
           $stmt->execute();
           $stmt->store_result();
           if ($stmt->num_rows > 0) {
-            $stmt->bind_result($id, $username, $status, $coachid);
+            $stmt->bind_result($id, $username, $status, $coachid, $coach);
             $stmt->fetch();
             session_regenerate_id();
             $_SESSION['loggedin'] = true;
@@ -56,6 +56,7 @@ try {
             $_SESSION['status'] = $status;
             $_SESSION['socID'] = $socID;
             $_SESSION['coachid'] = $coachid;
+            $_SESSION['coach'] = $coach;
             $socialEmail = $adapterKey->getUserProfile()->email;
             $_SESSION['socEmail'] = $socialEmail;
             HttpClient\Util::redirect('home.php');
