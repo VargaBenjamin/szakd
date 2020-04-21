@@ -55,8 +55,8 @@ if (!isset($_SESSION['loggedin'])) {
 																					<th>Mellbőség (cm)</th>
 																					<th>Vállszélesség (cm)</th>
 																					<th>Karbőség (cm)</th>
-														              <th>Adott idő alatt futás (15 perc/km)</th>
-														              <th>Adott km alatti idő (5 km/perc)</th>
+														              <th>Adott idő alatt futás (12 perc/m)</th>
+														              <th>Adott km alatti idő (2300 m/perc)</th>
 														              <th>Felhúzás max (kg)</th>
 														              <th>Fekvenyomás max (kg)</th>
 																					<th>Gugolás max (kg)</th>
@@ -114,12 +114,12 @@ if (!isset($_SESSION['loggedin'])) {
 																<input id="karC" type="text" name="kar" value="35">
 															</div>
 															<div class="form-group">
-																<label for="">Adott idő alatt futás (15 perc/km)</label>
-																<input id="futidoC" type="text" name="futido" value="5">
+																<label for="">Adott idő alatt futás (12 perc/m)</label>
+																<input id="futidoC" type="text" name="futido" value="1700">
 															</div>
 															<div class="form-group">
-																<label for="">Adott km alatti idő (5 km/perc)</label>
-																<input id="futkmC" type="text" name="futkm" value="15">
+																<label for="">Adott km alatti idő (2300 m/perc)</label>
+																<input id="futkmC" type="text" name="futkm" value="20">
 															</div>
 															<div class="form-group">
 																<label for="">Felhúzás max (kg)</label>
@@ -198,11 +198,11 @@ if (!isset($_SESSION['loggedin'])) {
 																<input id="karU" type="text" name="kar" value="">
 															</div>
 															<div class="form-group">
-																<label for="">Adott idő alatt futás (15 perc/km)</label>
+																<label for="">Adott idő alatt futás (12 perc/m)</label>
 																<input id="futidoU" type="text" name="futido" value="">
 															</div>
 															<div class="form-group">
-																<label for="">Adott km alatti idő (5 km/perc)</label>
+																<label for="">Adott km alatti idő (2300 m/perc)</label>
 																<input id="futkmU" type="text" name="futkm" value="">
 															</div>
 															<div class="form-group">
