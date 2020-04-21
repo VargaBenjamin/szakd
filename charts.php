@@ -1,5 +1,5 @@
 <?php
-
+//charts.php
 session_start();
 if (!isset($_SESSION['loggedin'])) {
 	 header("Location: index.php?error=out");
@@ -18,6 +18,7 @@ if (!isset($_SESSION['loggedin'])) {
         <title>Kimutatások</title>
 				<link href="css/homeStyle.css" type="text/css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+				<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" charset="utf-8"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -29,6 +30,18 @@ if (!isset($_SESSION['loggedin'])) {
                 <main>
                     <div class="container-fluid">
                         <h1 class="mt-4">Fejlődés</h1>
+												<div class="row">
+												<?php include 'parts/chartLoads.php'; ?>
+												</div>
+												<!--<div class="col-md-6">
+													<div class="card">
+														<div class="card-header">Próba</div>
+														<div class="card-body">
+															<canvas id="custom"></canvas>
+														</div>
+													</div>
+												</div>
+
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Area Chart Example</div>
                             <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
@@ -49,7 +62,7 @@ if (!isset($_SESSION['loggedin'])) {
                                     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </main>
                 <?php require 'parts/footer.php'; ?>
@@ -58,9 +71,5 @@ if (!isset($_SESSION['loggedin'])) {
 				<script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/homeScripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="js/chartArea.js"></script>
-        <script src="js/chartBar.js"></script>
-        <script src="js/chartPie.js"></script>
     </body>
 </html>
