@@ -19,7 +19,7 @@
                   <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                     Fejlődés
                 </a>
-                <a class="nav-link" href="tables.php">
+                <a class="nav-link" href="table.php">
                   <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                     Napló
                 </a>
