@@ -19,14 +19,13 @@ $(document).ready(function() {
       $('#coaches').css("display", "none");
     }
     $.ajax({
-      url: "parts/coachLoad.php",
+      url: "parts/settingCRUD.php",
       method: "POST",
       data: {
+        gym: "true",
         gymid: gymid
       },
       success: function(data) {
-        console.log("Sikeres az edzők kilistázása");
-        console.log(data);
         $('#coach').html(data);
       },
       error: function(data) {
@@ -48,17 +47,16 @@ $(document).ready(function() {
     pass = $('#pass').val();
     id = $('#id').val();
     $.ajax({
-      url: "parts/settingsPassCheck.php",
+      url: "parts/settingCRUD.php",
       type: "POST",
       data: {
+        check: "true",
         pass: pass,
         id: id
       },
       success: function(data) {
-        console.log(data);
         if (data == "true") {
           if (newPass == newPassRe) {
-            console.log("ha van ha nincs az új jelszavak megegyeznek");
             update();
           } else {
             $('#alert').html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>A két új jelszó nem egyezik!</strong></div>');
@@ -80,9 +78,10 @@ $(document).ready(function() {
 
   function update() {
     $.ajax({
-      url: "parts/settingsUpdate.php",
+      url: "parts/settingCRUD.php",
       type: "POST",
       data: {
+        update: "true",
         username: username,
         email: email,
         gym: gym,
@@ -97,7 +96,6 @@ $(document).ready(function() {
           $('.alert').fadeOut('slow');
         }, 1500);
         $('#settingsUpdate')[0].reset();
-        console.log(data);
       }
     })
   }

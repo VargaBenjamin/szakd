@@ -1,44 +1,38 @@
-$(document).ready(function(){
+$(document).ready(function() {
   getGym();
   getCoach();
 
-  function getGym(){
+  function getGym() {
     var gymid = $('#gym').val();
-    console.log(gymid);
     $.ajax({
-      url: "parts/getGym.php",
+      url: "parts/profileCRUD.php",
       method: "POST",
-      data: {gymid: gymid},
-      success: function(data)
-      {
-        console.log("Sikeres az terem lekérése");
-        console.log(data);
+      data: {
+        gym: "true",
+        gymid: gymid
+      },
+      success: function(data) {
         $('#resultG').html(data);
       },
-      error: function(data)
-      {
-        console.log("Gond van");
+      error: function(data) {
         console.log(data);
       }
     })
   };
 
-  function getCoach(){
+  function getCoach() {
     var coachid = $('#coach').val();
-    console.log(coachid);
     $.ajax({
-      url: "parts/getCoach.php",
+      url: "parts/profileCRUD.php",
       method: "POST",
-      data: {coachid: coachid},
-      success: function(data)
-      {
-        console.log("Sikeres az terem lekérése");
-        console.log(data);
+      data: {
+        coach: "true",
+        coachid: coachid
+      },
+      success: function(data) {
         $('#resultC').html(data);
       },
-      error: function(data)
-      {
-        console.log("Gond van");
+      error: function(data) {
         console.log(data);
       }
     })
