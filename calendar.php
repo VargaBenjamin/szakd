@@ -69,7 +69,7 @@ if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SES
                               <div class="card-header">Választható események</div>
                               <div class="card-body" id='external-events' style="overflow: auto;">
                                 <div class="card-text" >
-                                  <?php include 'parts/calendarReadCustom.php';?>
+                                  <?php include 'parts/calendarCustomInit.php';?>
                                 </div>
                               </div>
                             </div>

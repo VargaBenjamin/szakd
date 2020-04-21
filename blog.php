@@ -47,7 +47,7 @@ if (!isset($_SESSION['loggedin'])) {
 							      </div>
 										<div class="col-md-4">
 							        <div class="card my-4">
-							          <button class="btn btn-secondary" onclick="window.location.href='postAdd.php'" style="position: sticky;">Cikk írása!</button>
+							          <button class="btn btn-secondary" onclick="window.location.href='postCreate.php'" style="position: sticky;">Cikk írása!</button>
 							        </div>
 							     </div>
 							    </div>

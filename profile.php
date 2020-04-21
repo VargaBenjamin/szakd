@@ -1,6 +1,7 @@
 <?php
-
 session_start();
+require "parts/db.php";
+
 if (!isset($_SESSION['loggedin'])) {
 	 header("Location: index.php?error=out");
 	 exit();
@@ -13,22 +14,7 @@ use Hybridauth\Hybridauth;
 
 $hybridauth = new Hybridauth($config);
 $adapters = $hybridauth->getConnectedAdapters();
-
-// We need to use sessions, so you should always start sessions using the below code.
-//session_start();
-// If the user is not logged in redirect to the login page...
-$DATABASE_HOST = 'localhost';
-$DATABASE_USER = 'root';
-$DATABASE_PASS = '';
-$DATABASE_NAME = 'framedb';
-$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-if (mysqli_connect_errno())
-{
-    die('Failed to connect to MySQL: ' . mysqli_connect_error());
-}
-// We don't have the password or email info stored in sessions so instead we can get the results from the database.
 $stmt = $con->prepare('SELECT email, coach, telephone, Google, Facebook, Twitter, activation_code, gymid, coachid FROM accounts WHERE id = ?');
-// In this case we can use the account ID to get the account info.
 $stmt->bind_param('i', $_SESSION['id']);
 $stmt->execute();
 $stmt->bind_result($email, $coach, $telephone, $gVal, $fVal, $tVal, $accode, $gid, $cid);

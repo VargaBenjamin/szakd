@@ -88,11 +88,10 @@ document.addEventListener('DOMContentLoaded', function() {
     selectMirror: false, //a kijelolt intervallumra elhelyez egy esemenyt
     editable: true,
     droppable: true,
-    events: 'parts/calendarRead.php', //FONTOS RÉSZ. Itt tölti be az eseményeket egy array segítségével. Itt lehet mahinálni, https://fullcalendar.io/docs/event-parsing alapján vannak tulajdonságok.
+    events: 'parts/calendarInit.php', //FONTOS RÉSZ. Itt tölti be az eseményeket egy array segítségével. Itt lehet mahinálni, https://fullcalendar.io/docs/event-parsing alapján vannak tulajdonságok.
 
     //trigger when drop an external event into the calendar
     eventReceive: function(info) {
-      console.log(info);
       if (confirm("Biztosan elhelyezed?")) {
         var start = info.event.start.toISOString();
         var end = info.event.end.toISOString();
@@ -102,9 +101,10 @@ document.addEventListener('DOMContentLoaded', function() {
         var clientid = info.event.extendedProps.clientid;
         var customeventid = info.event.extendedProps.customeventid;
         $.ajax({
-          url: "parts/calendarCreat.php",
+          url: "parts/calendarCRUD.php",
           type: "POST",
           data: {
+            creat: "true",
             title: title,
             start: start,
             end: end,
@@ -118,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
               $('.alert').fadeOut('slow');
             }, 1500);
-            //alert("Sikeresen elhelyezve!");
           }
         });
       }
@@ -128,7 +127,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     eventResize: function(info) {
-      console.log(info);
       var start = info.event.start.toISOString();
       var end = info.event.end.toISOString();
       var id = info.event.id;
@@ -136,9 +134,10 @@ document.addEventListener('DOMContentLoaded', function() {
         info.revert();
       } else {
         $.ajax({
-          url: "parts/calendarUpdateTime.php",
+          url: "parts/calendarCRUD.php",
           type: "POST",
           data: {
+            update: "true",
             id: id,
             start: start,
             end: end
@@ -149,7 +148,6 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
               $('.alert').fadeOut('slow');
             }, 1500);
-            //alert("Esemény átméretezve!");
           }
         })
       }
@@ -157,7 +155,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     eventDrop: function(info) {
-      console.log(info);
       var start = info.event.start.toISOString();
       var end = info.event.end.toISOString();
       var id = info.event.id;
@@ -165,9 +162,10 @@ document.addEventListener('DOMContentLoaded', function() {
         info.revert();
       } else {
         $.ajax({
-          url: "parts/calendarUpdateTime.php",
+          url: "parts/calendarCRUD.php",
           type: "POST",
           data: {
+            update: "true",
             start: start,
             end: end,
             id: id
@@ -178,23 +176,21 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
               $('.alert').fadeOut('slow');
             }, 1500);
-            //alert("Esemény frissítve!");
           }
         });
       }
     },
-
-
     //in this case an event erase
     eventClick: function(info) {
       $.ajax({
-        url: "parts/getEventInfo.php",
+        url: "parts/calendarCRUD.php",
         type: "POST",
         data: {
+          getEventInfo: "true",
           id: info.event.id
         },
-        success: function(data) {
-          var array = JSON.parse(data);
+        success: function(eventdata) {
+          var array = JSON.parse(eventdata);
           $('#titleE').val(array[0].eventname);
           $('#colorE').val(array[0].color);
           $('#nameE').html(array[0].clientname);
@@ -213,9 +209,10 @@ document.addEventListener('DOMContentLoaded', function() {
         var color = $('#colorE').val();
         var eventid = $('#eventidE').val();
         $.ajax({
-          url: "parts/calendarUpdateModal.php",
+          url: "parts/calendarCRUD.php",
           type: "POST",
           data: {
+            setEventInfo: "true",
             title: title,
             color: color,
             eventid: eventid
@@ -232,13 +229,14 @@ document.addEventListener('DOMContentLoaded', function() {
         })
       });
 
-      $(document).on('click', '#eventDeleteE', function(){
+      $(document).on('click', '#eventDeleteE', function() {
         if (confirm("Biztosan törölni akarod az eseményt?")) {
           var eventid = $('#eventidE').val();
           $.ajax({
-            url: "parts/calendarDelete.php",
+            url: "parts/calendarCRUD.php",
             type: "POST",
             data: {
+              delete: "true",
               eventid: eventid
             },
             success: function(data) {
@@ -273,12 +271,19 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   var coach = $('#coach').val();
-  if (coach == 0)
-  {
-    $('#customEventAdd').css({"display": "none"});
-    $('#creatCustomModal').css({"display": "none"});
-    $('#customEventDelete').css({"display": "none"});
-    $('#deleteCustomModal').css({"display": "none"});
+  if (coach == 0) {
+    $('#customEventAdd').css({
+      "display": "none"
+    });
+    $('#creatCustomModal').css({
+      "display": "none"
+    });
+    $('#customEventDelete').css({
+      "display": "none"
+    });
+    $('#deleteCustomModal').css({
+      "display": "none"
+    });
   }
 
   $('#customEventAdd').click(function() {
@@ -292,9 +297,10 @@ document.addEventListener('DOMContentLoaded', function() {
     var color = $('#colorC').val();
     var coachid = $('#coachidC').val();
     $.ajax({
-      url: "parts/calendarCreatCustom.php",
+      url: "parts/calendarCRUD.php",
       type: "POST",
       data: {
+        creatCustom: "true",
         title: title,
         duration: duration,
         color: color,
@@ -315,9 +321,10 @@ document.addEventListener('DOMContentLoaded', function() {
     var customeventid = $('#titleD').val();
     var coachid = $('#coachidD').val();
     $.ajax({
-      url: "parts/calendarDeleteCustom.php",
+      url: "parts/calendarCRUD.php",
       type: "POST",
       data: {
+        deleteCustom: "true",
         customeventid: customeventid,
         coachid: coachid
       },

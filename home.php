@@ -132,7 +132,7 @@ if (!isset($_SESSION['loggedin'])) {
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script><!--alap-->
         <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js" charset="utf-8"></script><!--responsive-->
-        <script src="js/datatablesScript.js"></script>
+        <script src="js/tableScript.js"></script>
 
     </body>
 </html>
