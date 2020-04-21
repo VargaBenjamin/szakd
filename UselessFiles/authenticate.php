@@ -38,7 +38,4 @@ if ($stmt = $con->prepare('SELECT id, password, activation_code, coach, coachid 
         echo 'Incorrect username!';
     }
 }
-if ($stmt) {
-	$stmt->close();
-}
 $con->close();

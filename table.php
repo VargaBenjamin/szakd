@@ -1,5 +1,5 @@
 <?php
-//tables.php
+//table.php
 session_start();
 if (!isset($_SESSION['loggedin'])) {
 	 header("Location: index.php?error=out");
@@ -259,6 +259,6 @@ if (!isset($_SESSION['loggedin'])) {
 				<script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js" charset="utf-8"></script><!--select-->
 				<!--<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js" charset="utf-8"></script>-->
 				<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js" charset="utf-8"></script>
-        <script src="js/datatablesScript.js"></script>
+        <script src="js/tableScript.js"></script>
     </body>
 </html>
