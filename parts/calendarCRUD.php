@@ -53,19 +53,21 @@ if (isset($_POST['getEventInfo'])) {
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         //echo $row['duration'];
-        $eventData[] = array(
-          'eventname' => $row['eventname'],
-          'clientname' => $row['clientname'],
-          'clientemail' => $row['clientemail'],
-          'starttime' => $row['starttime'],
-          'endtime' => $row['endtime'],
-          'duration' => $row['duration'],
-          'color' => $row['color'],
-          'eventid' => $row['eventid']
-        );
+        // $eventData[] = array(
+        //   'eventname' => $row['eventname'],
+        //   'clientname' => $row['clientname'],
+        //   'clientemail' => $row['clientemail'],
+        //   'starttime' => $row['starttime'],
+        //   'endtime' => $row['endtime'],
+        //   'duration' => $row['duration'],
+        //   'color' => $row['color'],
+        //   'eventid' => $row['eventid']
+        // );
         $stmt->close();
+        // echo json_encode($eventData);
+        echo json_encode($row);
+
       }
-      echo json_encode($eventData);
   }
 }
 
@@ -125,5 +127,39 @@ if (isset($_POST['deleteCustom'])) {
     }
   }
 }
+
+if (isset($_POST['getCalOpt'])) {
+  if (isset($_POST['coachid'])) {
+    if ($stmt = $con->prepare('SELECT * FROM calendaroption WHERE coachid = ?'))
+    {
+      $stmt->bind_param('i', $_POST['coachid']);
+      $stmt->execute();
+      $result = $stmt->get_result();
+      if($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $stmt->close();
+        echo json_encode($row);
+      }
+    }
+  }
+}
+
+if (isset($_POST['setCalOpt'])) {
+  if (isset($_POST['coachid'],$_POST['basicView'],$_POST['dayStart'],$_POST['dayEnd'],$_POST['overlap'],$_POST['views'],$_POST['hiddendays'])) {
+    $coachid = mysqli_real_escape_string($con, $_POST["coachid"]);
+    $basicView = mysqli_real_escape_string($con, $_POST["basicView"]);
+    $dayStart = mysqli_real_escape_string($con, $_POST["dayStart"]);
+    $dayEnd = mysqli_real_escape_string($con, $_POST["dayEnd"]);
+    $overlap = mysqli_real_escape_string($con, $_POST["overlap"]);
+    $views = mysqli_real_escape_string($con, $_POST["views"]);
+    $hiddendays = mysqli_real_escape_string($con, $_POST["hiddendays"]);
+    if ($stmt = $con->prepare('UPDATE calendaroption SET basicview = ?, views = ?, hiddendays= ?, mintime = ?, maxtime = ?, overlap = ? WHERE coachid = ?')) {
+      $stmt->bind_param('sssssii', $basicView, $views, $hiddendays, $dayStart, $dayEnd, $overlap, $coachid);
+      $stmt->execute();
+      $stmt->close();
+    }
+  }
+}
+
 $con->close();
 ?>
