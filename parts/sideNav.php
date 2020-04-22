@@ -27,7 +27,7 @@
                   <div class="sb-nav-link-icon"><i class="fas fa-comment-alt"></i></div>
                     Blog
                 </a>
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProfile" aria-expanded="false" aria-controls="collapseLayouts">
+                <a class="nav-link collapsed" href="#" id data-toggle="collapse" data-target="#collapseProfile" aria-expanded="false" aria-controls="collapseLayouts">
                   <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
                     Profilom
                   <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
