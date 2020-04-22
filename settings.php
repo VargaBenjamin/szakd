@@ -144,9 +144,6 @@ if ($stmt = $con->prepare('SELECT * FROM gym'))
 											<span id="alert"></span>
 											<button type="submit" class="col-md-12 btn btn-success">Módosítások mentése</button>
 								    </form>
-										<form class="form" action="" method="post" id="calendarUpdate" style="display: none">
-
-										</form>
 								  </div>
 								</div>
 								</div>
