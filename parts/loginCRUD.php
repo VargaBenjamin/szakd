@@ -1,44 +1,55 @@
 <?php
 require 'db.php';
 
-if (isset($_POST['registration'])) {
+if (isset($_POST['registration']))
+{
+	
 	if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'))
 	{
 		$stmt->bind_param('s', $_POST['username']);
 		$stmt->execute();
 		$stmt->store_result();
+
 		if ($stmt->num_rows > 0)
 		{
 			echo 'Felhasználónév már használatban van! Kérjük válasz egy másikat!';
 		}
 		else
 		{
+
 	    if ($stmt = $con->prepare('INSERT INTO accounts (username, password, email, activation_code, coach) VALUES (?, ?, ?, ?, ?)'))
 			{
 	    	$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 	      $uniqid = uniqid();
-				if ($_POST['role']) {
-					$role = 0;
-				} else {
-					$role = 1;
-				};
-	      $stmt->bind_param('ssssi', $_POST['username'], $password, $_POST['email'], $uniqid, $role);
+	      $stmt->bind_param('ssssi', $_POST['username'], $password, $_POST['email'], $uniqid, $_POST['role']);
 	    	$stmt->execute();
 
-				$stmt = $con->prepare('SELECT id, password, activation_code, coach  FROM accounts WHERE username = ?');
+				$stmt = $con->prepare('SELECT id, password, activation_code FROM accounts WHERE username = ?');
 				$stmt->bind_param('s', $_POST['username']);
 				$stmt->execute();
-				$stmt->bind_result($id, $password, $status, $coach);
+				$stmt->bind_result($id, $password, $status);
 				$stmt->fetch();
 				$coachid = "";
-				if ($coach == 1) {  //ha edző vagy
+
+				if ($_POST['role'] == 1) //ha edző vagy
+				{
 					$coachid = $id; //akkor az edző id-ja a saját id-d lesz (te vagy a saját edződ)
 					$stmt->close(); //mindenképpen le kell zárni, mielőtt újra használnánk
+
+					if ($stmt = $con->prepare('INSERT INTO calendaroption (coachid) VALUES (?)'))
+					{
+						$stmt->bind_param('i', $coachid);
+						$stmt->execute();
+						$stmt->close();
+					}
+
 					if ($stmt = $con->prepare('UPDATE accounts SET coachid = ? WHERE username = ?'))
 					{
 						$stmt->bind_param('is', $coachid, $_POST['username']);
 						$stmt->execute();
+						$stmt->close();
 					}
+
 				}
 				session_start();
 				$_SESSION['loggedin'] = true;
@@ -46,7 +57,7 @@ if (isset($_POST['registration'])) {
 				$_SESSION['id'] = $id;
 				$_SESSION['status'] = $status;
 				$_SESSION['coachid'] = $coachid;
-				$_SESSION['coach'] = $coach;
+				$_SESSION['coach'] = $_POST['role'];
 				echo "valid";
 			}
 			else

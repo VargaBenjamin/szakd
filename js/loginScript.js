@@ -59,10 +59,13 @@ $(document).ready(function() {
     var passwordR = $('#passwordR').val();
     var passwordReR = $('#passwordReR').val();
     var roleR = $('#roleR').prop('checked');
+    var role ="";
     if (roleR) {
-      console.log("vlami");
+      role = 0;
+      console.log(role + "munkás");
     } else {
-      console.log("edző");
+      role = 1;
+      console.log(role + "edző");
     }
     if (validateUsername(usernameR)) {
       if (validateEmail(emailR)) {
@@ -76,12 +79,15 @@ $(document).ready(function() {
               email: emailR,
               password: passwordR,
               passwordRe: passwordReR,
-              role: roleR
+              role: role
             },
             success: function(data)
             {
               if (data == "valid") {
                 window.location.replace("home.php");
+              }
+              else {
+                console.log(data);
               }
             }
           });
