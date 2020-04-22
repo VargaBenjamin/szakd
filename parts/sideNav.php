@@ -46,7 +46,7 @@
                       </a>
                     </nav>
                 </div>
-                <div id="coach">
+                <div id="coacNav">
                   <div class="collapse" id="collapseProfile" aria-labelledby="headingThree" data-parent="#sidenavAccordion">
                       <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="calendarOption.php">
