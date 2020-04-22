@@ -1,5 +1,9 @@
 //calendar.js
-document.addEventListener('DOMContentLoaded', function() {
+$(document).ready(function() {
+
+
+
+
   var initialLocaleCode = 'hu';
   var localeSelectorEl = document.getElementById('locale-selector');
 
@@ -43,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
     header: {
       left: 'prev,next today',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+      right: 'list,dayGridMonth,timeGridWeek,timeGridDay'
     },
     hiddenDays: [0,6], //0 vasarnap, 1 hetfo...
     minTime: "07:00",
@@ -158,16 +162,16 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         success: function(eventdata) {
           var array = JSON.parse(eventdata);
-          $('#titleE').val(array[0].eventname);
-          $('#colorE').val(array[0].color);
-          $('#nameE').html(array[0].clientname);
-          $('#emailE').html(array[0].clientemail);
-          $('#startE').html(array[0].starttime);
-          $('#endE').html(array[0].endtime);
-          $('#durE').html(array[0].duration);
-          $('#eventidE').val(array[0].eventid);
+          $('#titleE').val(array.eventname);
+          $('#colorE').val(array.color);
+          $('#nameE').html(array.clientname);
+          $('#emailE').html(array.clientemail);
+          $('#startE').html(array.starttime);
+          $('#endE').html(array.endtime);
+          $('#durE').html(array.duration);
+          $('#eventidE').val(array.eventid);
           $('#updateEventModal').modal();
-        },
+        }
       });
 
       $("#updateEventModal").submit(function(e) {
@@ -300,7 +304,5 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     })
   });
-
-  $('#durationC').timepicker();
 
 });

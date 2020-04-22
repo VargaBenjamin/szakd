@@ -63,7 +63,7 @@ $(document).ready(function() {
             setTimeout(function() {
               $('.alert').fadeOut('slow');
             }, 1500);
-            $('#settingsUpdate')[0].reset();
+            $('#settingsUpdate').reset();
           }
         } else {
           $('#alert').html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Hibás jelszó!</strong></div>');
