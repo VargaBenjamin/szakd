@@ -62,9 +62,9 @@ if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SES
                 <main>
                     <div class="container-fluid">
                         <h1 class="mt-4">Naptáram</h1>
-                        <span id="alert"></span>
+                        <div id="alert"></div>
                         <div class="row">
-                          <div class="col-md-3">
+                          <div class="col-md-3 col-md-push-3">
                             <div class="card">
                               <div class="card-header">Választható események</div>
                               <div class="card-body" id='external-events' style="overflow: auto;">

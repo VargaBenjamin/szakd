@@ -40,54 +40,21 @@ document.addEventListener('DOMContentLoaded', function() {
     timeZone: 'GMT+1', //'Europe/Budapest',
     nowIndicator: true,
     locale: initialLocaleCode,
-
-    //custom button for add event
-    // customButtons: {
-    //   addEvent: {
-    //     text: 'Esemény hozzáadása',
-    //     click: function() {
-    //       $('#creatCustomModal').modal(); //ezért ugrik fel az ablak ahogy kell bootstrapben
-    //     }
-    //   },
-    //   deleteEvent: {
-    //     text: 'Esemény törlése',
-    //     click: function() {
-    //       $('#deleteCustomModal').modal();
-    //     }
-    //   }
-    // },
-
     header: {
       left: 'prev,next today',
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
     },
-    // footer: {
-    //   left: 'addEvent',
-    //   center: '',
-    //   right: 'deleteEvent'
-    // },
-
-    businessHours: [ // specify an array instead
-      {
-        daysOfWeek: [1, 2, 3, 4, 5], // Monday, Tuesday, Wednesday
-        startTime: '07:00', // 8am
-        endTime: '21:00' // 6pm
-      },
-      {
-        daysOfWeek: [6], // Saturday
-        startTime: '10:00', // 10am
-        endTime: '16:00' // 4pm
-      }
-    ],
-    hiddenDays: [0], //0 vasarnap, 1 hetfo...
+    hiddenDays: [0,6], //0 vasarnap, 1 hetfo...
     minTime: "07:00",
     maxTime: "22:00",
+    eventOverlap: false,
     navLinks: false,
-    selectable: false, //atlatszoan mutatja a kijelolt intervallumot
+    selectable: true, //atlatszoan mutatja a kijelolt intervallumot
     selectMirror: false, //a kijelolt intervallumra elhelyez egy esemenyt
     editable: true,
     droppable: true,
+
     events: 'parts/calendarInit.php', //FONTOS RÉSZ. Itt tölti be az eseményeket egy array segítségével. Itt lehet mahinálni, https://fullcalendar.io/docs/event-parsing alapján vannak tulajdonságok.
 
     //trigger when drop an external event into the calendar
@@ -114,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
             customeventid: customeventid
           },
           success: function(data) {
-            $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeresen elhelyezve!</strong></div>');
+            $('#alert').html('<div class="alert alert-success alert-dismissible col-md-12 col-md-pull-12" style="position: fixed;z-index:+101;" ><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeresen elhelyezve!</strong></div>');
             setTimeout(function() {
               $('.alert').fadeOut('slow');
             }, 1500);
@@ -144,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
           },
           success: function(data) {
             calendar.refetchEvents();
-            $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Esemény átméretezve!</strong></div>');
+            $('#alert').html('<div class="alert alert-success alert-dismissible col-md-12 col-md-pull-12" style="position: fixed;z-index:+101;" ><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Esemény átméretezve!</strong></div>');
             setTimeout(function() {
               $('.alert').fadeOut('slow');
             }, 1500);
@@ -172,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
           },
           success: function() {
             calendar.refetchEvents();
-            $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Esemény frissítve!</strong></div>');
+            $('#alert').html('<div class="alert alert-success alert-dismissible col-md-12 col-md-pull-12" style="position: fixed;z-index:+101;" ><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Esemény frissítve!</strong></div>');
             setTimeout(function() {
               $('.alert').fadeOut('slow');
             }, 1500);
@@ -221,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
             //location.reload();  //különben annyiszor kérdez rá a törlésre ahány változtatás volt egy refetch alatt
             calendar.refetchEvents();
             $('#updateEventModal').modal('hide');
-            $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeres frissítés!</strong></div>');
+            $('#alert').html('<div class="alert alert-success alert-dismissible col-md-12 col-md-pull-12" style="position: fixed;z-index:+101;" ><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeres frissítés!</strong></div>');
             setTimeout(function() {
               $('.alert').fadeOut('slow');
             }, 1500);
@@ -242,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
             success: function(data) {
               calendar.refetchEvents();
               $('#updateEventModal').modal('hide');
-              $('#alert').html('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeres törlés!</strong></div>');
+              $('#alert').html('<div class="alert alert-success alert-dismissible col-md-12 col-md-pull-12" style="position: fixed;z-index:+101;" ><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeres törlés!</strong></div>');
               setTimeout(function() {
                 $('.alert').fadeOut('slow');
               }, 1500);
@@ -333,5 +300,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     })
   });
+
+  $('#durationC').timepicker();
 
 });
