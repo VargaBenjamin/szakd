@@ -22,3 +22,14 @@
   }, 3000);
 
 })(jQuery);
+
+$(document).ready(function() {
+  var role = $('#role').val();
+  if (role == 1) {
+    $('#coach').show();
+  } else {
+    $('#coach').hide();
+  }
+
+
+});

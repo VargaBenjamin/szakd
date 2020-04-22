@@ -27,7 +27,7 @@
                   <div class="sb-nav-link-icon"><i class="fas fa-comment-alt"></i></div>
                     Blog
                 </a>
-                <a class="nav-link collapsed" href="#" id data-toggle="collapse" data-target="#collapseProfile" aria-expanded="false" aria-controls="collapseLayouts">
+                <a class="nav-link collapsed" href="#" id="sidenavAccordion" data-toggle="collapse" data-target="#collapseProfile" aria-expanded="false" aria-controls="collapseLayouts">
                   <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
                     Profilom
                   <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -46,6 +46,15 @@
                       </a>
                     </nav>
                 </div>
+                <div id="coach">
+                  <div class="collapse" id="collapseProfile" aria-labelledby="headingThree" data-parent="#sidenavAccordion">
+                      <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="calendarOption.php">
+                          Naptáram beállítása
+                        </a>
+                      </nav>
+                  </div>
+                </div>
                 <a class="nav-link" href="parts/logout.php">
                   <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
                     Kijelentkezés
@@ -54,3 +63,4 @@
         </div>
     </nav>
 </div>
+<input id="role" type="hidden" name="role" value='<?php echo $_SESSION["coach"] ?>'>
