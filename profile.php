@@ -49,7 +49,7 @@ $stmt->close();
                 </main>
 								<div class="container bootstrap snippets">
 								<div class="row">
-								  <div class="col-xs-12 col-sm-9">
+								  <div class="col-md-12">
 								    <form class="form-horizontal">
 								      <div class="panel panel-default">
 								        <div class="panel-heading">
@@ -57,15 +57,15 @@ $stmt->close();
 								        </div>
 								        <div class="panel-body">
 								          <div class="form-group">
-								            <label class="col-sm-3 control-label">Felhasználónév</label>
+								            <label class="col-sm-4 control-label">Felhasználónév</label>
 														<label class="col-sm-4 control-label font-weight-bold"><?=$_SESSION['name']?></label>
 								          </div>
 													<div class="form-group">
-								            <label class="col-sm-3 control-label">Email cím</label>
+								            <label class="col-sm-4 control-label">Email cím</label>
 														<label class="col-sm-4 control-label font-weight-bold"><?=$email?></label>
 								          </div>
 													<div class="form-group">
-								            <label class="col-sm-3 control-label">Titulus</label>
+								            <label class="col-sm-4 control-label">Titulus</label>
 														<label class="col-sm-4 control-label font-weight-bold">
 															<?php
 															if ($coach == 1) {
@@ -78,14 +78,14 @@ $stmt->close();
 													</label>
 								          </div>
 													<div class="form-group">
-								            <label class="col-sm-3 control-label">Edzőterem</label>
+								            <label class="col-sm-4 control-label">Edzőterem</label>
 														<label class="col-sm-4 control-label font-weight-bold">
 														<input type="hidden" id="gym" value="<?= $gid ?>"/>
 														<span id="resultG"></span>
 													</label>
 								          </div>
 													<div class="form-group">
-								            <label class="col-sm-3 control-label">Edző</label>
+								            <label class="col-sm-4 control-label">Edző</label>
 														<label class="col-sm-4 control-label font-weight-bold">
 														<input type="hidden" id="coach" value="<?= $cid ?>"/>
 														<span id="resultC"></span>
@@ -101,7 +101,7 @@ $stmt->close();
 								        <div class="panel-body">
 
 													<div class="form-group">
-								            <label class="col-sm-3 control-label">Aktivált felhasználó</label>
+								            <label class="col-sm-4 control-label">Aktivált felhasználó</label>
 														<label class="col-sm-4 control-label font-weight-bold">
 															<?php
 															if ($accode == "activated") {
@@ -113,7 +113,7 @@ $stmt->close();
 													</label>
 								          </div>
 													<div class="form-group">
-								            <label class="col-sm-3 control-label">Telefonszám</label>
+								            <label class="col-sm-4 control-label">Telefonszám</label>
 														<label class="col-sm-4 control-label font-weight-bold">
 															<?php
 															if (!is_null($telephone)) {
@@ -125,7 +125,7 @@ $stmt->close();
 													</label>
 								          </div>
 													<div class="form-group">
-								            <label class="col-sm-3 control-label">Google szinkronizálás</label>
+								            <label class="col-sm-4 control-label">Google szinkronizálás</label>
 														<label class="col-sm-4 control-label">
 															<?php
 															if (!is_null($gVal)) {
@@ -137,7 +137,7 @@ $stmt->close();
 													</label>
 								          </div>
 													<div class="form-group">
-								            <label class="col-sm-3 control-label">Facebook szinkronizálás</label>
+								            <label class="col-sm-4 control-label">Facebook szinkronizálás</label>
 														<label class="col-sm-4 control-label">
 															<?php
 															if (!is_null($fVal)) {
@@ -149,7 +149,7 @@ $stmt->close();
 													</label>
 								          </div>
 													<div class="form-group">
-								            <label class="col-sm-3 control-label">Twitter szinkronizálás</label>
+								            <label class="col-sm-4 control-label">Twitter szinkronizálás</label>
 														<label class="col-sm-4 control-label">
 															<?php
 															if (!is_null($tVal)) {
