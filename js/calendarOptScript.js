@@ -16,17 +16,18 @@ $(document).ready(function() {
     },
     success: function(getData) {
       var array = JSON.parse(getData);
+      console.log(array);
       basicView = array.basicview;
       $('#basicView').val(array.basicview);
 
       views = (array.views).split(",");
       for (var i = 0; i < views.length; i++) {
-        $('#'+views[i]).prop('checked', true);
+        $('#' + views[i]).prop('checked', true);
       }
 
       hiddendays = (array.hiddendays).split(",");
       for (var i = 0; i < hiddendays.length; i++) {
-        $('#'+hiddendays[i]).prop('checked', true);
+        $('#' + hiddendays[i]).prop('checked', true);
       }
 
       minTime = array.mintime;
@@ -39,9 +40,7 @@ $(document).ready(function() {
       if (array.overlap == 1) //lehet átfedés
       {
         $('#overlap').bootstrapToggle('on')
-      }
-      else
-      {
+      } else {
         $('#overlap').bootstrapToggle('off')
       }
     }
@@ -55,24 +54,23 @@ $(document).ready(function() {
     var overlapBool = $('#overlap').prop('checked');
     if (overlapBool) {
       overlap = 1;
-    }
-    else {
+    } else {
       overlap = 0;
     }
     views = "list";
     if ($('#timeGridDay').is(':checked')) {
-      views+= ","+$('#timeGridDay').val();
+      views += "," + $('#timeGridDay').val();
     }
     if ($('#timeGridWeek').is(':checked')) {
-      views+= ","+$('#timeGridWeek').val();
+      views += "," + $('#timeGridWeek').val();
     }
     if ($('#dayGridMonth').is(':checked')) {
-      views+= ","+$('#dayGridMonth').val();
+      views += "," + $('#dayGridMonth').val();
     }
-    hiddendays ="";
+    hiddendays = "";
     for (var i = 0; i < 7; i++) {
-      if ($('#'+ i).is(':checked')) {
-        hiddendays+= $('#'+ i).val()+",";
+      if ($('#' + i).is(':checked')) {
+        hiddendays += $('#' + i).val() + ",";
       }
     }
     if (hiddendays != "") {
@@ -92,12 +90,12 @@ $(document).ready(function() {
         hiddendays: hiddendays
       },
       success: function(data) {
-        console.log(data);
+        console.log("Sikeres" + data);
         $('#alert').html('<div class="alert alert-success alert-dismissible col-md-12 col-md-pull-12" style="position: fixed;z-index:+101;" ><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Naptár beállítások frissítve!</strong></div>');
         setTimeout(function() {
           $('.alert').fadeOut('slow');
         }, 1500);
-       }
+      }
     })
   })
 

@@ -1,9 +1,41 @@
 //calendar.js
 $(document).ready(function() {
+  var coachidOpt = $('#coachidOpt').val();
+  var basicView="";
+  var views="";
+  var hiddendays="";
+  var minTime="";
+  var maxTime="";
+  var overlap="";
+
+  $.ajax({
+    url: "parts/calendarCRUD.php",
+    type: "POST",
+    data: {
+      getCalOpt: "true",
+      coachid: coachidOpt
+    },
+    success: function(getData) {
+      var array = JSON.parse(getData);
+      basicView = array.basicview;
+      views = array.views;
+      hiddendays = array.hiddendays;
+      minTime = array.mintime;
+      maxTime = array.maxtime;
+      if (array.overlap == 1) {
+        overlap = 1;
+      }else {
+        overlap = 0;
+      }
+      getCalendar();
+    }
+  })
 
 
 
 
+function getCalendar()
+{
   var initialLocaleCode = 'hu';
   var localeSelectorEl = document.getElementById('locale-selector');
 
@@ -34,25 +66,22 @@ $(document).ready(function() {
     }
   });
 
-
-
-
   var calendar = new Calendar(calendarEl, {
     plugins: ['interaction', 'dayGrid', 'timeGrid', 'list', 'bootstrap'],
     themeSystem: 'bootstrap4',
-    defaultView: 'timeGridWeek',
+    defaultView: basicView,
     timeZone: 'GMT+1', //'Europe/Budapest',
     nowIndicator: true,
     locale: initialLocaleCode,
     header: {
       left: 'prev,next today',
       center: 'title',
-      right: 'list,dayGridMonth,timeGridWeek,timeGridDay'
+      right: views
     },
-    hiddenDays: [0,6], //0 vasarnap, 1 hetfo...
-    minTime: "07:00",
-    maxTime: "22:00",
-    eventOverlap: false,
+    hiddenDays: '[' + hiddendays + ']', //0 vasarnap, 1 hetfo...
+    minTime: minTime,
+    maxTime: maxTime,
+    eventOverlap: overlap,
     navLinks: false,
     selectable: true, //atlatszoan mutatja a kijelolt intervallumot
     selectMirror: false, //a kijelolt intervallumra elhelyez egy esemenyt
@@ -304,5 +333,6 @@ $(document).ready(function() {
       }
     })
   });
+}
 
 });

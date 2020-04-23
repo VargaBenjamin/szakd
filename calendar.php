@@ -206,7 +206,15 @@ if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SES
             </div>
         </div>
         <input id="coach" type="hidden" name="id" value='<?php echo $_SESSION["coach"] ?>'>
+        <?php
+        if (isset($_SESSION['coachid'])) {
+          ?>
+          <input id="coachidOpt" type="hidden" name="id" value='<?php echo $_SESSION['coachid'] ?>'>
+          <?php
+        }
+         ?>
         <script src="js/homeScripts.js"></script>
+        <!-- <script src="js/calendarOptScript.js"></script> -->
         <script src="js/calendar.js"></script>
     </body>
 </html>

@@ -10,14 +10,6 @@ if (!isset($_SESSION['loggedin'])) {
 if ($_SESSION['coach'] == 0) {
 	header("Location: home.php");
 }
-
-
-$stmt = $con->prepare('SELECT email, coach, telephone, Google, Facebook, Twitter, activation_code, gymid, coachid FROM accounts WHERE id = ?');
-$stmt->bind_param('i', $_SESSION['id']);
-$stmt->execute();
-$stmt->bind_result($email, $coach, $telephone, $gVal, $fVal, $tVal, $accode, $gid, $cid);
-$stmt->fetch();
-$stmt->close();
 ?>
 
 <!DOCTYPE html>
