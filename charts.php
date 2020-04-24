@@ -17,8 +17,8 @@ if (!isset($_SESSION['loggedin'])) {
         <meta name="author" content="" />
         <title>Kimutatások</title>
 				<link href="css/homeStyle.css" type="text/css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
-				<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" charset="utf-8"></script>
+				<script src="vendor/fontAwesome/js/all.min.js" charset="utf-8"></script>
+				<script src="vendor/chartjs/js/Chart.min.js" charset="utf-8"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">

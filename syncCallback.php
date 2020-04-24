@@ -31,7 +31,6 @@ try {
         $hybridauth->authenticate($provider);
         $adapterKey = $hybridauth->getAdapter($provider);
         $socID = $adapterKey->getUserProfile()->identifier;
-        //$stmt = $con->prepare('UPDATE accounts SET ' . mysqli_real_escape_string($con, $provider) . ' = ' . mysqli_real_escape_string($con, $socID) . ' WHERE id = ' . $_SESSION['id'])
         $stmt = $con->prepare('UPDATE accounts SET ' . mysqli_real_escape_string($con, $provider) . ' = ' . mysqli_real_escape_string($con, $socID) . ' WHERE id = ' . $_SESSION['id']);
         $stmt->execute();
         $stmt->store_result();

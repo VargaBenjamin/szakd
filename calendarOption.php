@@ -23,7 +23,8 @@ if ($_SESSION['coach'] == 0) {
         <title>Naptár beállítás</title>
 				<link href="css/homeStyle.css" type="text/css" rel="stylesheet" />
 				<link href="vendor/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+				<script src="vendor/fontAwesome/js/all.min.js" charset="utf-8"></script>
+
 				<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
     </head>
     <body>

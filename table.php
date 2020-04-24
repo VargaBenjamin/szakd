@@ -23,10 +23,7 @@ if (!isset($_SESSION['loggedin'])) {
 				<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.dataTables.min.css"><!--fixhead-->
 				<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css"><!--custombutton-->
 				<link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css"><!--select-->
-				<!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css">-->
-				<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
-				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+				<script src="vendor/fontAwesome/js/all.min.js" charset="utf-8"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -257,8 +254,6 @@ if (!isset($_SESSION['loggedin'])) {
 				<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js" charset="utf-8"></script>
 				<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js" charset="utf-8"></script>
 				<script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js" charset="utf-8"></script><!--select-->
-				<!--<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js" charset="utf-8"></script>-->
-				<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js" charset="utf-8"></script>
         <script src="js/tableScript.js"></script>
     </body>
 </html>

@@ -43,11 +43,11 @@ if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SES
 			  <script src='fullcalendar/timegrid/main.js'></script>
 			  <script src='fullcalendar/interaction/main.js'></script>
 			  <script src='fullcalendar/list/main.js'></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="vendor/fontAwesome/js/all.min.js" charset="utf-8"></script>
+
 
 				<!--bootstrap kotelezo elemek-->
 				<link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
-				<!--<link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />-->
         <script src="vendor/jquery/jquery.min.js"></script> <!--ennek előbb kell lenie mint az alatta levo 2 boostrapnak a modalfelugrasnal-->
 				<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
 				<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -214,7 +214,6 @@ if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SES
         }
          ?>
         <script src="js/homeScripts.js"></script>
-        <!-- <script src="js/calendarOptScript.js"></script> -->
         <script src="js/calendar.js"></script>
     </body>
 </html>
