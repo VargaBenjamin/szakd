@@ -18,7 +18,16 @@ if (!isset($_SESSION['loggedin'])) {
         <link href="css/homeStyle.css" type="text/css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"> <!--alap-->
         <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"><!--responsive-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+        <link href='fullcalendar/core/main.css' rel='stylesheet' />
+        <link href='fullcalendar/list/main.css' rel='stylesheet' />
+
+        <script src='fullcalendar/core/main.js'></script>
+        <script src='fullcalendar/core/locales/hu.js'></script>
+        <script src='fullcalendar/bootstrap/main.js'></script>
+        <script src='fullcalendar/interaction/main.js'></script>
+        <script src='fullcalendar/list/main.js'></script>
+        <script src="vendor/chartjs/js/Chart.min.js" charset="utf-8"></script>
+        <script src="vendor/fontAwesome/js/all.min.js" charset="utf-8"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -31,9 +40,17 @@ if (!isset($_SESSION['loggedin'])) {
                     <div class="container-fluid">
                         <h1 class="mt-4">Irányítópult</h1>
                         <div class="row">
-                          <div class="col-xl-10">
-                            <div class="card-header bg-warning"><i class="fas fa-comment-alt"></i>Friss hírünk</div>
+                          <div class="col-xl-6">
+                            <div class="card-header bg-warning"><i class="fas fa-comment-alt"></i> Friss hírünk</div>
                             <?php require 'parts/postLoadsMain.php'; ?>
+                          </div>
+                          <div class="col-xl-6">
+                            <div class="card mb-6">
+                              <div class="card-header bg-info"><i class="fas fa-calendar-day"></i> Programok</div>
+                              <div class="card-body" id='calendar-container' height="40">
+                                <p class="card-text" id='calendar'></p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                         <!-- <div class="row">
@@ -77,19 +94,19 @@ if (!isset($_SESSION['loggedin'])) {
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">
-                                    <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Area Chart Example</div>
+                                    <div class="card-header bg-success"><i class="fas fa-chart-area mr-1"></i>Area Chart Example</div>
                                     <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
                             <div class="col-xl-6">
                                 <div class="card mb-4">
-                                    <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Bar Chart Example</div>
+                                    <div class="card-header bg-success"><i class="fas fa-chart-bar mr-1"></i>Bar Chart Example</div>
                                     <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
                         </div>
                         <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>Feljegyzett eredményeim</div>
+                            <div class="card-header bg-primary"><i class="fas fa-table mr-1"></i>Feljegyzett eredményeim</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -124,15 +141,23 @@ if (!isset($_SESSION['loggedin'])) {
                 <?php require 'parts/footer.php'; ?>
             </div>
         </div>
+        <input id="coach" type="hidden" name="id" value='<?php echo $_SESSION["coach"] ?>'>
+        <?php
+        if (isset($_SESSION['coachid'])) {
+          ?>
+          <input id="coachidOpt" type="hidden" name="id" value='<?php echo $_SESSION['coachid'] ?>'>
+          <?php
+        }
+         ?>
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-        <script src="js/homeScripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script><!--alap-->
         <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js" charset="utf-8"></script><!--responsive-->
         <script src="js/tableScript.js"></script>
-
+        <script src='fullcalendar/core/locales/hu.js'></script>
+        <script src="js/homeScripts.js"></script>
+        <script src="js/calendarHome.js"></script>
     </body>
 </html>
