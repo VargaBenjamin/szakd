@@ -44,7 +44,6 @@ function getCalendar()
 
   var containerEl = document.getElementById('external-events');
   var calendarEl = document.getElementById('calendar');
-  var checkbox = document.getElementById('drop-remove');
 
   // initialize the external events
   // -----------------------------------------------------------------
