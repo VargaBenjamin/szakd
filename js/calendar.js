@@ -66,8 +66,7 @@ function getCalendar()
   });
 
   var calendar = new Calendar(calendarEl, {
-    plugins: ['interaction', 'dayGrid', 'timeGrid', 'list', 'bootstrap'],
-    themeSystem: 'bootstrap4',
+    plugins: ['interaction', 'dayGrid', 'timeGrid', 'list'],
     defaultView: basicView,
     timeZone: 'GMT+1', //'Europe/Budapest',
     nowIndicator: true,
