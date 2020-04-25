@@ -71,6 +71,7 @@ function getCalendar()
     timeZone: 'GMT+1', //'Europe/Budapest',
     nowIndicator: true,
     locale: initialLocaleCode,
+    allDaySlot: false,
     header: {
       left: 'prev,next today',
       center: 'title',
@@ -90,6 +91,7 @@ function getCalendar()
 
     //trigger when drop an external event into the calendar
     eventReceive: function(info) {
+      calendar.eventDrop;
       if (confirm("Biztosan elhelyezed?")) {
         var start = info.event.start.toISOString();
         var end = info.event.end.toISOString();
@@ -102,7 +104,7 @@ function getCalendar()
           url: "parts/calendarCRUD.php",
           type: "POST",
           data: {
-            creat: "true",
+            create: "true",
             title: title,
             start: start,
             end: end,
@@ -112,6 +114,7 @@ function getCalendar()
             customeventid: customeventid
           },
           success: function(data) {
+            console.log(data);
             $('#alert').html('<div class="alert alert-success alert-dismissible col-md-12 col-md-pull-12" style="position: fixed;z-index:+101;" ><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sikeresen elhelyezve!</strong></div>');
             setTimeout(function() {
               $('.alert').fadeOut('slow');
@@ -273,7 +276,7 @@ function getCalendar()
     $('#customEventAdd').css({
       "display": "none"
     });
-    $('#creatCustomModal').css({
+    $('#createCustomModal').css({
       "display": "none"
     });
     $('#customEventDelete').css({
@@ -285,10 +288,10 @@ function getCalendar()
   }
 
   $('#customEventAdd').click(function() {
-    $('#creatCustomModal').modal();
+    $('#createCustomModal').modal();
   });
 
-  $("#creatCustomModal").submit(function(e) {
+  $("#createCustomModal").submit(function(e) {
     e.preventDefault();
     var title = $('#titleC').val();
     var duration = $('#durationC').val();
@@ -298,7 +301,7 @@ function getCalendar()
       url: "parts/calendarCRUD.php",
       type: "POST",
       data: {
-        creatCustom: "true",
+        createCustom: "true",
         title: title,
         duration: duration,
         color: color,

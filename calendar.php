@@ -81,8 +81,8 @@ if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SES
                               <div class="card-body" id='calendar-container'>
                                 <p class="card-text" id='calendar'></p>
                               </div>
-                              <div class="card-text">
-                                <button id="customEventAdd" type="button" class="btn btn-dark">Esemény hozzáadása</button>
+                              <div class="col text-center">
+                                <button id="customEventAdd" type="button" class="btn btn-dark float-left">Esemény hozzáadása</button>
                                 <button id="customEventDelete" type="button" class="btn btn-danger float-right">Esemény törlése</button>
                               </div>
                             </div>
@@ -97,7 +97,7 @@ if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SES
                   </main>
 
 									<!-- Modal -->
-									<div id="creatCustomModal" class="modal fade">
+									<div id="createCustomModal" class="modal fade">
 										<div class="modal-dialog">
 												<div class="modal-content">
 													<form class="form" action="" method="post">
@@ -122,7 +122,7 @@ if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SES
 															<div class="modal-footer">
                                 <input id="coachidC" type="hidden" name="id" value='<?php echo $_SESSION["id"] ?>'> <!-- Ha véletlenül egy kliens létretudna hozni, akkor se lássa senki -->
 																<button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
-                                <button type="submit" name="creatSumbit" class="btn btn-primary">Létrehozás</button>
+                                <button type="submit" name="createSumbit" class="btn btn-primary">Létrehozás</button>
 															</div>
 														</form>
 												</div>
@@ -148,7 +148,7 @@ if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SES
 															<div class="modal-footer">
                                 <input id="coachidD" type="hidden" name="id" value='<?php echo $_SESSION["id"] ?>'> <!-- Ha véletlenül egy kliens létretudna hozni, akkor se lássa senki -->
 																<button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
-                                <button type="submit" name="creatSumbit" class="btn btn-danger">TÖRLÉS</button>
+                                <button type="submit" name="createSumbit" class="btn btn-danger">TÖRLÉS</button>
 															</div>
 														</form>
 												</div>

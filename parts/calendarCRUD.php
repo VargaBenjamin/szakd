@@ -1,9 +1,9 @@
 <?php
-//calendarCreat.php
+//calendarCreate.php
 session_start();
 require 'db.php';
 
-if (isset($_POST['creat'])) {
+if (isset($_POST['create'])) {
   if(isset($_POST["title"], $_POST["start"], $_POST["end"], $_POST["color"], $_POST["coachid"], $_POST["clientid"], $_POST["customeventid"]))
   {
     $title = mysqli_real_escape_string($con, $_POST["title"]);
@@ -98,7 +98,7 @@ if (isset($_POST['delete'])) {
   }
 }
 
-if (isset($_POST['creatCustom'])) {
+if (isset($_POST['createCustom'])) {
   if(isset($_POST["title"], $_POST["duration"], $_POST["color"], $_POST["coachid"]))
   {
     echo $_POST["title"];
