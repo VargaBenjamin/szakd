@@ -55,6 +55,13 @@
                       </nav>
                   </div>
                 </div>
+                <div class="collapse" id="collapseProfile" aria-labelledby="headingFour" data-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                      <a class="nav-link" href="chartOption.php">
+                        Kimutatásaim beállítása
+                      </a>
+                    </nav>
+                </div>
                 <a class="nav-link" href="parts/logout.php">
                   <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
                     Kijelentkezés

@@ -10,7 +10,7 @@ if ($stmt = $con->prepare('SELECT * FROM articles, accounts WHERE articles.autho
   while ($row = $result->fetch_assoc()) {
 		$url = rawurlencode($row['title']);
 	  $output.=
-		'<div class="card mb-4">
+		'<div class="card mb-6">
 	   <img class="card-img-top" src="' . $row['picture'] . '" alt="Card image cap">
 	   <div class="card-body">
 	     <h2 class="card-title">' . $row['title'] . '</h2>

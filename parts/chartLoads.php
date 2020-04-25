@@ -17,8 +17,10 @@ if ($stmt = $con->prepare('SELECT * FROM workoutdata WHERE clientid = "' . $_SES
     array_push($dates, $row[1]);
   }
   $z = 0;
-  for ($x=2; $x < count($titles); $x++) {
-    for ($y=0; $y < count($dates); $y++) {
+  $dbRows = count($dates);
+  $dbColumns = count($titles);
+  for ($x=2; $x < $dbColumns; $x++) {
+    for ($y=0; $y < $dbRows; $y++) {
       $datarow[$y] = $output[$y][$x];
     }
     $r = mt_rand(0,255);
@@ -81,9 +83,6 @@ if ($stmt = $con->prepare('SELECT * FROM workoutdata WHERE clientid = "' . $_SES
   $z++;
   }
   echo $charts;
-}
-if ($stmt) {
-	$stmt->close();
 }
 $con->close();
 ?>
