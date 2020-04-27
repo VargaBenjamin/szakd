@@ -95,7 +95,7 @@ input[type="submit"]:focus
     padding: 40px;
     width: 300px;
     height: 450px;
-    background-image: url("img/loginImg.jpg");
+    background-image: url("img/sun.png");
     background-size: cover;
     background-position: center;
 }
