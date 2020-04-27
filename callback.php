@@ -42,7 +42,7 @@ try {
         $socID = $adapterKey->getUserProfile()->identifier;
 
         //bejelentkezik abba a felhasználóba, ahol az oda beírt social ID megegyezik a bejelentkezésnél lévő social ID-val
-        if ($stmt = $con->prepare('SELECT id, username, activation_code, coachid, coach FROM accounts WHERE ' . mysqli_real_escape_string($con, $provider) . ' = ' . mysqli_real_escape_string($con, $socID)))
+        if ($stmt = $con->prepare('SELECT id, username, activationcode, coachid, coach FROM accounts WHERE ' . mysqli_real_escape_string($con, $provider) . ' = ' . mysqli_real_escape_string($con, $socID)))
         {
           $stmt->execute();
           $stmt->store_result();
