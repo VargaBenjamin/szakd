@@ -6,16 +6,18 @@ if (!isset($_SESSION['loggedin'])) {
     exit();
 }
 require 'parts/db.php';
-
-if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SESSION["coachid"] . '"'))
-{
-  $customeventoutput = "";
-	$stmt->execute();
-	$result = $stmt->get_result();
-	while ($row = $result->fetch_assoc()) {
-		$customeventoutput .='<option value="' . $row['id'] . '">' . $row['title'] . '</option>';
-	}
+if (isset($_SESSION["coachid"])) {
+  if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SESSION["coachid"] . '"'))
+  {
+    $customeventoutput = "";
+  	$stmt->execute();
+  	$result = $stmt->get_result();
+  	while ($row = $result->fetch_assoc()) {
+  		$customeventoutput .='<option value="' . $row['id'] . '">' . $row['title'] . '</option>';
+  	}
+  }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +65,7 @@ if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SES
                     <div class="container-fluid">
                         <h1 class="mt-4">Naptáram</h1>
                         <div id="alert"></div>
-                        <div class="row">
+                        <div class="row" id="calLoad" >
                           <div class="col-md-3 col-md-push-3">
                             <div class="card">
                               <div class="card-header">Választható események</div>
@@ -167,8 +169,9 @@ if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SES
 																<div class="form-group">
 																	<label for="">Esemény neve:</label>
 																	<input id="titleE" class="font-weight-bold" type="text" name="title" value="">
+                                  <label id="titleCli" class="font-weight-bold" for=""></label>
 																</div>
-                                <div class="form-group">
+                                <div id="colorCoaE" class="form-group" style="">
                                   <label for="">Esemény színének kiválasztása:</label>
                                   <input id="colorE" type="color" name="color" value="">
                                 </div>
@@ -197,7 +200,7 @@ if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SES
                                 <input id="eventidE" type="hidden" name="id" value=''>
                                 <button id="eventDeleteE" type="button" class="btn  btn-danger">TÖRLÉS</button>
 																<button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
-                                <button type="submit" class="btn btn-primary">Mentés</button>
+                                <button id="eventUpdateE" type="submit" class="btn btn-primary">Mentés</button>
 															</div>
 														</form>
 												</div>
@@ -206,13 +209,7 @@ if ($stmt = $con->prepare('SELECT * FROM customevents WHERE coachid = "' . $_SES
             </div>
         </div>
         <input id="coach" type="hidden" name="id" value='<?php echo $_SESSION["coach"] ?>'>
-        <?php
-        if (isset($_SESSION['coachid'])) {
-          ?>
-          <input id="coachidOpt" type="hidden" name="id" value='<?php echo $_SESSION['coachid'] ?>'>
-          <?php
-        }
-         ?>
+        <input id="coachidOpt" type="hidden" name="id" value='<?php echo $_SESSION['coachid'] ?>'>
         <script src="js/homeScripts.js"></script>
         <script src="js/calendar.js"></script>
     </body>

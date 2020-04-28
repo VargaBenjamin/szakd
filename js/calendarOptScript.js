@@ -17,6 +17,7 @@ $(document).ready(function() {
     success: function(getData) {
       var array = JSON.parse(getData);
       console.log(array);
+      
       basicView = array.basicview;
       $('#basicView').val(array.basicview);
 
@@ -30,10 +31,8 @@ $(document).ready(function() {
         $('#' + hiddendays[i]).prop('checked', true);
       }
 
-      minTime = array.mintime;
       $('#dayStart').val(array.mintime);
 
-      maxTime = array.maxtime;
       $('#dayEnd').val(array.maxtime);
 
       overlap = array.overlap;

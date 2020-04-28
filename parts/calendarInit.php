@@ -3,7 +3,7 @@
 session_start();
 require 'db.php';
 
-if(isset($_SESSION['id'], $_SESSION['coachid']))
+if(isset($_SESSION['coachid']))
 {
   $data = array();
   $coachid = mysqli_real_escape_string($con, $_SESSION['coachid']);
