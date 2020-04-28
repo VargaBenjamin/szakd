@@ -23,66 +23,73 @@ if ($stmt = $con->prepare('SELECT * FROM workoutdata WHERE clientid = "' . $_SES
     for ($y=0; $y < $dbRows; $y++) {
       $datarow[$y] = $output[$y][$x];
     }
-    $r = mt_rand(0,255);
-    $g = mt_rand(0,255);
-    $b = mt_rand(0,255);
-    $charts .= '<div class="col-md-6">
-                  <div class="card">
-                    <div class="card-header">' . $titles[$z] . '</div>
-                    <div class="card-body">
-                      <canvas id="' . $z . '"></canvas>
+    if (isset($datarow)) {
+      $r = mt_rand(0,255);
+      $g = mt_rand(0,255);
+      $b = mt_rand(0,255);
+      $charts .= '<div class="col-md-6">
+                    <div class="card">
+                      <div class="card-header">' . $titles[$z] . '</div>
+                      <div class="card-body">
+                        <canvas id="' . $z . '"></canvas>
+                      </div>
                     </div>
                   </div>
-                </div>
-                      <script>
-                      var ctx = document.getElementById("' . $z . '").getContext("2d");
-                      var myChart = new Chart(ctx, {
-                          type: "bar",
-                          data: {
-                              labels: ' . json_encode($dates) . ',
-                              datasets: [{
-                                  data: ' . json_encode($datarow) . ',
-                                  backgroundColor: "rgba('.$r.','.$g.','.$b.', 0.3)",
-                                  barPercentage: 0.5
-                              },
-                              {
-                                  data: ' . json_encode($datarow) . ',
-                                  borderColor: "rgba('.$r.','.$g.','.$b.', 1)",
-                                  backgroundColor: "rgba('.$r.','.$g.','.$b.', 0.1)",
-                                  // fill: false,
-                                  type: "line"
-                              }
-                            ]
-                          },
-                          options: {
-                            legend: {
-                              	display: false
-                              },
-                            	tooltips: {
-                              	callbacks: {
-                                	label: function(tooltipItem) {
-                                  // console.log(tooltipItem)
-                                  	return tooltipItem.yLabel;
-                                  }
+                        <script>
+                        var ctx = document.getElementById("' . $z . '").getContext("2d");
+                        var myChart = new Chart(ctx, {
+                            type: "bar",
+                            data: {
+                                labels: ' . json_encode($dates) . ',
+                                datasets: [{
+                                    data: ' . json_encode($datarow) . ',
+                                    backgroundColor: "rgba('.$r.','.$g.','.$b.', 0.3)",
+                                    barPercentage: 0.5
+                                },
+                                {
+                                    data: ' . json_encode($datarow) . ',
+                                    borderColor: "rgba('.$r.','.$g.','.$b.', 1)",
+                                    backgroundColor: "rgba('.$r.','.$g.','.$b.', 0.1)",
+                                    // fill: false,
+                                    type: "line"
                                 }
-                              },
-                              scales: {
-                                  yAxes: [{
-                                      ticks: {
-                                          beginAtZero: false,
-                                          callback: function(value, index, values) {
-                                              return value + " ' . $units[$z] . '";
-                                          }
-                                      }
-                                  }]
-                              }
-                          }
-                      });
-                      </script>
-                      ';
+                              ]
+                            },
+                            options: {
+                              legend: {
+                                  display: false
+                                },
+                                tooltips: {
+                                  callbacks: {
+                                    label: function(tooltipItem) {
+                                    // console.log(tooltipItem)
+                                      return tooltipItem.yLabel;
+                                    }
+                                  }
+                                },
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: false,
+                                            callback: function(value, index, values) {
+                                                return value + " ' . $units[$z] . '";
+                                            }
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                        </script>
+                        ';
+    }
   $z++;
   }
-  echo $charts;
+  if ($charts == "") {
+    echo 'Sajnos nincs mit megjeleníteni.. Vigyél fel eredményt a "Napló"-ban!';
+  }
+  else {
+    echo $charts;
+  }
 }
 $con->close();
 ?>
