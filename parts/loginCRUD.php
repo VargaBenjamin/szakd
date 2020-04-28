@@ -3,57 +3,82 @@ require 'db.php';
 
 if (isset($_POST['registration']))
 {
-	
+	$usernameR = mysqli_real_escape_string($con, $_POST["username"]);
+	$emailR = mysqli_real_escape_string($con, $_POST["email"]);
+	$passwordR = mysqli_real_escape_string($con, $_POST["password"]);
+	$roleR = mysqli_real_escape_string($con, $_POST["role"]);
+
 	if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'))
 	{
-		$stmt->bind_param('s', $_POST['username']);
+		$stmt->bind_param('s', $usernameR);
 		$stmt->execute();
 		$stmt->store_result();
 
 		if ($stmt->num_rows > 0)
 		{
-			echo 'Felhasználónév már használatban van! Kérjük válasz egy másikat!';
+			die('Felhasználónév már használatban van! Kérjük válasz egy másikat!');
 		}
 		else
 		{
 
-	    if ($stmt = $con->prepare('INSERT INTO accounts (username, password, email, activation_code, coach) VALUES (?, ?, ?, ?, ?)'))
+	    if ($stmt = $con->prepare('INSERT INTO accounts (username, password, email, activationcode, coach) VALUES (?, ?, ?, ?, ?)'))
 			{
-	    	$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+	    	$passwordHash = password_hash($passwordR, PASSWORD_DEFAULT);
 	      $uniqid = uniqid();
-	      $stmt->bind_param('ssssi', $_POST['username'], $password, $_POST['email'], $uniqid, $_POST['role']);
+	      $stmt->bind_param('ssssi', $usernameR, $passwordHash, $emailR, $uniqid, $roleR);
 	    	$stmt->execute();
+				$stmt->close();
 
-				$stmt = $con->prepare('SELECT id, password, activation_code FROM accounts WHERE username = ?');
-				$stmt->bind_param('s', $_POST['username']);
+				//szerver felvitel után automatikus első bejelentkezés az újonnan felvitt felhasználóba
+				$stmt = $con->prepare('SELECT id, password, activationcode FROM accounts WHERE username = ?');
+				$stmt->bind_param('s', $usernameR);
 				$stmt->execute();
 				$stmt->bind_result($id, $password, $status);
 				$stmt->fetch();
 				$coachid = "";
+				$stmt->close();	//mindenképpen le kell zárni, mielőtt újra használnánk
 
-				if ($_POST['role'] == 1) //ha edző vagy
+				if ($roleR == 1) //ha edző vagy (0 vendég, 1 edző)
 				{
 					$coachid = $id; //akkor az edző id-ja a saját id-d lesz (te vagy a saját edződ)
-					$stmt->close(); //mindenképpen le kell zárni, mielőtt újra használnánk
-
-					if ($stmt = $con->prepare('INSERT INTO calendaroption (coachid) VALUES (?)'))
+					if ($stmt = $con->prepare('INSERT INTO calendaroption (coachid) VALUES (?)'))	//naptár felületet létrehozza az edzőknek az alap beállításokkal
 					{
 						$stmt->bind_param('i', $coachid);
 						$stmt->execute();
 						$stmt->close();
 					}
-
-					if ($stmt = $con->prepare('UPDATE accounts SET coachid = ? WHERE username = ?'))
+					else
 					{
-						$stmt->bind_param('is', $coachid, $_POST['username']);
+			    	die('Szerver elérés sikertelen!');
+			    }
+
+					if ($stmt = $con->prepare('UPDATE accounts SET coachid = ? WHERE username = ?')) //saját felhasználói részét frissíti a coachid-val
+					{
+						$stmt->bind_param('is', $coachid, $usernameR);
 						$stmt->execute();
 						$stmt->close();
 					}
+					else
+					{
+			    	die('Szerver elérés sikertelen!');
+			    }
 
 				}
+
+				if ($stmt = $con->prepare('INSERT INTO charts (userid) VALUES (?)'))	//kimutatásokat létrehozza az alap beállításokkal
+				{
+					$stmt->bind_param('i', $id);
+					$stmt->execute();
+					$stmt->close();
+				}
+				else
+				{
+					die('Szerver elérés sikertelen!');
+				}
+
 				session_start();
 				$_SESSION['loggedin'] = true;
-				$_SESSION['name'] = $_POST['username'];
+				$_SESSION['name'] = $usernameR;
 				$_SESSION['id'] = $id;
 				$_SESSION['status'] = $status;
 				$_SESSION['coachid'] = $coachid;
@@ -62,7 +87,7 @@ if (isset($_POST['registration']))
 			}
 			else
 			{
-	    	echo 'Could not prepare statement!';
+	    	die('Szerver elérés sikertelen!');
 	    }
 	    	//echo 'You have successfully registered, you can now login!';
 	      /*$from    = 'noreply@yourdomain.com';
@@ -76,7 +101,7 @@ if (isset($_POST['registration']))
 	}
 	else
 	{
-		echo 'Could not prepare statement!';
+		die('Szerver elérés sikertelen!');
 	}
 }
 
@@ -86,9 +111,9 @@ if (isset($_POST['registration']))
 if (isset($_POST['login'])) {
 	if (!isset($_POST['username'], $_POST['password']))
 	{
-	    die('Please fill both the username and password field!');
+	    die('Töltse ki a mezőket');
 	}
-	if ($stmt = $con->prepare('SELECT id, password, activation_code, coach, coachid FROM accounts WHERE username = ?')) {
+	if ($stmt = $con->prepare('SELECT id, password, activationcode, coach, coachid FROM accounts WHERE username = ?')) {
 	    $stmt->bind_param('s', $_POST['username']);
 	    $stmt->execute();
 	    $stmt->store_result();
@@ -105,18 +130,21 @@ if (isset($_POST['login'])) {
             $_SESSION['status'] = $status;
             $_SESSION['coach'] = $coach;
             $_SESSION['coachid'] = $coachid;
-            //echo 'Welcome ' . $_SESSION['name'] . '!';
             echo "valid";
 	        }
 					else
 					{
-	            echo 'Incorrect password!';
+	            die('Helytelen jelszó!');
 	        }
 	    }
 			else
 			{
-	        echo 'Incorrect username!';
+	        die('Nem található ilyen nevű felhasználó!');
 	    }
+	}
+	else
+	{
+	die('Szerver elérés sikertelen!');
 	}
 }
 

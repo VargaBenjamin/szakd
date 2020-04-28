@@ -15,8 +15,8 @@
         <div class="login">
           <h1> Belépés</h1>
           <form action="" method="post" id="loginForm">
-            <input type="text" name="username" placeholder="Felhasználónév" id="usernameL" required>
-            <input type="password" name="password" placeholder="Jelszó" id="passwordL" required>
+            <input type="text" name="username" placeholder="Felhasználónév" id="usernameL" maxlength="50" required>
+            <input type="password" name="password" placeholder="Jelszó" id="passwordL" minlength="5" maxlength="25" required>
             <input type="submit" value="Belépek!">
           </form>
           <p>Nincs még felhasználód?</p> <a href="#">Regisztrálj!</a>
@@ -24,10 +24,10 @@
         <div class="register">
           <h1> Regisztrálás</h1>
           <form action="" method="post" autocomplete="off" id="registrationForm">
-            <input type="text" name="username" placeholder="Felhasználónév" id="usernameR" required>
-            <input type="email" name="email" placeholder="Email cím" id="emailR" required>
-            <input type="password" name="password" placeholder="Jelszó" id="passwordR" required>
-            <input type="password" name="passwordRe" placeholder="Jelszó újra" id="passwordReR" required>
+            <input type="text" name="username" placeholder="Felhasználónév" id="usernameR" maxlength="50" required>
+            <input type="email" name="email" placeholder="Email cím" id="emailR" maxlength="100" required>
+            <input type="password" name="password" placeholder="Jelszó (min. 5 karakter)" id="passwordR" minlength="5" maxlength="25" required>
+            <input type="password" name="passwordRe" placeholder="Jelszó újra" id="passwordReR" minlength="5" maxlength="25" required>
             <input type="checkbox" checked name="roleR" id="roleR" data-toggle="toggle" data-on="Vendég" data-off="Edző" data-onstyle="info" data-offstyle="warning" data-width="220">
             <input type="submit" value="Regisztrálok!">
           </form>

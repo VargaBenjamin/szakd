@@ -1,28 +1,19 @@
 //loginScript.js
 $(document).ready(function() {
-    $(".login a").click(function() {
-      $(".register").slideDown("slow"),
-        $(".login").slideUp("slow");
-    });
+  $(".login a").click(function() {
+    $(".register").slideDown("slow"),
+      $(".login").slideUp("slow");
+  });
 
-    $(".register a").click(function() {
-      $(".login").slideDown("slow"),
-        $(".register").slideUp("slow");
-    });
+  $(".register a").click(function() {
+    $(".login").slideDown("slow"),
+      $(".register").slideUp("slow");
+  });
 
-  function validateEmail(email)
-  {
-  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email);
+  function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
   };
-
-  function validateUsername(username)
-  {
-  var re = /^[a-zA-Z0-9]+$/;
-  return re.test(username);
-  };
-
-
 
   $('#loginForm').submit(function(e) {
     e.preventDefault();
@@ -39,13 +30,19 @@ $(document).ready(function() {
       success: function(data) {
         if (data == "valid") {
           window.location.replace("home.php");
+        } else {
+          console.log(data);
+          $('#alert').html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>' + data + '</strong></div>');
+          setTimeout(function() {
+            $('.alert').fadeOut('slow');
+          }, 1500);
         }
-       }
+      },
+      error: function(data) {
+        console.log(data);
+      }
     });
-
-
   });
-
 
   $('#registrationForm').submit(function(e) {
     e.preventDefault();
@@ -54,57 +51,47 @@ $(document).ready(function() {
     var passwordR = $('#passwordR').val();
     var passwordReR = $('#passwordReR').val();
     var roleR = $('#roleR').prop('checked');
-    var role ="";
+    var role = "";
     if (roleR) {
-      role = 0;
-      console.log(role + "munkás");
+      role = 0; //kliens
     } else {
-      role = 1;
-      console.log(role + "edző");
+      role = 1; //edző
     }
-    if (validateUsername(usernameR)) {
-      if (validateEmail(emailR)) {
-        if (passwordR == passwordReR) {
-          $.ajax({
-            url: "parts/loginCRUD.php",
-            type: "POST",
-            data: {
-              registration: "true",
-              username: usernameR,
-              email: emailR,
-              password: passwordR,
-              passwordRe: passwordReR,
-              role: role
-            },
-            success: function(data)
-            {
-              if (data == "valid") {
-                window.location.replace("home.php");
-              }
-              else {
-                console.log(data);
-              }
+    if (validateEmail(emailR)) {
+      if (passwordR == passwordReR) {
+        $.ajax({
+          url: "parts/loginCRUD.php",
+          type: "POST",
+          data: {
+            registration: "true",
+            username: usernameR,
+            email: emailR,
+            password: passwordR,
+            role: role
+          },
+          success: function(data) {
+            if (data == "valid") {
+              window.location.replace("home.php");
+            } else {
+              console.log(data);
+              $('#alert').html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>' + data + '!</strong></div>');
+              setTimeout(function() {
+                $('.alert').fadeOut('slow');
+              }, 1500);
             }
-          });
-        }
-        else
-        {
-          $('#alert').html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>A két jelszó nem egyezik!</strong></div>');
-          setTimeout(function() {
-            $('.alert').fadeOut('slow');
-          }, 1500);
-        }
-      }
-      else
-      {
-        $('#alert').html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Továbbra is helytelen email!</strong></div>');
+          },
+          error: function(data) {
+            console.log(data);
+          }
+        });
+      } else {
+        $('#alert').html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>A két jelszó nem egyezik!</strong></div>');
         setTimeout(function() {
           $('.alert').fadeOut('slow');
         }, 1500);
       }
-    }
-    else {
-      $('#alert').html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Helytelen karaktert tartalmaz!</strong></div>');
+    } else {
+      $('#alert').html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Továbbra is helytelen email!</strong></div>');
       setTimeout(function() {
         $('.alert').fadeOut('slow');
       }, 1500);
