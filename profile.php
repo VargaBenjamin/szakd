@@ -14,7 +14,7 @@ use Hybridauth\Hybridauth;
 
 $hybridauth = new Hybridauth($config);
 $adapters = $hybridauth->getConnectedAdapters();
-$stmt = $con->prepare('SELECT email, coach, telephone, Google, Facebook, Twitter, activation_code, gymid, coachid FROM accounts WHERE id = ?');
+$stmt = $con->prepare('SELECT email, coach, telephone, Google, Facebook, Twitter, activationcode, gymid, coachid FROM accounts WHERE id = ?');
 $stmt->bind_param('i', $_SESSION['id']);
 $stmt->execute();
 $stmt->bind_result($email, $coach, $telephone, $gVal, $fVal, $tVal, $accode, $gid, $cid);
@@ -84,7 +84,7 @@ $stmt->close();
 														<span id="resultG"></span>
 													</label>
 								          </div>
-													<div class="form-group">
+													<div class="form-group" id="coachLabel">
 								            <label class="col-sm-4 control-label">Edző</label>
 														<label class="col-sm-4 control-label font-weight-bold">
 														<input type="hidden" id="coach" value="<?= $cid ?>"/>
@@ -170,6 +170,7 @@ $stmt->close();
                 <?php require 'parts/footer.php'; ?>
             </div>
         </div>
+				<input id="role" type="hidden" name="role" value='<?php echo $coach ?>'>
 				<script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/homeScripts.js"></script>

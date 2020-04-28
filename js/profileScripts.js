@@ -1,6 +1,16 @@
 $(document).ready(function() {
-  getGym();
-  getCoach();
+  var role = $('#role').val();
+
+  if (role == 0) { //vendég
+    getGym();
+    getCoach();
+  } else {
+    $('#coachLabel').css({
+      "display": "none"
+    });
+    getGym();
+  }
+
 
   function getGym() {
     var gymid = $('#gym').val();
