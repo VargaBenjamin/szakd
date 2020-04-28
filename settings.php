@@ -140,7 +140,6 @@ if ($stmt = $con->prepare('SELECT * FROM gym'))
 													</div>
 												</div>
 											</div>
-											<input id="id" type="hidden" name="id" value='<?php echo $_SESSION["id"] ?>'>
 											<span id="alert"></span>
 											<button type="submit" class="col-md-12 btn btn-success">Módosítások mentése</button>
 								    </form>
@@ -150,7 +149,8 @@ if ($stmt = $con->prepare('SELECT * FROM gym'))
                 <?php require 'parts/footer.php'; ?>
             </div>
         </div>
-				<input id="coachid" type="hidden" name="coachid" value='<?php echo $_SESSION["coach"] ?>'>
+				<input id="id" type="hidden" name="id" value='<?php echo $_SESSION["id"] ?>'>
+				<input id="role" type="hidden" name="role" value='<?php echo $_SESSION["coach"] ?>'>
 				<script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/homeScripts.js"></script>

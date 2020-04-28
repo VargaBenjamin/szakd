@@ -1,6 +1,7 @@
 <?php
 //coachLoad.php
 require 'db.php';
+session_start();
 
 if (isset($_POST['gym'])) {
   if (isset($_POST['gymid'])) {
@@ -18,8 +19,21 @@ if (isset($_POST['gym'])) {
 }
 
 if (isset($_POST['check'])) {
-  if(isset($_POST['id']))
+  if(isset($_POST['id'], $_POST['username'], $_POST['pass']))
   {
+    $username = mysqli_real_escape_string($con, $_POST["username"]);
+    if ($username != "") {
+      if ($stmt = $con->prepare('SELECT username FROM accounts')) {
+        $stmt->execute();
+        $result = $stmt->get_result();
+        while ($data = $result->fetch_assoc()) {
+          if ($data['username'] == $username) {
+            die('A felhasználónév már foglalt');
+          }
+        }
+      }
+    }
+    $pass = mysqli_real_escape_string($con, $_POST["pass"]);
     $passHass = '';
     if ($stmt = $con->prepare('SELECT password FROM accounts WHERE id ="' . $_POST['id'] . '"')) {
       $stmt->execute();
@@ -29,7 +43,7 @@ if (isset($_POST['check'])) {
       if (password_verify($_POST['pass'], $passHass)) {
         echo "true";
       } else {
-        echo "false";
+        die('A jelszó nem megfelelő');
       }
     }
   }
@@ -43,6 +57,7 @@ if (isset($_POST['update'])) {
       if ($stmt = $con->prepare('UPDATE accounts SET username = ? WHERE id ="' . $_POST["id"] . '"')) {
         $stmt->bind_param('s', $username);
         $stmt->execute();
+        $_SESSION['name'] = $username;
       }
     }
     if (!empty($_POST["email"])) {
@@ -78,6 +93,7 @@ if (isset($_POST['update'])) {
       if ($stmt = $con->prepare('UPDATE accounts SET coachid = ? WHERE id ="' . $_POST["id"] . '"')) {
         $stmt->bind_param('s', $coach);
         $stmt->execute();
+        $_SESSION['coachid'] = $coach;
       }
     }
   }

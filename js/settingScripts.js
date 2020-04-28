@@ -3,20 +3,27 @@ $(document).ready(function() {
   var gymid;
   var username;
   var gym;
-  var coach;
+  var role = $('#role').val();
   var telephone;
   var newPass;
   var newPassRe;
   var pass;
   var id;
 
+  function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  };
+
 
   $(document).on('click', '#gym', function() {
     gymid = $('#gym').val();
-    if (gymid) {
-      $('#coaches').css("display", "block");
-    } else {
-      $('#coaches').css("display", "none");
+    if (role != 1) {
+      if (gymid) {
+        $('#coaches').css("display", "block");
+      } else {
+        $('#coaches').css("display", "none");
+      }
     }
     $.ajax({
       url: "parts/settingCRUD.php",
@@ -51,22 +58,44 @@ $(document).ready(function() {
       type: "POST",
       data: {
         check: "true",
+        username: username,
         pass: pass,
         id: id
       },
       success: function(data) {
+        console.log(data);
         if (data == "true") {
-          if (newPass == newPassRe) {
-            update();
+          if (email != "") {
+            if (validateEmail(email)) {
+              if (newPass == newPassRe) {
+                update();
+              } else {
+                $('#alert').html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>A két új jelszó nem egyezik!</strong></div>');
+                setTimeout(function() {
+                  $('.alert').fadeOut('slow');
+                }, 1500);
+                $('#settingsUpdate')[0].reset();
+              }
+            } else {
+              $('#alert').html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Az email formátum nem megfelelő!</strong></div>');
+              setTimeout(function() {
+                $('.alert').fadeOut('slow');
+              }, 1500);
+              $('#settingsUpdate')[0].reset();
+            }
           } else {
-            $('#alert').html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>A két új jelszó nem egyezik!</strong></div>');
-            setTimeout(function() {
-              $('.alert').fadeOut('slow');
-            }, 1500);
-            $('#settingsUpdate').reset();
+            if (newPass == newPassRe) {
+              update();
+            } else {
+              $('#alert').html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>A két új jelszó nem egyezik!</strong></div>');
+              setTimeout(function() {
+                $('.alert').fadeOut('slow');
+              }, 1500);
+              $('#settingsUpdate')[0].reset();
+            }
           }
         } else {
-          $('#alert').html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Hibás jelszó!</strong></div>');
+          $('#alert').html('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>' + data + '</strong></div>');
           setTimeout(function() {
             $('.alert').fadeOut('slow');
           }, 1500);
