@@ -27,7 +27,9 @@ $(document).ready(function() {
   var role = $('#role').val();
   if (role == 1) {
     $('#coacNav').show();
+    $('#createPost').show();
   } else {
     $('#coacNav').hide();
+    $('#createPost').hide();
   }
 });

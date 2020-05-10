@@ -1,9 +1,14 @@
 <?php
-
 session_start();
+require "parts/db.php";
+
 if (!isset($_SESSION['loggedin'])) {
 	 header("Location: index.php?error=out");
 	 exit();
+}
+
+if ($_SESSION['coach'] == 0) {
+	header("Location: home.php");
 }
 ?>
 
