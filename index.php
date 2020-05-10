@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Coatch2Client</title>
+  <title>Coach2Client</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">Coatch2Client</a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">Coach2Client</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -46,7 +46,7 @@
   </nav>
   <header class="bg-primary text-white">
     <div class="container text-center">
-      <h1>Üdvözöllek a Coatch2Client-en</h1>
+      <h1>Üdvözöllek a Coach2Client-en</h1>
       <p class="lead">Egyedi webalkalmazás személyi edzők és vendégei részére</p>
     </div>
   </header>
