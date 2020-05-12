@@ -73,7 +73,7 @@ if (!isset($_SESSION['loggedin'])) {
 												</div>
 											</div>
 
-											<button type="submit" class="col-sm-7 btn btn-warning">Naptáram adatainak módosítása</button>
+											<button type="submit" class="col-sm-7 btn btn-warning">Kimutatásaim módosítása</button>
 								    </form>
 								  </div>
 								</div>
